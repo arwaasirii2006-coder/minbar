@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from rooms import router as rooms_router
 from transcribe import router as transcribe_router
+from translate import router as translate_router
 
 app = FastAPI(title="Minbar API")
 
@@ -26,3 +27,4 @@ def health():
 
 app.router.routes.extend(rooms_router.routes)
 app.include_router(transcribe_router)
+app.include_router(translate_router)
