@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>منبر</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* ── listen.html page styles ── */
+body { max-width: 520px; margin: 0 auto }
+
+/* ── Welcome ── */
+#scr-welcome {
+  min-height: 100dvh;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  padding-block: 48px;
+  gap: 0;
+}
+.welcome-top    { display: flex; flex-direction: column; align-items: center; gap: 40px; flex: 1; justify-content: center }
+.welcome-bottom { width: 100% }
+
+.logo-icon-lg {
+  width: 80px; height: 80px;
+  background: var(--green);
+  border-radius: 22px;
+  display: flex; align-items: center; justify-content: center;
+}
+.logo-name-lg { font-size: 2rem; font-weight: 700; color: var(--green); letter-spacing: -0.03em }
+
+.greeting-wrap  { height: 52px; display: flex; align-items: center; justify-content: center }
+.greeting-text  {
+  font-size: clamp(1.5rem, 6vw, 2rem);
+  font-weight: 700;
+  color: var(--fg);
+  opacity: 1;
+  transition: opacity 0.35s ease;
+}
+.greeting-text.fading { opacity: 0 }
+
+/* ── Language ── */
+#scr-lang {
+  min-height: 100dvh;
+  padding-block: 60px 40px;
+  gap: 28px;
+}
+.lang-list { display: flex; flex-direction: column; gap: 10px }
+.lang-opt {
+  display: flex;
+  align-items: center;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--r);
+  padding: 18px 20px;
+  cursor: pointer;
+  gap: 16px;
+  transition: border-color 0.18s, background 0.18s, transform 0.12s;
+  -webkit-tap-highlight-color: transparent;
+}
+.lang-opt:hover  { border-color: var(--gold); background: var(--gold-bg) }
+.lang-opt:active { transform: scale(0.97) }
+.lang-flag  { font-size: 1.8rem; line-height: 1 }
+.lang-texts { flex: 1; text-align: start }
+.lang-native{ font-size: 1.15rem; font-weight: 600; line-height: 1.3 }
+.lang-sub   { font-size: 0.8rem; color: var(--fg-muted) }
+.lang-arrow { color: var(--fg-faint); font-size: 1rem }
+
+/* ── Waiting ── */
+#scr-waiting {
+  min-height: 100dvh;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-block: 48px;
+  gap: 28px;
+}
+.room-form { width: 100%; max-width: 320px; display: flex; flex-direction: column; gap: 10px }
+.room-input {
+  text-align: center;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-family: var(--f-latin);
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+/* ── Live ── */
+#scr-live  { min-height: 100dvh; padding: 0; gap: 0 }
+
+.live-header {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 10;
+}
+.conn-label { font-size: 0.82rem; font-weight: 500; color: var(--fg-muted) }
+.font-size-btn {
+  background: var(--surface-2);
+  border: none; border-radius: 6px;
+  padding: 5px 10px;
+  font-family: var(--f-latin);
+  font-size: 0.8rem; font-weight: 600;
+  color: var(--fg-muted);
+  cursor: pointer;
+  transition: background 0.15s;
+  letter-spacing: 0.01em;
+}
+.font-size-btn:hover { background: var(--border) }
+.change-lang-btn {
+  background: none; border: none;
+  padding: 4px 8px;
+  font-family: inherit;
+  font-size: 0.75rem;
+  color: var(--fg-faint);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: color 0.15s;
+}
+.change-lang-btn:hover { color: var(--fg-muted) }
+
+.feed {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px 16px;
+  padding-bottom: calc(52px + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  scroll-behavior: smooth;
+}
+
+.seg {
+  border-radius: var(--r);
+  padding: 14px 16px;
+  font-size: var(--seg-size, 1rem);
+  line-height: 1.75;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  animation: seg-in 0.22s ease;
+}
+@keyframes seg-in { from { opacity: 0; transform: translateY(6px) } }
+
+.seg.is-verse   { padding: 0; overflow: hidden }
+.verse-inner    { padding: 14px 16px }
+.verse-top-bar  {
+  display: flex; align-items: center; gap: 6px;
+  flex-wrap: wrap; margin-bottom: 10px;
+}
+.verse-ar  {
+  font-size: 1.05em; font-family: var(--f-arabic);
+  line-height: 2; direction: rtl; text-align: right;
+  border-bottom: 1px solid var(--gold-border);
+  padding-bottom: 10px; margin-bottom: 10px;
+}
+.verse-tr  { line-height: 1.75 }
+.verse-credit { font-size: 0.72rem; color: var(--fg-faint); margin-top: 8px }
+
+.seg.is-unclear  { color: var(--fg-faint); font-style: italic }
+.seg-hadith-tag  { margin-bottom: 8px }
+
+.live-footer {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--green);
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.72rem;
+  text-align: center;
+  padding: 9px 16px;
+  padding-bottom: calc(9px + env(safe-area-inset-bottom, 0px));
+  letter-spacing: 0.01em;
+  line-height: 1.5;
+}
+
+/* ── Ended ── */
+#scr-ended {
+  min-height: 100dvh;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-block: 48px;
+  gap: 20px;
+}
+.ended-icon {
+  width: 68px; height: 68px;
+  border-radius: 50%;
+  background: var(--surface-2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem;
+}
+
+/* ── Back btn ── */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none; border: none;
+  color: var(--fg-muted);
+  font-family: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+  padding: 4px 0;
+}
+.back-btn:hover { color: var(--fg) }
+</style>
+</head>
+<body>
+
+<!-- ── Welcome ─────────────────────────────────────────── -->
+<div id="scr-welcome" class="screen">
+  <div class="welcome-top">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+      <div class="logo-icon-lg">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" aria-hidden="true">
+          <rect x="8" y="33" width="28" height="4" rx="2" fill="#B8955A" opacity=".45"/>
+          <rect x="12" y="26" width="20" height="7" rx="2" fill="#B8955A" opacity=".7"/>
+          <rect x="16" y="18" width="12" height="8" rx="2" fill="#B8955A"/>
+          <rect x="20" y="10" width="4" height="8" rx="1.5" fill="#B8955A"/>
+        </svg>
+      </div>
+      <div class="logo-name-lg">منبر</div>
+    </div>
+
+    <div>
+      <div class="greeting-wrap">
+        <div id="greeting" class="greeting-text">أهلاً بك</div>
+      </div>
+      <p class="t-small t-muted" style="margin-top:8px">ترجمة الخطبة فور سماعها</p>
+    </div>
+  </div>
+
+  <div class="welcome-bottom stack">
+    <button class="btn btn-primary btn-full" onclick="showLang()">ابدأ</button>
+    <a href="privacy.html" class="t-micro t-muted" style="text-align:center;display:block">الخصوصية</a>
+  </div>
+</div>
+
+<!-- ── Language ────────────────────────────────────────── -->
+<div id="scr-lang" class="screen">
+  <button class="back-btn" onclick="showScreen('welcome')">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    رجوع
+  </button>
+  <div>
+    <h1 class="t-title">اختر لغتك</h1>
+    <p class="t-small t-muted" style="margin-top:4px">ستُحفظ لزياراتك القادمة</p>
+  </div>
+  <div class="lang-list">
+    <button class="lang-opt" onclick="chooseLang('ur')">
+      <span class="lang-flag">🇵🇰</span>
+      <div class="lang-texts">
+        <div class="lang-native" style="font-family:var(--f-urdu)">اردو</div>
+        <div class="lang-sub">Urdu</div>
+      </div>
+      <span class="lang-arrow">›</span>
+    </button>
+    <button class="lang-opt" onclick="chooseLang('en')">
+      <span class="lang-flag">🇬🇧</span>
+      <div class="lang-texts">
+        <div class="lang-native" style="font-family:var(--f-latin)">English</div>
+        <div class="lang-sub">الإنجليزية</div>
+      </div>
+      <span class="lang-arrow">›</span>
+    </button>
+    <button class="lang-opt" onclick="chooseLang('hi')">
+      <span class="lang-flag">🇮🇳</span>
+      <div class="lang-texts">
+        <div class="lang-native" style="font-family:var(--f-hindi)">हिन्दी</div>
+        <div class="lang-sub">الهندية</div>
+      </div>
+      <span class="lang-arrow">›</span>
+    </button>
+  </div>
+</div>
+
+<!-- ── Waiting ──────────────────────────────────────────── -->
+<div id="scr-waiting" class="screen">
+  <div id="waiting-body" class="stack center" style="gap:20px;flex:1;justify-content:center">
+    <!-- room entry shows here when no room ID -->
+  </div>
+</div>
+
+<!-- ── Live translation ─────────────────────────────────── -->
+<div id="scr-live" class="screen">
+  <div class="live-header">
+    <span id="conn-dot" class="conn-dot disconnected"></span>
+    <span id="conn-label" class="conn-label">–</span>
+    <span class="spacer"></span>
+    <button class="font-size-btn" onclick="incFontSize()" title="تكبير الخط" aria-label="تكبير الخط">A+</button>
+    <button class="change-lang-btn" id="change-lang-btn" onclick="changeLang()"></button>
+  </div>
+
+  <div id="feed" class="feed"></div>
+
+  <div class="live-footer" id="live-footer"></div>
+</div>
+
+<!-- ── Ended ─────────────────────────────────────────────── -->
+<div id="scr-ended" class="screen">
+  <div class="ended-icon">🕌</div>
+  <h2 class="t-title" id="ended-title"></h2>
+  <p class="t-small t-muted" id="ended-sub"></p>
+  <button class="btn btn-ghost btn-sm" onclick="location.reload()">العودة للبداية</button>
+</div>
+
+<script>
+/* ── Config ── */
+const API    = 'http://localhost:8000';
+const WS_URL = 'ws://localhost:8000';
+
+/* ── i18n ── */
+const T = {
+  en: {
+    dir: 'ltr',
+    waiting:        'Waiting for the sermon to begin…',
+    connected:      'Connected',
+    connecting:     'Connecting…',
+    disconnected:   'Disconnected',
+    changeLang:     'Change language',
+    endedTitle:     'The sermon has ended',
+    endedSub:       'Thank you for listening',
+    disclaimer:     'AI translation · Source: the imam\'s speech',
+    quranSrc:       'QuranEnc',
+    haditLabel:     'Hadith — as mentioned by the imam',
+    unclearLabel:   '— unclear —',
+    roomLabel:      'Mosque code',
+    roomPlaceholder:'Enter mosque code',
+    joinBtn:        'Connect',
+    roomErr:        'Please enter the mosque code',
+  },
+  ur: {
+    dir: 'rtl',
+    waiting:        'خطبے کے شروع ہونے کا انتظار…',
+    connected:      'منسلک',
+    connecting:     'منسلک ہو رہا ہے…',
+    disconnected:   'غیر منسلک',
+    changeLang:     'زبان بدلیں',
+    endedTitle:     'خطبہ ختم ہو گیا',
+    endedSub:       'سننے کا شکریہ',
+    disclaimer:     'مصنوعی ذہانت کا ترجمہ · ماخذ: امام کی تقریر',
+    quranSrc:       'QuranEnc',
+    haditLabel:     'حدیث — خطیب کے بیان کے مطابق',
+    unclearLabel:   '— غیر واضح —',
+    roomLabel:      'مسجد کوڈ',
+    roomPlaceholder:'کوڈ درج کریں',
+    joinBtn:        'شامل ہوں',
+    roomErr:        'مسجد کا کوڈ درج کریں',
+  },
+  hi: {
+    dir: 'ltr',
+    waiting:        'खुतबे के शुरू होने का इंतज़ार है…',
+    connected:      'जुड़ा हुआ',
+    connecting:     'जोड़ रहा है…',
+    disconnected:   'कटा हुआ',
+    changeLang:     'भाषा बदलें',
+    endedTitle:     'खुतबा समाप्त हुआ',
+    endedSub:       'सुनने के लिए धन्यवाद',
+    disclaimer:     'AI अनुवाद · स्रोत: इमाम का भाषण',
+    quranSrc:       'QuranEnc',
+    haditLabel:     'हदीस — खतीब के अनुसार',
+    unclearLabel:   '— अस्पष्ट —',
+    roomLabel:      'मस्जिद कोड',
+    roomPlaceholder:'कोड दर्ज करें',
+    joinBtn:        'जुड़ें',
+    roomErr:        'मस्जिद कोड दर्ज करें',
+  },
+};
+
+/* ── State ── */
+let lang     = null;
+let roomId   = null;
+let ws       = null;
+let wsDelay  = 1000;
+let wsTimer  = null;
+let fontSize = 17;
+let curScreen= null;
+
+/* ── Init ── */
+function init() {
+  const params = new URLSearchParams(location.search);
+  roomId = params.get('room') || lsGet('mb-room') || null;
+  lang   = lsGet('mb-lang');
+
+  if (lang && T[lang]) {
+    applyLang(lang, false);
+    buildWaiting();
+    showScreen('waiting');
+    connectWS();
+  } else {
+    showScreen('welcome');
+    startGreeting();
+  }
+}
+
+/* ── Screen ── */
+function showScreen(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('scr-' + name).classList.add('active');
+  curScreen = name;
+}
+
+function showLang() { showScreen('lang') }
+
+/* ── Language ── */
+function chooseLang(l) {
+  applyLang(l, true);
+  buildWaiting();
+  showScreen('waiting');
+  connectWS();
+}
+
+function changeLang() {
+  if (ws) { ws.onclose = null; ws.close() }
+  lsSet('mb-lang', null);
+  lang = null;
+  document.documentElement.lang = 'ar';
+  document.documentElement.dir  = 'rtl';
+  showScreen('lang');
+}
+
+function applyLang(l, save) {
+  lang = l;
+  const t = T[l];
+  document.documentElement.lang = l === 'ur' ? 'ur' : l === 'hi' ? 'hi' : 'en';
+  document.documentElement.dir  = t.dir;
+  if (save) lsSet('mb-lang', l);
+
+  // font class on body (affects UI labels)
+  document.body.className = l === 'en' ? 'lang-en' : l === 'hi' ? 'lang-hi' : '';
+
+  // Update dynamic text nodes
+  const clBtn = document.getElementById('change-lang-btn');
+  if (clBtn) clBtn.textContent = t.changeLang;
+  const footer = document.getElementById('live-footer');
+  if (footer) footer.textContent = t.disclaimer;
+  const endTitle = document.getElementById('ended-title');
+  if (endTitle) endTitle.textContent = t.endedTitle;
+  const endSub = document.getElementById('ended-sub');
+  if (endSub) endSub.textContent = t.endedSub;
+}
+
+/* ── Waiting screen ── */
+function buildWaiting() {
+  const t = T[lang] || T.en;
+  const body = document.getElementById('waiting-body');
+  body.innerHTML = '';
+
+  if (!roomId) {
+    // No room in URL — show entry form
+    body.innerHTML = `
+      <div class="t-small t-muted">${t.roomLabel}</div>
+      <div class="room-form" style="width:100%;max-width:300px">
+        <input id="room-input" class="field-input room-input" type="text"
+               maxlength="20" placeholder="${t.roomPlaceholder}"
+               autocomplete="off" spellcheck="false">
+        <div id="room-err" class="err-msg"></div>
+        <button class="btn btn-primary" onclick="joinRoom()">${t.joinBtn}</button>
+      </div>
+    `;
+    document.getElementById('room-input').addEventListener('keydown', e => {
+      if (e.key === 'Enter') joinRoom();
+    });
+  } else {
+    body.innerHTML = `
+      <div class="spinner"></div>
+      <p class="t-small t-muted">${t.waiting}</p>
+      <div class="row" style="justify-content:center">
+        <span id="conn-dot-w" class="conn-dot connecting"></span>
+        <span id="conn-label-w" class="t-micro">${t.connecting}</span>
+      </div>
+    `;
+  }
+}
+
+function joinRoom() {
+  const input = document.getElementById('room-input');
+  const val   = (input.value || '').trim().toUpperCase();
+  if (!val) {
+    document.getElementById('room-err').textContent = (T[lang] || T.en).roomErr;
+    return;
+  }
+  roomId = val;
+  lsSet('mb-room', val);
+  buildWaiting();
+  connectWS();
+}
+
+/* ── WebSocket ── */
+function connectWS() {
+  if (!roomId) return;
+  clearTimeout(wsTimer);
+  try { ws && ws.close() } catch {}
+
+  ws = new WebSocket(`${WS_URL}/ws/${roomId}`);
+  setConnState('connecting');
+
+  ws.onopen  = () => { setConnState('connected'); wsDelay = 1000 };
+  ws.onclose = () => {
+    setConnState('disconnected');
+    wsTimer = setTimeout(() => { wsDelay = Math.min(wsDelay * 2, 30000); connectWS() }, wsDelay);
+  };
+  ws.onerror = () => ws.close();
+  ws.onmessage = e => {
+    try { handleMsg(JSON.parse(e.data)) } catch {}
+  };
+}
+
+function setConnState(state) {
+  const t = T[lang] || T.en;
+  ['', '-w'].forEach(sfx => {
+    const dot   = document.getElementById('conn-dot'   + sfx);
+    const label = document.getElementById('conn-label' + sfx);
+    if (dot)   { dot.className = 'conn-dot ' + state }
+    if (label) { label.textContent = t[state] || state }
+  });
+}
+
+function handleMsg(msg) {
+  if (!msg || !msg.type) return;
+  if (msg.type === 'started') { showScreen('live'); return }
+  if (msg.type === 'ended')   { showScreen('ended'); return }
+  if (msg.type === 'segment') {
+    if (curScreen !== 'live') showScreen('live');
+    appendSeg(msg);
+  }
+  if (msg.type === 'listeners') {
+    // future: show listener count
+  }
+}
+
+/* ── Feed ── */
+function appendSeg(msg) {
+  const feed = document.getElementById('feed');
+  const t    = T[lang] || T.en;
+  const text = msg[lang] || msg.en || msg.ar || '';
+
+  const el = document.createElement('div');
+
+  if (msg.verse) {
+    el.className = 'seg is-verse card-verse';
+    const v = msg.verse;
+    el.innerHTML = `
+      <div class="verse-inner">
+        <div class="verse-top-bar">
+          <span class="badge badge-gold">📖 ${v.sura_name_ar || ''} ${v.sura}:${v.ayah}</span>
+          <span class="badge badge-gray">${t.quranSrc}</span>
+        </div>
+        <div class="verse-ar">${msg.ar || ''}</div>
+        <div class="verse-tr">${text}</div>
+        <div class="verse-credit">${v.translator || ''} · ${v.version || ''}</div>
+      </div>`;
+  } else if (msg.is_unclear) {
+    el.className = 'seg is-unclear';
+    el.textContent = t.unclearLabel;
+  } else {
+    el.className = 'seg';
+    if (msg.is_hadith) {
+      el.innerHTML = `<div class="seg-hadith-tag"><span class="badge badge-green">📜 ${t.haditLabel}</span></div><div>${text}</div>`;
+    } else {
+      el.textContent = text;
+    }
+  }
+
+  el.style.fontSize = fontSize + 'px';
+  if (lang === 'ur') el.classList.add('lang-ur');
+  else if (lang === 'hi') el.classList.add('lang-hi');
+  else el.classList.add('lang-en');
+
+  feed.appendChild(el);
+  requestAnimationFrame(() => { feed.scrollTop = feed.scrollHeight });
+}
+
+/* ── Font size ── */
+function incFontSize() {
+  fontSize = Math.min(fontSize + 2, 28);
+  document.querySelectorAll('.seg').forEach(s => s.style.fontSize = fontSize + 'px');
+  document.documentElement.style.setProperty('--seg-size', fontSize + 'px');
+}
+
+/* ── Greeting rotation ── */
+function startGreeting() {
+  const greetings = [
+    { text: 'أهلاً بك',     dir: 'rtl', cls: '' },
+    { text: 'Welcome',       dir: 'ltr', cls: 'lang-en' },
+    { text: 'خوش آمدید',    dir: 'rtl', cls: '' },
+    { text: 'स्वागत है',     dir: 'ltr', cls: 'lang-hi' },
+  ];
+  let i = 0;
+  const el = document.getElementById('greeting');
+
+  setInterval(() => {
+    el.classList.add('fading');
+    setTimeout(() => {
+      i = (i + 1) % greetings.length;
+      const g = greetings[i];
+      el.textContent  = g.text;
+      el.dir          = g.dir;
+      el.className    = 'greeting-text' + (g.cls ? ' ' + g.cls : '');
+      requestAnimationFrame(() => requestAnimationFrame(() => el.classList.remove('fading')));
+    }, 350);
+  }, 2200);
+}
+
+/* ── localStorage helpers ── */
+function lsGet(k)    { try { return localStorage.getItem(k) } catch { return null } }
+function lsSet(k, v) { try { if (v == null) localStorage.removeItem(k); else localStorage.setItem(k, v) } catch {} }
+
+/* ── Boot ── */
+init();
+</script>
+</body>
+</html>
