@@ -4,6 +4,9 @@ from dotenv import load_dotenv
 import os
 import tempfile
 
+from validate import validate_text
+from verses import find_verse
+
 load_dotenv()
 
 router = APIRouter()
@@ -30,6 +33,7 @@ async def transcribe_audio(
     temp_path = None
 
     try:
+        # التحقق من اللغة المطلوبة
         if target_language not in LANGUAGES:
             raise HTTPException(
                 status_code=400,
@@ -57,6 +61,16 @@ async def transcribe_audio(
 
         arabic_text = transcription.text
 
+        # التحقق من أن النص صالح
+        if not validate_text(arabic_text):
+            raise HTTPException(
+                status_code=400,
+                detail="No valid Arabic text was detected."
+            )
+
+        # البحث مؤقتًا عن آية في النص
+        verse_result = find_verse(arabic_text)
+
         # ترجمة النص إلى اللغة التي اختارها المستخدم
         target_name = LANGUAGES[target_language]
 
@@ -75,7 +89,8 @@ async def transcribe_audio(
             "source_language": "ar",
             "target_language": target_language,
             "original_text": arabic_text,
-            "translation": translated_text
+            "translation": translated_text,
+            "verse": verse_result
         }
 
     except HTTPException:
