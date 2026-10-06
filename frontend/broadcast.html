@@ -12,35 +12,113 @@
 body { max-width: 520px; margin: 0 auto }
 
 /* ── Shared screen padding ── */
-.screen { min-height: 100dvh; padding-block: 52px 40px; gap: 20px }
+.screen { min-height: 100dvh; padding-block: 52px 48px; padding-inline: 24px; gap: 20px }
 
-/* ── Header strip ── */
-.page-header {
-  display: flex; align-items: center; gap: 10px;
-  margin-bottom: 8px;
+/* ── Login ── */
+#scr-code {
+  justify-content: center;
+  gap: 32px;
+}
+.bcast-logo-wrap {
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  text-align: center;
+}
+.bcast-subtitle {
+  font-size: 0.875rem;
+  color: var(--fg-muted);
 }
 
-/* ── Code entry ── */
-#scr-code { justify-content: center; gap: 28px }
-.code-card {
+.bcast-form-card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--r);
   padding: 28px 24px;
   box-shadow: var(--shadow);
-  display: flex; flex-direction: column; gap: 16px;
+  display: flex; flex-direction: column; gap: 18px;
+  width: 100%;
 }
-.code-input {
-  text-align: center;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  font-family: var(--f-latin);
-  font-size: 1.35rem;
-  font-weight: 700;
-  padding: 16px;
+
+.field-group {
+  display: flex; flex-direction: column; gap: 6px;
+}
+.field-label {
+  font-size: 0.82rem; font-weight: 600; color: var(--fg-muted);
+  text-align: right;
+}
+
+/* Mosque selector */
+.mosque-select-wrap {
+  position: relative;
+}
+.mosque-select {
+  width: 100%;
+  padding: 13px 42px 13px 42px;
+  border: 1.5px solid var(--border);
   border-radius: var(--r-sm);
+  background: var(--surface);
+  color: var(--fg);
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  transition: border-color 0.18s;
+  direction: rtl;
 }
-.code-input:focus { border-color: var(--green) }
+.mosque-select:focus { border-color: var(--green) }
+.mosque-icon-prefix {
+  position: absolute;
+  right: 14px; top: 50%; transform: translateY(-50%);
+  font-size: 1.1rem; pointer-events: none;
+}
+.select-arrow {
+  position: absolute;
+  left: 14px; top: 50%; transform: translateY(-50%);
+  font-size: 0.7rem; color: var(--fg-faint); pointer-events: none;
+}
+
+/* Password field */
+.pwd-wrap {
+  position: relative;
+}
+.pwd-input {
+  width: 100%;
+  padding: 13px 42px 13px 42px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  color: var(--fg);
+  font-family: var(--f-latin);
+  font-size: 1.15rem;
+  letter-spacing: 0.12em;
+  outline: none;
+  transition: border-color 0.18s;
+  text-align: center;
+  direction: ltr;
+}
+.pwd-input:focus { border-color: var(--green) }
+.pwd-lock {
+  position: absolute;
+  right: 14px; top: 50%; transform: translateY(-50%);
+  font-size: 1rem; pointer-events: none; color: var(--fg-faint);
+}
+.pwd-toggle {
+  position: absolute;
+  left: 10px; top: 50%; transform: translateY(-50%);
+  background: none; border: none; cursor: pointer;
+  padding: 4px; color: var(--fg-faint);
+  font-size: 0.9rem;
+  transition: color 0.15s;
+}
+.pwd-toggle:hover { color: var(--fg-muted) }
+
+.hint-line {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--fg-faint);
+  display: flex; align-items: center; justify-content: center; gap: 4px;
+}
 
 /* ── Source selection ── */
 #scr-source { justify-content: center; gap: 24px }
@@ -57,21 +135,82 @@ body { max-width: 520px; margin: 0 auto }
 }
 .src-btn:hover  { border-color: var(--gold); background: var(--gold-bg) }
 .src-btn:active { transform: scale(0.96) }
-.src-icon { font-size: 2.2rem; line-height: 1 }
-.src-label{ font-size: 0.875rem; font-weight: 600; color: var(--fg) }
-.src-sub  { font-size: 0.75rem; color: var(--fg-muted); text-align: center }
+.src-icon  { font-size: 2.2rem; line-height: 1 }
+.src-label { font-size: 0.875rem; font-weight: 600; color: var(--fg) }
+.src-sub   { font-size: 0.75rem; color: var(--fg-muted); text-align: center }
+
+/* Mic check card */
+.mic-check-card {
+  background: var(--green-soft);
+  border: 1px solid rgba(30,77,63,0.15);
+  border-radius: var(--r);
+  padding: 14px 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.mic-bars {
+  display: flex; align-items: flex-end; gap: 3px; height: 28px;
+}
+.mic-bar {
+  width: 4px; border-radius: 2px; background: var(--green);
+  animation: bar-pulse 0.8s ease-in-out infinite;
+}
+.mic-bar:nth-child(1) { height: 40%; animation-delay: 0s }
+.mic-bar:nth-child(2) { height: 70%; animation-delay: 0.15s }
+.mic-bar:nth-child(3) { height: 100%; animation-delay: 0.3s }
+.mic-bar:nth-child(4) { height: 60%; animation-delay: 0.45s }
+.mic-bar:nth-child(5) { height: 35%; animation-delay: 0.6s }
+@keyframes bar-pulse {
+  0%,100% { opacity: 0.4 }
+  50%      { opacity: 1 }
+}
+
+/* Listeners card */
+.listeners-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 16px;
+  box-shadow: var(--shadow);
+}
+.listeners-title { font-size: 0.82rem; font-weight: 600; color: var(--fg-muted); margin-bottom: 10px }
+.listeners-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 6px 0;
+  border-top: 1px solid var(--border);
+}
+.listeners-row:first-of-type { border-top: none }
+.lang-tag { font-size: 0.82rem; color: var(--fg-muted) }
+.lang-count { font-size: 1rem; font-weight: 700; color: var(--green) }
 
 /* ── Mic denied ── */
-#scr-mic-denied { justify-content: center; align-items: center; text-align: center; gap: 20px }
+#scr-mic-denied {
+  justify-content: center; align-items: center; text-align: center; gap: 20px;
+}
 .denied-icon {
   width: 72px; height: 72px; border-radius: 50%;
   background: rgba(239,68,68,0.1);
   display: flex; align-items: center; justify-content: center;
   font-size: 2rem;
 }
+.steps-list {
+  text-align: start; width: 100%; max-width: 300px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.step-item {
+  display: flex; gap: 12px; align-items: flex-start;
+}
+.step-num {
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--green); color: #fff;
+  font-size: 0.75rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.step-text { font-size: 0.875rem; color: var(--fg-muted); line-height: 1.5 }
 
 /* ── Broadcasting ── */
-#scr-live { padding-block: 0; gap: 0; min-height: 100dvh }
+#scr-live { padding-block: 0; padding-inline: 0; gap: 0; min-height: 100dvh }
 
 .bcast-header {
   background: var(--green);
@@ -80,6 +219,8 @@ body { max-width: 520px; margin: 0 auto }
   padding-top: calc(14px + env(safe-area-inset-top, 0px));
   display: flex; align-items: center; gap: 10px;
 }
+.bcast-logo { display: flex; align-items: center; gap: 8px }
+.bcast-logo img { width: 32px; height: 32px; object-fit: contain; filter: brightness(0) invert(1) }
 .bcast-title { font-weight: 700; font-size: 1rem; flex: 1 }
 .rec-dot {
   width: 10px; height: 10px; border-radius: 50%;
@@ -129,6 +270,24 @@ body { max-width: 520px; margin: 0 auto }
   display: flex; gap: 10px;
 }
 
+/* ── Ended ── */
+#scr-ended-b {
+  justify-content: center; align-items: center; text-align: center; gap: 20px;
+}
+.stat-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%;
+}
+.stat-mini {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 14px 12px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+.stat-mini-val { font-size: 1.4rem; font-weight: 700; color: var(--green); font-variant-numeric: tabular-nums }
+.stat-mini-lbl { font-size: 0.72rem; color: var(--fg-muted); margin-top: 4px }
+
 /* ── File picker helper ── */
 #file-input { display: none }
 </style>
@@ -137,34 +296,46 @@ body { max-width: 520px; margin: 0 auto }
 
 <!-- ── Room code ────────────────────────────────────────── -->
 <div id="scr-code" class="screen active">
-  <div>
-    <div class="logo-mark">
-      <div class="logo-icon">
-        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true">
-          <rect x="4" y="20" width="18" height="3" rx="1.5" fill="#B8955A" opacity=".45"/>
-          <rect x="7" y="15" width="12" height="5" rx="1.5" fill="#B8955A" opacity=".7"/>
-          <rect x="10" y="10" width="6" height="5" rx="1.5" fill="#B8955A"/>
-          <rect x="12" y="5"  width="2" height="5" rx="1"   fill="#B8955A"/>
-        </svg>
-      </div>
-      <span class="logo-name">منبر</span>
-    </div>
-    <p class="t-small t-muted" style="margin-top:6px">صفحة البث – الخطيب</p>
+  <div class="bcast-logo-wrap">
+    <img src="assets/logo-icon.png" alt="منبر" style="width:100px;height:100px;object-fit:contain">
+    <h1 class="t-title" style="font-size:clamp(1.4rem,5vw,1.8rem)">صفحة البث</h1>
+    <p class="bcast-subtitle">للمؤذن أو مشرف الجامع.</p>
   </div>
 
-  <div class="code-card">
-    <div class="stack" style="gap:6px">
-      <label for="room-code-input" class="t-small" style="font-weight:600">رمز الجامع</label>
-      <input id="room-code-input" class="field-input code-input" type="text"
-             maxlength="20" placeholder="MOSQUE001"
-             autocomplete="off" spellcheck="false" autocapitalize="characters">
+  <div class="bcast-form-card">
+    <div class="field-group">
+      <label class="field-label" for="mosque-select">اختيار الجامع</label>
+      <div class="mosque-select-wrap">
+        <span class="mosque-icon-prefix">🕌</span>
+        <select class="mosque-select" id="mosque-select">
+          <option value="">اختر الجامع…</option>
+          <option value="MOSQUE001">جامع الخطام</option>
+        </select>
+        <span class="select-arrow">▼</span>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label" for="room-code-input">رمز البث</label>
+      <div class="pwd-wrap">
+        <span class="pwd-lock">🔒</span>
+        <input id="room-code-input" class="pwd-input" type="password"
+               maxlength="20" placeholder="••••••"
+               autocomplete="off" spellcheck="false" autocapitalize="characters">
+        <button class="pwd-toggle" onclick="togglePwd()" type="button" aria-label="إظهار الرمز" id="pwd-eye">👁</button>
+      </div>
       <div id="code-err" class="err-msg"></div>
     </div>
-    <button class="btn btn-primary btn-full" onclick="submitCode()">دخول</button>
+
+    <button class="btn btn-primary btn-full" onclick="submitCode()">
+      دخول
+      <span style="opacity:0.7">←</span>
+    </button>
   </div>
 
-  <p class="t-micro t-muted" style="text-align:center">
-    سيتمكن المصلون من الاتصال بهذا الرمز
+  <p class="hint-line">
+    <span>👤</span>
+    الخطيب لا يحتاج أن يلمس الجهاز.
   </p>
 </div>
 
@@ -174,6 +345,7 @@ body { max-width: 520px; margin: 0 auto }
     <h1 class="t-title">مصدر الصوت</h1>
     <p class="t-small t-muted" style="margin-top:4px">اختر كيف تريد الإرسال</p>
   </div>
+
   <div class="src-grid">
     <button class="src-btn" onclick="startMic()">
       <span class="src-icon">🎙️</span>
@@ -187,31 +359,68 @@ body { max-width: 520px; margin: 0 auto }
     </label>
   </div>
   <input type="file" id="file-input" accept="audio/*" onchange="startFile(this)">
-  <p class="t-micro t-muted" style="text-align:center">
-    مقاطع 5 ثوانٍ · webm أو mp4
-  </p>
+
+  <div class="mic-check-card" id="mic-check" style="display:none">
+    <div class="mic-bars">
+      <div class="mic-bar"></div><div class="mic-bar"></div>
+      <div class="mic-bar"></div><div class="mic-bar"></div>
+      <div class="mic-bar"></div>
+    </div>
+    <span class="t-small" style="color:var(--green);font-weight:600">الميكروفون يعمل</span>
+  </div>
+
+  <div class="listeners-card" id="listeners-card">
+    <div class="listeners-title">المصلون بانتظار الخطبة</div>
+    <div class="listeners-row"><span class="lang-tag">🇸🇦 العربية</span><span id="lc-ar" class="lang-count">0</span></div>
+    <div class="listeners-row"><span class="lang-tag">🇬🇧 English</span><span id="lc-en" class="lang-count">0</span></div>
+    <div class="listeners-row"><span class="lang-tag">🇵🇰 اردو</span><span id="lc-ur" class="lang-count">0</span></div>
+    <div class="listeners-row"><span class="lang-tag">🇮🇳 हिन्दी</span><span id="lc-hi" class="lang-count">0</span></div>
+  </div>
+
+  <div class="stack" style="gap:10px">
+    <button class="btn btn-primary btn-full" onclick="startMic()" id="start-bcast-btn">
+      ابدأ البث
+    </button>
+    <p class="hint-line">
+      ضع الجهاز قرب الخطيب ولا تقفل الشاشة.
+    </p>
+  </div>
 </div>
 
 <!-- ── Mic permission denied ────────────────────────────── -->
 <div id="scr-mic-denied" class="screen">
   <div class="denied-icon">🔇</div>
-  <h2 class="t-title" style="text-align:center">تعذّر الوصول إلى الميكروفون</h2>
-  <p class="t-small t-muted" style="text-align:center;max-width:300px">
-    افتح إعدادات المتصفح، وامنح إذن الميكروفون لهذه الصفحة، ثم أعِد تحديث الصفحة.
-  </p>
+  <h2 class="t-title" style="text-align:center">نحتاج إذن الميكروفون</h2>
+  <div class="steps-list">
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-text">افتح الإعدادات ثم الخصوصية والأمان.</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-text">اختر «الميكروفون» من القائمة.</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-text">فعّل الإذن للمتصفح ثم أعِد تحديث الصفحة.</div>
+    </div>
+  </div>
   <div class="stack" style="gap:10px;width:100%;max-width:280px">
-    <button class="btn btn-primary btn-full" onclick="startMic()">أعِد المحاولة</button>
-    <label class="btn btn-ghost btn-full" for="file-input" style="text-align:center">استخدم ملفاً بدلاً</label>
+    <button class="btn btn-primary btn-full" onclick="startMic()">حاول مرة أخرى</button>
+    <label class="btn btn-ghost btn-full" for="file-input" style="text-align:center">ارفع خطبة مسجّلة</label>
   </div>
 </div>
 
 <!-- ── Broadcasting ─────────────────────────────────────── -->
 <div id="scr-live" class="screen">
   <div class="bcast-header">
+    <div class="bcast-logo">
+      <img src="assets/logo-icon.png" alt="منبر" class="logo-img-icon" style="filter:brightness(0) invert(1)">
+    </div>
     <div id="rec-dot" class="rec-dot"></div>
-    <span class="bcast-title">بث مباشر</span>
+    <span class="bcast-title">يبث الآن</span>
     <span id="timer" class="timer">00:00</span>
-    <span id="room-badge" class="badge badge-gold" style="background:rgba(184,149,90,.2);color:#d4af7a"></span>
+    <span id="room-badge" class="badge" style="background:rgba(255,255,255,.15);color:rgba(255,255,255,.85)"></span>
   </div>
 
   <div class="stats-row">
@@ -220,25 +429,53 @@ body { max-width: 520px; margin: 0 auto }
       <div class="stat-lbl">مستمع</div>
     </div>
     <div class="stat-cell">
-      <div id="stat-chunks"    class="stat-val">0</div>
+      <div id="stat-chunks" class="stat-val">0</div>
       <div class="stat-lbl">مقطع أُرسل</div>
     </div>
     <div class="stat-cell">
-      <div id="stat-status"   class="stat-val" style="font-size:0.9rem;color:var(--ok)">متصل</div>
+      <div id="stat-status" class="stat-val" style="font-size:0.9rem;color:var(--ok)">متصل</div>
       <div class="stat-lbl">الخادم</div>
     </div>
   </div>
 
   <div id="transcript" class="transcript-area">
-    <p class="t-small t-muted" style="text-align:center;padding:20px 0">
-      في انتظار الصوت…
-    </p>
+    <p class="t-small t-muted" style="text-align:center;padding:20px 0">في انتظار الصوت…</p>
   </div>
 
   <div class="bcast-footer">
     <button class="btn btn-ghost btn-full" onclick="stopBroadcast()" style="color:var(--err);border-color:var(--err)">
       ⏹ إيقاف البث
     </button>
+  </div>
+</div>
+
+<!-- ── Broadcast ended ───────────────────────────────────── -->
+<div id="scr-ended-b" class="screen">
+  <h2 class="t-title">انتهى البث</h2>
+  <p class="t-small" style="color:var(--gold);font-weight:600">جزاك الله خيراً</p>
+
+  <div class="stat-grid">
+    <div class="stat-mini">
+      <div id="end-duration" class="stat-mini-val">–</div>
+      <div class="stat-mini-lbl">مدة البث</div>
+    </div>
+    <div class="stat-mini">
+      <div id="end-listeners" class="stat-mini-val">–</div>
+      <div class="stat-mini-lbl">أعلى عدد مستمعين</div>
+    </div>
+    <div class="stat-mini">
+      <div id="end-chunks" class="stat-mini-val">–</div>
+      <div class="stat-mini-lbl">مقاطع مرسلة</div>
+    </div>
+    <div class="stat-mini">
+      <div id="end-unclear" class="stat-mini-val">–</div>
+      <div class="stat-mini-lbl">مقاطع غير واضحة</div>
+    </div>
+  </div>
+
+  <div class="stack" style="gap:10px;width:100%">
+    <button class="btn btn-primary btn-full" onclick="resetBroadcast()">بث جديد</button>
+    <button class="btn btn-ghost btn-full" onclick="showScreen('code')">تسجيل الخروج</button>
   </div>
 </div>
 
@@ -257,6 +494,8 @@ let startTime     = null;
 let timerInt      = null;
 let chunkCount    = 0;
 let listenerCount = 0;
+let peakListeners = 0;
+let unclearCount  = 0;
 let isFileMode    = false;
 
 /* ── Screens ── */
@@ -265,14 +504,33 @@ function showScreen(name) {
   document.getElementById('scr-' + name).classList.add('active');
 }
 
+/* ── Password toggle ── */
+function togglePwd() {
+  const input = document.getElementById('room-code-input');
+  const eye   = document.getElementById('pwd-eye');
+  if (input.type === 'password') {
+    input.type = 'text';
+    eye.textContent = '🙈';
+  } else {
+    input.type = 'password';
+    eye.textContent = '👁';
+  }
+}
+
 /* ── Room code ── */
 function submitCode() {
-  const val = (document.getElementById('room-code-input').value || '').trim().toUpperCase();
+  const select = document.getElementById('mosque-select');
+  const input  = document.getElementById('room-code-input');
+  const val    = (input.value || '').trim().toUpperCase();
+
   if (!val) {
-    document.getElementById('code-err').textContent = 'أدخل رمز الجامع';
+    document.getElementById('code-err').textContent = 'أدخل رمز البث';
+    input.style.borderColor = 'var(--err)';
     return;
   }
   document.getElementById('code-err').textContent = '';
+  input.style.borderColor = '';
+
   roomId = val;
   document.getElementById('room-badge').textContent = val;
   connectWS();
@@ -290,7 +548,6 @@ function connectWS() {
     wsReady = true;
     document.getElementById('stat-status').textContent = 'متصل';
     document.getElementById('stat-status').style.color = 'var(--ok)';
-    // Notify listeners that broadcast started
     sendWS({ type: 'started' });
   };
   ws.onclose = () => {
@@ -302,7 +559,11 @@ function connectWS() {
   ws.onmessage = e => {
     try {
       const msg = JSON.parse(e.data);
-      if (msg.type === 'listeners') listenerCount = msg.count || 0;
+      if (msg.type === 'listeners') {
+        listenerCount = msg.count || 0;
+        peakListeners = Math.max(peakListeners, listenerCount);
+        document.getElementById('stat-listeners').textContent = listenerCount;
+      }
     } catch {}
   };
 }
@@ -315,6 +576,7 @@ function sendWS(obj) {
 async function startMic() {
   try {
     stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+    document.getElementById('mic-check').style.display = 'flex';
     beginRecording(stream);
     showScreen('live');
     startTimer();
@@ -365,7 +627,7 @@ function beginRecording(src) {
     }
   };
 
-  mediaRecorder.start(5000); // 5-second slices
+  mediaRecorder.start(5000);
 }
 
 /* ── Send a chunk to the server ── */
@@ -396,11 +658,13 @@ async function sendChunk(blob, ext) {
 async function broadcastSegment(arText, enText) {
   addTranscriptLine(arText, false);
 
-  // Translate to Urdu and Hindi in parallel
   const [urText, hiText] = await Promise.all([
     translateText(arText, 'ur'),
     translateText(arText, 'hi'),
   ]);
+
+  const isUnclear = !arText.trim();
+  if (isUnclear) unclearCount++;
 
   const msg = {
     type:       'segment',
@@ -409,8 +673,8 @@ async function broadcastSegment(arText, enText) {
     ur:         urText  || '',
     hi:         hiText  || '',
     is_hadith:  false,
-    is_unclear: !arText.trim(),
-    verse:      null,       // verse detection: see docs/backend-needs.md
+    is_unclear: isUnclear,
+    verse:      null,
     ts:         Date.now(),
   };
 
@@ -432,7 +696,6 @@ async function translateText(text, lang) {
 /* ── Transcript UI ── */
 function addTranscriptLine(text, isPartial) {
   const area = document.getElementById('transcript');
-  // Clear placeholder
   if (area.querySelector('p.t-small')) area.innerHTML = '';
   const el = document.createElement('div');
   el.className = 'tr-seg' + (isPartial ? ' partial' : '');
@@ -452,18 +715,37 @@ function startTimer() {
   }, 1000);
 }
 
+function formatDuration() {
+  if (!startTime) return '–';
+  const secs = Math.floor((Date.now() - startTime) / 1000);
+  const mm   = String(Math.floor(secs / 60)).padStart(2, '0');
+  const ss   = String(secs % 60).padStart(2, '0');
+  return mm + ':' + ss;
+}
+
 /* ── Stop ── */
 function stopBroadcast() {
   if (mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
-  if (stream)  stream.getTracks().forEach(t => t.stop());
+  if (stream) stream.getTracks().forEach(t => t.stop());
   clearInterval(timerInt);
   sendWS({ type: 'ended' });
   try { ws && ws.close() } catch {}
-  // Return to source selection
-  chunkCount = 0;
+
+  document.getElementById('end-duration').textContent  = formatDuration();
+  document.getElementById('end-listeners').textContent = peakListeners;
+  document.getElementById('end-chunks').textContent    = chunkCount;
+  document.getElementById('end-unclear').textContent   = unclearCount;
+
+  showScreen('ended-b');
+}
+
+function resetBroadcast() {
+  chunkCount = 0; peakListeners = 0; unclearCount = 0; listenerCount = 0;
   document.getElementById('stat-chunks').textContent = '0';
   document.getElementById('transcript').innerHTML = '<p class="t-small t-muted" style="text-align:center;padding:20px 0">في انتظار الصوت…</p>';
+  document.getElementById('mic-check').style.display = 'none';
   showScreen('source');
+  connectWS();
 }
 </script>
 </body>
