@@ -1,48 +1,87 @@
 <div align="center">
 
-<img src="frontend/assets/logo-full.png" alt="Minbar logo" width="180">
+<img src="frontend/assets/logo-full.png" alt="Minbar logo" width="170">
 
-# Minbar — منبر
+# MINBAR — منبر
 
-**Live multilingual access to the Friday sermon.**
+### منبر… افهم خطبة الجمعة بلغتك.
+**Understand the Friday sermon in your language.**
+
+**[▶ Live Demo: minbar-9kye.onrender.com](https://minbar-9kye.onrender.com)**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-0e5847.svg)](LICENSE)
 [![Python 3.13](https://img.shields.io/badge/Python-3.13-0e5847.svg)](render.yaml)
 [![FastAPI](https://img.shields.io/badge/Backend-FastAPI-0e5847.svg)](requirements.txt)
-[![Deploy: Render](https://img.shields.io/badge/Deploy-Render-b8873a.svg)](render.yaml)
-[![UI: Arabic RTL](https://img.shields.io/badge/UI-Arabic%20RTL-b8873a.svg)](docs/screens.md)
+[![Deployed on Render](https://img.shields.io/badge/Deployed-Render-b8873a.svg)](https://minbar-9kye.onrender.com)
+[![Languages](https://img.shields.io/badge/Languages-AR%20%C2%B7%20EN%20%C2%B7%20UR%20%C2%B7%20HI-b8873a.svg)](#multilingual-support)
 
 </div>
 
-Minbar delivers the Friday sermon (khutbah) to worshippers in real time, in the language they understand. The khateeb speaks in Arabic as usual. Minbar transcribes his speech and streams each sentence to worshippers' phones in **English, Urdu or Hindi**, or as **Arabic text** for hearing-impaired worshippers. Quranic verses are never paraphrased by a general-purpose AI: they appear in Uthmani script with a **verified translation from QuranEnc**. Worshippers need no account, and none of their personal data is collected.
+Minbar delivers the Friday sermon (khutbah) to worshippers in real time, in the language they understand. The khateeb speaks Arabic as usual; Minbar transcribes his speech and streams each sentence to worshippers' phones in **English, Urdu or Hindi**, or as **Arabic text** for hearing-impaired worshippers. Quranic verses are never paraphrased by a general-purpose AI: they appear in Uthmani script with a **verified translation from QuranEnc**. Worshippers need no account, and none of their personal data is collected.
 
 ---
 
 ## Contents
 
-[Overview](#overview) · [Key Features](#key-features) · [How Minbar Works](#how-minbar-works) · [User Experience](#user-experience) · [Supported Languages](#supported-languages) · [AI and Translation Safety](#ai-and-translation-safety) · [Technology Stack](#technology-stack) · [System Architecture](#system-architecture) · [Privacy by Design](#privacy-by-design) · [Project Screens](#project-screens) · [Evaluation and Testing](#evaluation-and-testing) · [Deployment](#deployment) · [Local Development](#local-development) · [Repository Structure](#repository-structure) · [Security and Reliability](#security-and-reliability) · [Limitations](#limitations) · [Documentation](#documentation) · [License](#license)
+[Screenshots](#screenshots) · [Overview](#overview) · [Key Features](#key-features) · [User Flow](#user-flow) · [AI Methodology](#ai-methodology) · [Religious-Content Safety](#religious-content-safety) · [Multilingual Support](#multilingual-support) · [Accessibility](#accessibility) · [Privacy](#privacy) · [Technical Architecture](#technical-architecture) · [Technology Stack](#technology-stack) · [Project Structure](#project-structure) · [Sources](#sources) · [Local Setup](#local-setup) · [Environment Variables](#environment-variables) · [Testing](#testing) · [Deployment](#deployment) · [Demo](#demo) · [Limitations](#limitations) · [Future Expansion](#future-expansion) · [Documentation](#documentation) · [License](#license)
+
+---
+
+## Screenshots
+
+All screenshots are taken from the current application ([`docs/screenshots/`](docs/screenshots/)). The interface is Arabic-first and can be switched to English, Urdu or Hindi.
+
+### Worshipper
+
+<table>
+  <tr>
+    <td align="center" width="25%"><img src="docs/screenshots/01-home.png" alt="Home" width="200"><br><sub><b>Home</b></sub></td>
+    <td align="center" width="25%"><img src="docs/screenshots/17-welcome.png" alt="Welcome" width="200"><br><sub><b>Welcome</b> · mosque name, rotating greeting</sub></td>
+    <td align="center" width="25%"><img src="docs/screenshots/03-language-selection.png" alt="Language selection" width="200"><br><sub><b>Sermon language</b> · Arabic text, Urdu, English, Hindi</sub></td>
+    <td align="center" width="25%"><img src="docs/screenshots/04-waiting.png" alt="Waiting" width="200"><br><sub><b>Waiting</b> · connected, before the sermon</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/screenshots/07-live-english.png" alt="Live translation in English" width="200"><br><sub><b>Live · English</b> · verified Quran card</sub></td>
+    <td align="center"><img src="docs/screenshots/08-live-urdu.png" alt="Live translation in Urdu" width="200"><br><sub><b>Live · Urdu</b> · right-to-left</sub></td>
+    <td align="center"><img src="docs/screenshots/09-live-hindi.png" alt="Live translation in Hindi" width="200"><br><sub><b>Live · Hindi</b></sub></td>
+    <td align="center"><img src="docs/screenshots/10-live-arabic-text.png" alt="Arabic sermon text" width="200"><br><sub><b>Arabic text</b> · for hearing-impaired worshippers</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/screenshots/13-sermon-ended.png" alt="Sermon ended" width="200"><br><sub><b>Sermon ended</b> · clarity rating (stays on device)</sub></td>
+    <td align="center"><img src="docs/screenshots/14-replay.png" alt="Replay" width="200"><br><sub><b>Replay</b> · full sermon</sub></td>
+    <td align="center"><img src="docs/screenshots/02-home-english-interface.png" alt="English interface" width="200"><br><sub><b>English interface</b> · language menu</sub></td>
+    <td align="center"><img src="docs/screenshots/15-privacy.png" alt="Privacy" width="200"><br><sub><b>Privacy</b></sub></td>
+  </tr>
+</table>
+
+### Mosque supervisor
+
+<table>
+  <tr>
+    <td align="center" width="25%"><img src="docs/screenshots/05-broadcast-login.png" alt="Broadcast login" width="200"><br><sub><b>Login</b> · mosque + secret code</sub></td>
+    <td align="center" width="25%"><img src="docs/screenshots/18-error-wrong-code.png" alt="Wrong code" width="200"><br><sub><b>Error state</b> · wrong broadcast code</sub></td>
+    <td align="center" width="25%"><img src="docs/screenshots/06-broadcast-ready.png" alt="Ready to broadcast" width="200"><br><sub><b>Ready</b> · microphone check, listeners per language</sub></td>
+    <td align="center" width="25%"><img src="docs/screenshots/20-microphone-permission.png" alt="Microphone permission" width="200"><br><sub><b>Microphone permission</b> · guided steps</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/screenshots/19-upload-sermon.png" alt="Upload a recorded sermon" width="200"><br><sub><b>Recorded sermon</b> · file upload</sub></td>
+    <td align="center"><img src="docs/screenshots/11-broadcasting.png" alt="Broadcasting" width="200"><br><sub><b>Broadcasting</b> · detected Arabic, live listeners</sub></td>
+    <td align="center"><img src="docs/screenshots/12-broadcast-ended.png" alt="Broadcast ended" width="200"><br><sub><b>Broadcast ended</b> · statistics</sub></td>
+    <td align="center"><img src="docs/screenshots/16-home-desktop.png" alt="Desktop" width="200"><br><sub><b>Desktop layout</b></sub></td>
+  </tr>
+</table>
 
 ---
 
 ## Overview
 
-The Friday sermon is the weekly address of the mosque: guidance, reminders and teaching delivered to the whole congregation. In many mosques, a large share of the worshippers don't understand Arabic, the language of the sermon. They're present, but the message doesn't reach them.
+### The problem
 
-### The Problem
+The Friday sermon is the weekly address of the mosque. In many mosques a large share of worshippers do not understand Arabic: they attend, but the message does not reach them. Hearing-impaired worshippers face the same barrier even when Arabic is their language. And general-purpose machine translation is not appropriate for Quranic verses, whose translations must come from recognised, attributable sources.
 
-- Worshippers who don't speak Arabic follow the prayer but can't understand the sermon itself.
-- Hearing-impaired worshippers face the same barrier even when Arabic is their language.
-- General-purpose machine translation isn't appropriate for Quranic verses: translations of the meanings of the Quran must come from recognised, attributable sources.
-- Any solution has to work inside a real mosque: no setup for worshippers, nothing for the khateeb to operate, and respect for worshippers' privacy.
+### The solution
 
-### The Solution
-
-A mosque supervisor places a phone or tablet near the khateeb and starts a broadcast. Minbar converts the Arabic speech to text and splits it into sentences. Each sentence is checked against the Quran text:
-
-- **Quranic verses** are displayed in Uthmani script with their verified QuranEnc translation.
-- **The khateeb's own words** are translated by AI, guided by a glossary of religious terms.
-
-Worshippers open a link, choose a language and follow the sermon live on their own phone.
+A mosque supervisor places a phone or tablet near the khateeb and starts a broadcast. Minbar converts the Arabic speech to text, splits it into sentences and checks each one against the Quran text. **Quranic verses** are shown with their verified QuranEnc translation; **the khateeb's own words** are translated by AI with guidance from a glossary of religious terms. Worshippers open a link, choose a language and follow the sermon live on their own phone. Nothing is required from the khateeb, and nothing from the worshipper beyond the link.
 
 ---
 
@@ -50,141 +89,148 @@ Worshippers open a link, choose a language and follow the sermon live on their o
 
 | | Feature | What it does |
 |---|---|---|
-| 🎙️ | **Live sermon broadcasting** | The supervisor broadcasts from the device microphone, or publishes a recorded sermon as a live feed |
-| 🗣️ | **Arabic speech processing** | Arabic speech-to-text, filtering of silence artefacts and unusable output, and sentence segmentation |
-| 🌐 | **Multilingual translation** | The khateeb's speech is translated into English, Urdu and Hindi in parallel |
-| 📖 | **Quran verse detection** | Deterministic matching against the full Quran text, including partial quotations inside the khateeb's sentences |
-| ✅ | **Verified Quran translations** | Detected verses use QuranEnc translations, shown with the translator and version |
-| ⚡ | **Realtime WebSocket delivery** | Sentences reach every worshipper in the order they were spoken |
-| 👥 | **Listener language tracking** | The supervisor sees the number of worshippers per language, live |
-| 🔄 | **Broadcast states** | Every mosque room moves through `READY → LIVE → ENDED` |
-| 📶 | **Reconnection handling** | After a dropped connection, worshippers reconnect automatically and receive the sentences they missed, without duplicates |
-| 🗑️ | **Temporary audio processing** | Sermon audio exists only as a temporary file for one transcription request |
-| 🔒 | **Privacy-first design** | No worshipper accounts, database or personal data |
-| 🛠️ | **Mosque supervisor controls** | Secret broadcast code, microphone check, start/stop, takeover from another device, live statistics |
-| 📜 | **Sermon replay** | The full transcript can be re-read in any supported language while the server retains it (2 hours after the sermon by default) |
+| 🎙️ | **Live broadcasting** | Microphone in chunks of 6 s, or a recorded sermon published as a live feed |
+| 🗣️ | **Arabic speech-to-text** | OpenAI transcription, silence-artefact filtering, sentence segmentation |
+| 📖 | **Quran verse detection** | Deterministic matching against all 6,236 verses, including partial quotations inside the khateeb's sentences |
+| ✅ | **Verified Quran translations** | QuranEnc translations shown verbatim with translator and version |
+| 🌐 | **Translation of the khateeb's words** | English, Urdu and Hindi in parallel, with glossary guidance |
+| 🔤 | **Four-language interface** | Arabic, English, Urdu, Hindi; RTL/LTR switches instantly, independent of the sermon language |
+| ⚡ | **Realtime delivery** | WebSocket, sentences published in sermon order |
+| 📶 | **Reconnection** | Automatic; missed sentences delivered once, without duplicates |
+| 👥 | **Listener counts per language** | Live, for the supervisor; no identity attached |
+| 🔄 | **Broadcast states** | `READY → LIVE → ENDED`, takeover from another device |
+| 📜 | **Replay** | The full sermon can be re-read while the server keeps it (2 hours after the end by default) |
+| 🔒 | **Privacy by design** | No worshipper accounts, database or personal data; sermon audio processed temporarily |
 
 ---
 
-## How Minbar Works
+## User Flow
 
 ```mermaid
 flowchart LR
-    A["Khateeb audio<br/>(microphone or recording)"] --> B["Arabic<br/>speech-to-text"]
-    B --> C["Arabic<br/>transcript"]
-    C --> D["Sermon<br/>segmentation"]
-    D --> E{"Quran verse<br/>detected?"}
-    E -- "Yes" --> F["Verified QuranEnc<br/>translation"]
-    E -- "Khateeb's own words" --> G["AI translation<br/>+ glossary guidance"]
-    F --> H["Ordered segment"]
+    subgraph W["Worshipper"]
+        H["Home"] --> WE["Welcome"] --> L["Sermon language"] --> WA["Waiting"] --> LI["Live translation"] --> E["Sermon ended"] --> R["Replay"]
+    end
+    subgraph S["Mosque supervisor"]
+        BL["Login"] --> RD["Ready"] --> SRC{"Microphone<br/>or recording"} --> BC["Broadcasting"] --> BE["Broadcast ended"]
+    end
+    BC -. "WebSocket: sentences in order" .-> LI
+```
+
+Handled states include: wrong broadcast code, microphone permission denied, page not on HTTPS, broadcast already live (continue on this device), network disconnect and reconnect, unclear audio, missing or invalid OpenAI key, empty / unsupported / oversized files. Details: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+
+---
+
+## AI Methodology
+
+| Task | Method | AI? |
+|---|---|---|
+| Arabic speech-to-text | OpenAI transcription (`whisper-1` by default), `language="ar"` | Yes |
+| Silence artefacts, unclear output | Rule-based filter | No |
+| Sentence segmentation | Punctuation, length and chunk-count rules | No |
+| Quran verse detection | Deterministic fuzzy matching on normalised Quran text | **No** |
+| Quran verse translation | Verbatim QuranEnc lookup | **No** |
+| Translation of the khateeb's words | OpenAI Responses API (`gpt-5-mini` by default) | Yes |
+| Religious terminology | Glossary terms passed to the model, output checked | Hint only |
+| Hadith label | Phrase markers; the hadith itself is not verified | No |
+
+```mermaid
+flowchart LR
+    A["Khateeb audio"] --> B["Speech-to-text<br/>(AI)"] --> C["Quality filter"] --> D["Segmentation"] --> E{"Verse<br/>detected?"}
+    E -- "yes" --> F["Verified QuranEnc<br/>translation"]
+    E -- "khateeb's words" --> G["AI translation<br/>+ glossary"]
+    F --> H["Ordered segment"] --> I["WebSocket"] --> J["Worshipper's language"]
     G --> H
-    H --> I["Realtime<br/>WebSocket delivery"]
-    I --> J["Worshipper's<br/>selected language"]
 ```
 
-1. **Capture.** Live audio is recorded in chunks of 6 seconds by default. Each chunk is a complete audio file. A recorded sermon is uploaded as a single file.
-2. **Speech-to-text.** The audio is transcribed as Arabic, and the temporary file is deleted as soon as the request completes.
-3. **Segmentation.** The transcript is grouped into sentences. If no sentence-ending punctuation arrives within two chunks, the buffered text is published anyway so worshippers aren't left waiting.
-4. **Quran detection.** Each sentence is matched against the 6,236 verses of the Quran.
-5. **Translation.** Verses take their verified translation. The khateeb's words, including any commentary around a quoted verse, are translated by AI.
-6. **Delivery.** Segments are built in parallel but published in order, and each worshipper reads them in the selected language.
+Full explanation, including failure behaviour: [docs/AI.md](docs/AI.md).
 
 ---
 
-## User Experience
+## Religious-Content Safety
 
-The interface is Arabic-first and right-to-left, with Urdu also right-to-left and English and Hindi left-to-right. It's designed for phones and also works on tablets and desktops.
-
-### Worshipper Flow
-
-```mermaid
-flowchart LR
-    H["Home"] --> W["Welcome"] --> L["Language<br/>Selection"] --> WT["Waiting"] --> LT["Live<br/>Translation"] --> E["Sermon<br/>Ended"] --> R["Replay"]
-```
-
-| Screen | Purpose |
-|---|---|
-| **Home** | Entry point for worshippers and mosque supervisors |
-| **Welcome** | Rotating multilingual greeting, with the mosque's name and location |
-| **Language Selection** | Arabic (sermon text), Urdu, English or Hindi. The choice lasts for the browser session |
-| **Waiting** | Shown until the broadcast starts, with a connection indicator |
-| **Live Translation** | Live sermon log with Quran cards, hadith badges and unclear-segment cards; the latest sentence is highlighted; adjustable font size; a button to jump back to the latest sentence |
-| **Sermon Ended** | Closing supplication and a translation-clarity rating that stays on the device |
-| **Replay** | The full sermon transcript in the selected language |
-
-**Handled states:**
-
-- **Connection lost:** a reconnecting banner appears, earlier cards fade, and the page reconnects automatically.
-- **Invalid mosque link:** a clear message replaces the waiting screen.
-- **Language change:** possible at any time, without reconnecting.
-
-### Mosque Supervisor Flow
-
-```mermaid
-flowchart LR
-    BL["Broadcast<br/>Login"] --> RD["Ready"] --> MU{"Microphone<br/>or Upload"}
-    MU -- "Microphone" --> BC["Broadcasting"]
-    MU -- "Recorded sermon" --> BP["Broadcasting<br/>+ processing progress"]
-    BC --> BE["Broadcast<br/>Ended"]
-    BP --> BE
-```
-
-| Screen | Purpose |
-|---|---|
-| **Broadcast Login** | Select the mosque and enter the secret broadcast code; the khateeb's name is optional |
-| **Ready** | Choose microphone or recording, run a live microphone level check, see waiting worshippers per language |
-| **Broadcasting** | Elapsed time, audio level, detected Arabic text, listeners per language, processing status, stop button |
-| **Processing progress** | For a recorded sermon, the Broadcasting screen shows upload, transcription and publishing progress |
-| **Broadcast Ended** | Duration, peak listeners, verified verses, unclear segments, and a link to the transcript |
-
-| Error state | Behaviour |
-|---|---|
-| Invalid broadcast code | Field highlighted, message «الرمز غير صحيح.» |
-| Microphone permission denied | Three-step iPhone/iPad guide, retry, or switch to a recorded sermon |
-| Page not served over HTTPS | Explains that the microphone requires a secure connection |
-| Broadcast already live | Offers to continue the broadcast from the current device |
-| Network interruption | Audio chunks queue and resend automatically |
-| Failed audio segment | Retried, then skipped; the broadcast continues |
-| Empty, unsupported or oversized file | Clear message with the reason |
+- **Verses bypass the AI translation path.** Detection is deterministic (RapidFuzz `partial_ratio` ≥ 90 on text normalised for diacritics and letter variants). A detected verse is shown in Uthmani script with its QuranEnc translation, copied verbatim, with source, translator and version on the card.
+- **Quotations inside commentary** are found with a word-shingle index; when the khateeb quotes a verse within his own sentence, only his surrounding words go to the AI.
+- **Common Quranic phrases are not presented as citations.** A short fragment is accepted only when it is distinctive (it covers half the verse, is at least 7 words, or occurs in a single verse). In evaluation, 12 common sermon sentences produced 0 false detections.
+- **Verified translations are delivered even when AI fails.**
+- **AI translation is labelled** on every live screen as machine translation, with the khateeb's words as the reference.
+- **Hadith are not verified.** The badge reads "Hadith as cited by the khateeb".
+- **Human review is still needed**: the glossary has no formal religious review yet, and AI translations should be sample-reviewed by native speakers before regular use ([docs/AI.md §10](docs/AI.md#10-human-review)).
 
 ---
 
-## Supported Languages
+## Multilingual Support
 
-| Language | Code | Role | Direction | Quranic verses | Khateeb's speech |
+| Language | Code | Direction | Quranic verses | Khateeb's words | Interface |
 |---|---|---|---|---|---|
-| **Arabic** | `ar` | Source language, also shown as text for hearing-impaired worshippers | RTL | Uthmani text | Arabic transcript |
-| **English** | `en` | Translation target | LTR | QuranEnc: al-Hilali & Khan | AI translation |
-| **Urdu** | `ur` | Translation target | RTL | QuranEnc: Junagarhi | AI translation |
-| **Hindi** | `hi` | Translation target | LTR | QuranEnc: Azizul-Haq al-Omari | AI translation |
+| **Arabic** | `ar` | RTL | Uthmani text | Arabic transcript (for hearing-impaired worshippers) | ✅ |
+| **English** | `en` | LTR | QuranEnc: al-Hilali & Khan | AI translation | ✅ |
+| **Urdu** | `ur` | RTL | QuranEnc: Junagarhi | AI translation | ✅ |
+| **Hindi** | `hi` | LTR | QuranEnc: Azizul-Haq al-Omari | AI translation | ✅ |
+
+Two independent choices:
+
+- **Sermon language** (per tab, `sessionStorage`): what the sermon cards show. Each card keeps its own script direction.
+- **Interface language** (on the device, `localStorage`): menus, buttons, statuses and error messages, from one hand-written dictionary ([`frontend/js/i18n.js`](frontend/js/i18n.js)). Switching updates text and direction in place, without reloading. Server errors are translated by error code.
 
 ---
 
-## AI and Translation Safety
+## Accessibility
 
-Minbar uses AI where it helps, and keeps it out of places where accuracy can't be compromised.
+- **Arabic sermon text** for hearing-impaired worshippers, as a sermon-language option.
+- **Adjustable text size** (A+ / A−) on the live screen.
+- **Correct script direction** per language and per card (RTL for Arabic and Urdu, LTR for English and Hindi), with fonts for each script (Tajawal, Noto Nastaliq Urdu, Noto Sans Devanagari, Amiri Quran for verses).
+- **No typing for worshippers**: open the link, pick a language.
+- **Keyboard and assistive-technology support**: visible focus outlines, `aria-label`s on icon buttons, a keyboard-navigable language menu, `aria-live` on the sermon feed and status line.
+- **Reduced motion** is respected (`prefers-reduced-motion`).
+- **Responsive layout** for phones, tablets and desktops.
 
-| Task | Method |
+---
+
+## Privacy
+
+| Principle | Implementation |
 |---|---|
-| Arabic speech-to-text | OpenAI transcription model (`whisper-1` by default, configurable) |
-| Quran verse detection | Deterministic text matching against the Quran corpus. **No AI** |
-| Quran verse translation | Verbatim lookup in the QuranEnc translation files. **No AI** |
-| Translation of the khateeb's speech | OpenAI model (`gpt-5-mini` by default, configurable) with glossary guidance |
-| Religious terminology | Glossary terms found in a sentence are passed to the model, and the output is checked against the glossary |
-| Hadith label | A simple text rule shows "Hadith as cited by the khateeb". The hadith itself is **not** verified |
+| **No worshipper accounts** | `/listen` needs only a link |
+| **No worshipper database** | There is no database; room state is in server memory |
+| **No personal information** | A listener is an open WebSocket and a language code; no name, phone, email or IP is stored |
+| **No worshipper audio** | Worshipper pages never request the microphone |
+| **Temporary sermon audio** | Each upload is a temporary file for one transcription request, deleted in a `finally` block |
+| **Ephemeral state** | Listener counts are derived from open sockets; transcripts are cleared 2 hours after the broadcast ends (configurable) or on restart |
+| **Local preferences only** | Interface language in `localStorage`, sermon language in `sessionStorage`; neither is stored on the server |
+| **Minimal logging** | Standard output only; transcript text is never logged |
 
-**Why verses bypass the AI translation path.** Translations of the meanings of the Quran are scholarly works. Minbar normalises the transcript (diacritics and letter variants) and matches it against the King Fahd Complex Quran text:
+Details and security controls: [docs/PRIVACY.md](docs/PRIVACY.md).
 
-- **Whole sentences** are matched with a similarity threshold of 90.
-- **Partial quotations** inside commentary are found with a word-shingle index. To avoid presenting common Quranic phrases as a specific citation, a short fragment is accepted only when it is distinctive.
+---
 
-When a verse is found, its translation is read directly from the QuranEnc file and shown with the source, translator and version. Only the khateeb's surrounding words go to the AI.
+## Technical Architecture
 
-**Human review still matters:**
+```mermaid
+flowchart TB
+    SUP["Mosque supervisor<br/>broadcast page"] -- "audio + broadcaster token" --> API
+    subgraph Service["One FastAPI service (Render)"]
+        FE["Static pages"]
+        API["REST API"] --> PIPE["Speech-to-text → filter → segmentation<br/>→ verse detection → translation"]
+        PIPE --> ROOM["In-memory room<br/>status · session · listeners · segments"]
+        ROOM --> WS["WebSocket /ws/{room}"]
+    end
+    PIPE <--> OAI["OpenAI API"]
+    PIPE -. reads .-> DATA[("Quran · QuranEnc translations<br/>glossary · mosque directory")]
+    WS -- "sentences in the chosen language" --> WOR["Worshipper<br/>listen page"]
+    WS -- "listener counts" --> SUP
+    NODB["No worshipper database"]
+    ROOM ~~~ NODB
+    classDef none fill:#fff,stroke:#e5262d,color:#e5262d,stroke-dasharray:5 5;
+    class NODB none;
+```
 
-- AI translations are always labelled as machine translation, with the khateeb's words as the reference.
-- A verse with too many speech-to-text errors may go undetected, and is then translated as regular speech.
-- The terminology glossary has not yet had a formal religious review.
+- One process serves pages, REST and WebSocket on one origin; pages use `wss://` automatically on HTTPS.
+- Rooms exist only for mosques in [`data/mosques.json`](data/mosques.json); broadcast codes are secret environment values.
+- Sentences are built concurrently and published strictly in order; work from an older session is discarded.
+- Reconnecting clients receive only what they missed in the same session.
+
+Details: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) · API and message formats: [docs/API.md](docs/API.md).
 
 ---
 
@@ -192,353 +238,177 @@ When a verse is found, its translation is read directly from the QuranEnc file a
 
 | Area | Technologies |
 |---|---|
-| **Frontend** | HTML, CSS and vanilla JavaScript (no build step), SVG icon sprite, Google Fonts (Tajawal, Inter, Noto Nastaliq Urdu, Noto Sans Devanagari, Amiri Quran) |
-| **Backend** | Python, FastAPI, Uvicorn, python-multipart, python-dotenv |
-| **AI** | OpenAI Python SDK: audio transcription and the Responses API |
-| **Realtime** | WebSockets via FastAPI/Starlette |
-| **Validation** | Pydantic request models, audio type and size checks, glossary checks (`validate.py`) |
-| **Data** | King Fahd Complex Quran JSON (Hafs, v30), QuranEnc translation JSON, terminology glossary JSON, mosque directory JSON, RapidFuzz for verse matching |
-| **Deployment** | Docker, Render Blueprint (`render.yaml`) |
-| **Testing** | pytest, HTTPX with the FastAPI TestClient |
+| **Frontend** | HTML, CSS, vanilla JavaScript (no build step), SVG icon sprite, Google Fonts |
+| **Backend** | Python, FastAPI, Uvicorn, Pydantic, python-multipart, python-dotenv |
+| **AI** | OpenAI Python SDK: audio transcription and Responses API |
+| **Realtime** | WebSockets (FastAPI/Starlette) |
+| **Quran matching & validation** | RapidFuzz; glossary checks (`validate.py`) |
+| **Data** | King Fahd Complex Quran JSON, QuranEnc translation JSON, glossary JSON, mosque directory JSON |
+| **Deployment** | Render Blueprint (`render.yaml`), Docker (`Dockerfile`) |
+| **Testing** | pytest, HTTPX/TestClient; Playwright browser suites |
 
 ---
 
-## System Architecture
+## Project Structure
 
-```mermaid
-flowchart TB
-    subgraph Clients["Clients"]
-        WOR["Worshipper<br/>phone browser"]
-        SUP["Mosque supervisor<br/>phone or tablet"]
-    end
-
-    subgraph Service["Single FastAPI service (Render)"]
-        FE["Frontend pages<br/>/ · /listen · /broadcast · /privacy"]
-        API["REST API<br/>broadcast · live audio · translate"]
-        ROOM["Broadcast room<br/>in-memory, ephemeral<br/>status · listeners · languages · segments"]
-        AUD["Audio processing<br/>temporary file, deleted after transcription"]
-        QUR["Quran detection<br/>+ verified QuranEnc translation"]
-        AIT["AI translation<br/>khateeb's speech"]
-        WS["WebSocket<br/>/ws/{room}"]
-    end
-
-    subgraph External["External"]
-        OAI["OpenAI<br/>speech-to-text and translation"]
-    end
-
-    DATA[("Repository data<br/>Quran · translations · glossary · mosques")]
-    NODB["No worshipper database"]
-
-    SUP --> FE
-    WOR --> FE
-    SUP -- "audio + broadcaster token" --> API
-    API --> AUD
-    AUD <--> OAI
-    AUD --> ROOM
-    ROOM --> QUR
-    QUR --> AIT
-    AIT <--> OAI
-    QUR -.reads.-> DATA
-    AIT --> ROOM
-    ROOM --> WS
-    WS -- "segments in the selected language" --> WOR
-    WS -- "listener counts by language" --> SUP
-    ROOM ~~~ NODB
-
-    GH["GitHub repository"] -- "Blueprint deploy" --> Service
-
-    classDef none fill:#fff,stroke:#e5262d,color:#e5262d,stroke-dasharray:5 5;
-    class NODB none;
+```text
+main.py              FastAPI app, pages, security headers
+api/                 HTTP endpoints (broadcast, live audio, transcription, translation, health)
+realtime/            in-memory rooms and the WebSocket protocol
+services/            speech-to-text, segmentation, verse detection, translation, pipeline, config
+verses.py            normalisation, verse matching, translation lookup
+validate.py          glossary checks
+frontend/            index, listen, broadcast, privacy pages; i18n; styles; assets
+data/                Quran text, QuranEnc translations, glossary, mosque directory
+tests/               pytest suite and Playwright browser suites
+scripts/             evaluation on real sermon recordings
+docs/                documentation, screenshots, design references
 ```
 
-- **One service, one URL.** Frontend, REST API and WebSocket share an origin. Pages use `wss://` automatically when served over HTTPS.
-- **Ephemeral rooms.** Rooms exist only for mosques listed in `data/mosques.json`. Each room holds its status, broadcast session, a random broadcaster token, connected sockets with their language, and the segments of the current session.
-- **Ordered delivery.** Segments are processed concurrently but published strictly in order. Results from a previous broadcast session are discarded.
-- **Reconnect contract.** A reconnecting client sends the last segment it received and its session id, and gets only what it missed.
-
-Details: [`docs/architecture.md`](docs/architecture.md) · API and message formats: [`docs/contract.md`](docs/contract.md)
+Every file explained: [docs/PROJECT_MAP.md](docs/PROJECT_MAP.md).
 
 ---
 
-## Privacy by Design
+## Sources
 
-| Principle | Implementation |
-|---|---|
-| **No worshipper accounts** | Worshippers open a link and choose a language. There is no sign-up and no password |
-| **No worshipper database** | The service has no database. Room state lives in server memory only |
-| **No personal information** | No names, phone numbers, email addresses or listening history are requested or stored |
-| **No worshipper audio** | Worshippers' devices only receive text; they never send audio |
-| **Temporary sermon audio** | Each audio upload is written to a temporary file for one transcription request and deleted afterwards |
-| **Ephemeral broadcast state** | Listener counts and transcripts are held in memory. Transcripts are cleared 2 hours after a broadcast ends (configurable) or on restart |
-| **Session-only preference** | The worshipper's language is stored in the browser's `sessionStorage` and cleared when the tab closes |
-| **Minimal logging** | Logs go to standard output; transcript text is never logged |
+| Data | Source | File |
+|---|---|---|
+| Quran text (Hafs, v30) | King Fahd Glorious Qur'an Printing Complex | `data/kfgqpc_hafs_v30.json` |
+| English translation | QuranEnc: al-Hilali & Muhsin Khan, v1.1.2 | `data/translations/en.json` |
+| Urdu translation | QuranEnc: Muhammad Ibrahim Junagarhi, v1.1.3 | `data/translations/ur.json` |
+| Hindi translation | QuranEnc: Azizul-Haq al-Omari, v1.1.5 | `data/translations/hi.json` |
+| Terminology glossary | Challenge scientific reference pack; to be completed from the Al-Jamhara dictionary | `data/glossary.json` |
 
----
-
-## Project Screens
-
-> Screenshots of the current build will be added to `docs/images/`.
-
-<table>
-  <tr>
-    <td align="center" width="33%">
-      <img src="docs/images/home.png" alt="Home screen" width="240"><br>
-      <sub><b>Home</b><br>Entry point for worshippers and mosque supervisors</sub>
-    </td>
-    <td align="center" width="33%">
-      <img src="docs/images/language-selection.png" alt="Language selection screen" width="240"><br>
-      <sub><b>Language Selection</b><br>Arabic text, Urdu, English or Hindi</sub>
-    </td>
-    <td align="center" width="33%">
-      <img src="docs/images/waiting.png" alt="Waiting screen" width="240"><br>
-      <sub><b>Waiting</b><br>Connected and ready for the sermon to begin</sub>
-    </td>
-  </tr>
-  <tr>
-    <td align="center">
-      <img src="docs/images/live-translation.png" alt="Live translation screen" width="240"><br>
-      <sub><b>Live Translation</b><br>Live sermon log with verified Quran cards</sub>
-    </td>
-    <td align="center">
-      <img src="docs/images/sermon-ended.png" alt="Sermon ended screen" width="240"><br>
-      <sub><b>Sermon Ended</b><br>Closing supplication and clarity rating</sub>
-    </td>
-    <td align="center">
-      <img src="docs/images/replay.png" alt="Replay screen" width="240"><br>
-      <sub><b>Replay</b><br>The full sermon in the selected language</sub>
-    </td>
-  </tr>
-  <tr>
-    <td align="center">
-      <img src="docs/images/broadcast-login.png" alt="Broadcast login screen" width="240"><br>
-      <sub><b>Broadcast Login</b><br>Mosque selection and secret broadcast code</sub>
-    </td>
-    <td align="center">
-      <img src="docs/images/broadcasting.png" alt="Broadcasting screen" width="240"><br>
-      <sub><b>Broadcasting</b><br>Detected text and live listeners per language</sub>
-    </td>
-    <td align="center">
-      <img src="docs/images/broadcast-ended.png" alt="Broadcast ended screen" width="240"><br>
-      <sub><b>Broadcast Ended</b><br>Duration, peak listeners and verified verses</sub>
-    </td>
-  </tr>
-</table>
-
-The approved design references are in [`docs/design/`](docs/design/), with screen specifications in [`docs/screens.md`](docs/screens.md).
+Verification (published SHA-256, 6,236 verses, key alignment, conversion rules): [docs/SOURCES.md](docs/SOURCES.md).
 
 ---
 
-## Evaluation and Testing
-
-### Automated test suite
+## Local Setup
 
 ```bash
+git clone https://github.com/arwaasirii2006-coder/minbar.git
+cd minbar
+python -m venv .venv
+source .venv/bin/activate          # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+cp .env.example .env               # Windows: copy .env.example .env
+# edit .env: OPENAI_API_KEY and MINBAR_BROADCAST_CODES=KHATAM-2026=choose-a-code
+uvicorn main:app --reload --host 127.0.0.1 --port 8000
+```
+
+| Page | URL |
+|---|---|
+| Home | http://127.0.0.1:8000/ |
+| Worshipper | http://127.0.0.1:8000/listen |
+| Mosque supervisor | http://127.0.0.1:8000/broadcast |
+| Readiness | http://127.0.0.1:8000/ready |
+
+The microphone works on `localhost` or over HTTPS. Without an OpenAI key the app still runs (rooms, WebSocket, Quran detection, verified translations), but an audio broadcast cannot start. Step-by-step guide: [docs/QUICKSTART.md](docs/QUICKSTART.md).
+
+---
+
+## Environment Variables
+
+| Variable | Required | Purpose |
+|---|---|---|
+| `OPENAI_API_KEY` | For audio broadcasts; in production | Speech-to-text and AI translation |
+| `MINBAR_BROADCAST_CODES` | In production | Secret code per mosque: `ROOM_ID=CODE,…` |
+| `MINBAR_ENV` | No (`development`) | `production` enforces the key and codes for `/ready`, disables `/docs`, restricts paid AI endpoints and development CORS |
+| `MINBAR_ALLOWED_ORIGINS` | No | Extra CORS origins (not needed for same-origin pages) |
+
+Optional tuning (upload limit, replay retention, chunk length, models, timeouts, log level) is listed in [`.env.example`](.env.example) and [docs/QUICKSTART.md](docs/QUICKSTART.md#environment-variables). Never commit `.env`.
+
+---
+
+## Testing
+
+```bash
+pip install -r requirements.txt
 pytest -q
 ```
 
-**103 tests passed.**
-
-| Test file | Tests | Scope |
-|---|---|---|
-| `tests/test_final_api.py` | 20 | Routes and static assets, security headers, CORS, health and readiness, broadcast lifecycle, audio validation, recorded-sermon errors, translation endpoints, production restrictions |
-| `tests/test_cross_origin_audio.py` | 13 | Cross-origin development setup (CORS preflight from a separate static server, no wildcard), speech-to-text availability flag, real browser audio formats (WebM/Opus, MP4, M4A), consecutive audio chunks through the pipeline, invalid OpenAI key handling |
-| `tests/test_realtime.py` | 9 | WebSocket states, authorization, unsupported languages, per-language counts, language change, reconnect history, ordered publishing, end-to-end broadcast flow |
-| `tests/test_services.py` | 9 | Segmentation, text quality filter, verse context, partial quotations, rejection of common phrases |
-| `tests/test_verses.py` | 11 | Arabic normalisation, verse matching, translation lookup |
-| `tests/test_validate.py` | 41 | Religious terminology glossary checks |
-
-### Release verification
-
-These checks ran against a running server during release verification. They aren't part of the pytest suite.
-
-| Area | Result |
+| Suite | Result |
 |---|---|
-| **Application routes and assets** | `/`, `/health`, `/ready`, `/listen`, `/broadcast`, `/privacy` and all frontend assets returned `200` |
-| **Realtime API / WebSocket flow** | Start → segments → stop → `ended` delivered to every connected listener; replay returned all segments |
-| **Four listener languages** | Arabic, English, Urdu and Hindi listeners connected at once; per-language counts reached the supervisor |
-| **Verified translations** | Āl-'Imrān 3:102 and Fāṭir 35:28 (quoted inside commentary) reached all three target languages with QuranEnc attribution |
-| **Error handling** | Correct codes for invalid code (`403`), unknown mosque (`404`), empty audio (`400`), unsupported format (`415`), oversized file (`413`), unsupported language (`400`), already live / already ended (`409`), and unauthorized broadcaster socket (`4401`) |
-| **Browser checks** | **39/39 passed** in headless Microsoft Edge at phone (390×844) and desktop (1440×900) sizes, across all worshipper and supervisor screens, with no JavaScript errors |
-| **Production mode** | `/ready` returns `503` until secrets are set, API docs disabled, paid AI endpoints return `401` without a broadcaster token |
+| pytest (`tests/test_*.py`) | **111 passed** |
+| Browser: worshipper + supervisor regression | **39/39** |
+| Browser: four interface languages | **81/81** |
+| Browser: separate dev server, invalid key | **15/15** |
+| Browser: separate dev server, no key | **12/12** |
 
-### Quran detection evaluation
+Quran detection evaluation: 150 random verse fragments embedded in sermon sentences → 149 correct, 1 matched a different verse, 0 missed; 12 common non-verse sermon sentences → 0 false detections.
 
-| Test | Result |
-|---|---|
-| 150 random 7–10 word fragments of long verses, embedded between sermon sentences | **149 correct**, 1 matched a different verse, 0 missed |
-| 12 common sermon sentences that are not verses (including «إن الله على كل شيء قدير») | **0 false detections** |
-| Optimised matcher compared with the original algorithm on 201 inputs | Identical results, about 2.4× faster |
-
-### Real sermon evaluation
-
-The automated tests and release checks above ran **without** `OPENAI_API_KEY`. Speech entered the pipeline as Arabic text, so speech-to-text and AI translation were not exercised on real audio. **Speech-to-text accuracy, AI translation quality and end-to-end latency on real sermon audio have not been measured yet.**
-
-The evaluation on the project's sermon recordings uses [`scripts/evaluate_sermons.py`](scripts/evaluate_sermons.py). It runs the full production path against a live server: broadcast start, listeners in English, Urdu and Hindi, upload, transcription, verse detection, translation, stop. For each recording it reports:
-
-- processing time and time to the first segment
-- number of segments
-- detected verses with their match scores
-- unclear segments
-- translation failures per language
-- whether every listener received the end of broadcast
-
-```bash
-python scripts/evaluate_sermons.py --code YOUR_BROADCAST_CODE "path/to/sermon-1.mp3" "path/to/sermon-2.m4a"
-```
-
-Recordings stay outside the repository. The manual review plan (verse precision and recall, transcription errors, translation review by native speakers, live latency) is described in [`docs/evaluation.md`](docs/evaluation.md).
+The automated tests do not call OpenAI. **Real-sermon evaluation (speech-to-text accuracy, translation quality, latency) is not done yet**; the method and script are in [docs/TESTING.md](docs/TESTING.md#5-evaluation-on-real-sermon-recordings).
 
 ---
 
 ## Deployment
 
-Minbar runs as a single web service on **Render**, defined by [`render.yaml`](render.yaml). A [`Dockerfile`](Dockerfile) is also provided for any container platform.
+Minbar runs as one web service on **Render**, defined by [`render.yaml`](render.yaml) (native Python runtime, single instance, health check `/ready`). A [`Dockerfile`](Dockerfile) is provided for container hosts.
 
-| Setting | Value |
-|---|---|
-| Build | `pip install -r requirements.txt` |
-| Start | `uvicorn main:app --host 0.0.0.0 --port $PORT --proxy-headers --forwarded-allow-ips='*'` |
-| Health check | `GET /ready` |
-| Instances | `1` (room state is held in memory) |
+- **Live demo:** https://minbar-9kye.onrender.com
+- Secrets (`OPENAI_API_KEY`, `MINBAR_BROADCAST_CODES`) are entered in the Render dashboard, never in the repository.
+- In production, `/ready` stays unhealthy until both secrets are set.
+- Room state is in memory: keep one instance and avoid redeploying during a sermon.
 
-**Required environment variables:**
-
-| Variable | Description |
-|---|---|
-| `OPENAI_API_KEY` | OpenAI key for speech-to-text and translation, set as a secret in Render |
-| `MINBAR_BROADCAST_CODES` | Secret broadcast code per mosque, in the form `ROOM_ID=code` (comma-separated) |
-| `MINBAR_ENV` | `production` (preset in `render.yaml`) |
-
-`/ready` reports unhealthy until the OpenAI key and the broadcast codes are configured, so an incomplete deployment is never marked healthy. Optional settings (upload limit, chunk length, retention time, models, CORS origins) are documented in [`.env.example`](.env.example). The step-by-step guide is in [`DEPLOY.md`](DEPLOY.md).
+Guide: [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
 ---
 
-## Local Development
+## Demo
 
-```bash
-# 1. Clone
-git clone https://github.com/arwaasirii2006-coder/minbar.git
-cd minbar
+1. Open **[/broadcast](https://minbar-9kye.onrender.com/broadcast)**, select **جامع الخطام**, enter the broadcast code and sign in.
+2. On a second device open **[/listen](https://minbar-9kye.onrender.com/listen)**, press Start and choose English, Urdu, Hindi or Arabic text.
+3. Start the broadcast and read a sentence with a verse, for example «قال تعالى يا أيها الذين آمنوا اتقوا الله حق تقاته ولا تموتن إلا وأنتم مسلمون».
+4. The worshipper sees a gold Quran card with the Uthmani verse and the verified translation; the khateeb's other words appear as machine-translated cards.
+5. Stop the broadcast; the worshipper can read the whole sermon again.
 
-# 2. Virtual environment
-python -m venv .venv
-source .venv/bin/activate        # Windows: .venv\Scripts\activate
-
-# 3. Dependencies
-pip install -r requirements.txt
-
-# 4. Configuration
-cp .env.example .env             # Windows: copy .env.example .env
-# edit .env: set OPENAI_API_KEY and MINBAR_BROADCAST_CODES=KHATAM-2026=your-code
-
-# 5. Run
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
-```
-
-| Page | URL |
-|---|---|
-| Home | http://localhost:8000/ |
-| Worshipper | http://localhost:8000/listen |
-| Mosque supervisor | http://localhost:8000/broadcast |
-| API docs (development only) | http://localhost:8000/docs |
-
-The demo mosque is **جامع الخطام** (`KHATAM-2026`). Browsers allow microphone access only on `localhost` or over HTTPS.
-
-**Separate static dev server (e.g. VS Code Live Server).** The pages work from any static server. Point them at the backend once per tab with the `api` parameter, for example `http://127.0.0.1:5500/frontend/broadcast.html?api=http://127.0.0.1:8765`. In development, CORS allows the backend's own ports (8000, 8765) and the Live Server ports (5500, 5501); production stays same-origin only. When the backend can't be reached, both pages show this instruction instead of failing silently.
-
-Without an OpenAI key, the application still runs:
-
-- Pages, rooms, WebSocket delivery and Quran detection all work.
-- Audio requests return a clear `503`.
-- AI translations are marked unavailable, and verified verse translations are still delivered.
-
----
-
-## Repository Structure
-
-```text
-minbar/
-├── main.py                 # FastAPI app: pages, static files, CORS, security headers, error handler
-├── api/                    # HTTP endpoints
-│   ├── broadcast.py        #   mosques, code verification, start, state, stop, replay
-│   ├── live_audio.py       #   live audio chunks, text segments, recorded sermons
-│   ├── transcription.py    #   /transcribe, /transcribe_all
-│   ├── translation.py      #   /translate, /detect_verse
-│   ├── health.py           #   /health, /ready
-│   └── common.py           #   shared errors, auth and validation helpers
-├── realtime/
-│   ├── manager.py          # in-memory rooms, listener languages, ordered publishing
-│   └── ws.py               # WebSocket protocol
-├── services/
-│   ├── speech_to_text.py   # audio validation, temporary files, transcription
-│   ├── segmenter.py        # sentence segmentation
-│   ├── verse_service.py    # Quran detection, partial quotes, verified translations
-│   ├── translator.py       # AI translation with glossary guidance
-│   ├── pipeline.py         # transcript → segment (verse + translations)
-│   ├── text_quality.py     # silence artefacts, unclear text, hadith label
-│   ├── mosques.py          # mosque directory and broadcast-code checks
-│   ├── config.py           # environment configuration
-│   └── openai_client.py    # OpenAI client
-├── verses.py               # Arabic normalisation, verse matching, translation lookup
-├── validate.py             # glossary compliance checks
-├── data/                   # Quran text, QuranEnc translations, glossary, mosque directory
-├── frontend/               # index, listen, broadcast, privacy pages; CSS; logo, backgrounds, icons
-├── scripts/
-│   └── evaluate_sermons.py # end-to-end evaluation on real recordings
-├── tests/                  # pytest suite
-├── docs/                   # architecture, contract, user flow, evaluation, sources, designs
-├── Dockerfile
-├── render.yaml
-├── requirements.txt
-└── .env.example
-```
-
----
-
-## Security and Reliability
-
-| Area | Implementation |
-|---|---|
-| **Restricted CORS** | Explicit allow-list from `MINBAR_ALLOWED_ORIGINS`; no wildcard. Production defaults to same-origin only |
-| **Security headers** | Content-Security-Policy, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy` (microphone limited to the site), HSTS over HTTPS |
-| **Broadcast authentication** | Secret per-mosque codes from the environment, compared in constant time; the public room id never reveals the code |
-| **Broadcaster token** | A random token issued on each start or takeover, required for audio, text, uploads and stop |
-| **Realtime authorization** | Broadcaster sockets require a valid token (close code `4401`); unknown rooms are rejected (`4404`) and can't be created by clients |
-| **Input validation** | Pydantic request models, supported-language checks, audio format and emptiness checks |
-| **Upload limits** | 25 MB per file by default, enforced while reading the upload |
-| **Error handling** | Consistent JSON errors with codes; per-language translation failures don't block other languages; a failed audio chunk doesn't stop the broadcast; a global handler prevents crashes |
-| **Safe rendering** | Server text is inserted with `textContent`, never as HTML |
-| **Production mode** | Requires broadcast codes and an OpenAI key (`/ready`), disables API docs, and limits paid AI endpoints to active broadcasters |
-| **Secrets** | Read from the environment only; `.env` and audio files are excluded by `.gitignore` |
+On the live demo, the first load after an idle period can take around half a minute. A two-minute script with recovery steps: [docs/DEMO.md](docs/DEMO.md).
 
 ---
 
 ## Limitations
 
-- **Real audio benchmark pending.** Speech-to-text accuracy, AI translation quality and latency on real sermon audio have not been measured yet. They require `OPENAI_API_KEY` and the evaluation described above.
-- **Quran detection edge cases.**
-  - In testing, 1 of 150 embedded fragments matched a different verse.
-  - A verse with heavy transcription errors may go undetected.
-  - A partial quotation of a long verse shows the translation of the whole verse, because verified translations are not split.
-- **Glossary coverage.** Urdu and Hindi terminology mappings are still empty pending an approved source, and the glossary has not yet had a formal religious review.
-- **Hadith are not verified.** The label reads "as cited by the khateeb".
-- **In-memory state.** Restarting the server ends a live broadcast and clears replay transcripts; the service runs as a single instance.
+- **Real-audio benchmark pending.** Speech-to-text accuracy, AI translation quality and end-to-end latency on real sermon recordings have not been measured yet.
+- **Machine translation can be wrong**; it is always labelled as such. Output is not post-edited.
+- **Verse detection depends on transcription.** A heavily mis-transcribed verse may go undetected; in evaluation 1 of 150 embedded fragments matched a different verse.
+- **Partial quotation of a long verse** shows the translation of the whole verse.
+- **Glossary:** 10 terms, English renderings only (Urdu/Hindi pending an approved source), no formal religious review yet.
+- **Hadith are not verified.**
+- **In-memory state, single instance:** a restart ends a live broadcast and clears replay transcripts.
 - **Recorded sermons** are limited to 25 MB per file.
-- **Live audio** is sent as short complete files rather than through a streaming recognition connection, which adds a few seconds of delay.
+- **Live audio** is sent as short complete files, not through a streaming recognition connection, which adds a few seconds of delay.
+- **No request rate limiting** in the application.
+
+---
+
+## Future Expansion
+
+Directions that follow from the documented limitations:
+
+- Run the real-sermon evaluation with [`scripts/evaluate_sermons.py`](scripts/evaluate_sermons.py) and publish the results.
+- Complete Urdu and Hindi glossary renderings from an approved source and obtain a formal religious review.
+- Native-speaker review of AI translations per language.
+- More mosques: each is one entry in `data/mosques.json` plus a code in `MINBAR_BROADCAST_CODES`.
+- A streaming speech-recognition provider behind `services/speech_to_text.py` to reduce delay; the listener contract does not depend on how audio is captured.
+- Hosting-level rate limiting for the public deployment.
 
 ---
 
 ## Documentation
 
-| Document | Description |
+| Document | Contents |
 |---|---|
-| [`docs/architecture.md`](docs/architecture.md) | Components, room model, ordering and security |
-| [`docs/user-flow.md`](docs/user-flow.md) | Worshipper and supervisor flows, error branches |
-| [`docs/contract.md`](docs/contract.md) | Data files, HTTP API and WebSocket messages |
-| [`docs/evaluation.md`](docs/evaluation.md) | Verification performed and sermon evaluation plan |
-| [`docs/release-checklist.md`](docs/release-checklist.md) | Release status |
-| [`docs/sources.md`](docs/sources.md) | Quran, translation and glossary sources with verification |
-| [`DEPLOY.md`](DEPLOY.md) | Deployment guide |
+| [QUICKSTART.md](docs/QUICKSTART.md) | Install, configure, run, first broadcast |
+| [ARCHITECTURE.md](docs/ARCHITECTURE.md) | Components, request path, session model, realtime delivery |
+| [AI.md](docs/AI.md) | AI methodology, Quran detection, glossary, failures, limitations |
+| [SOURCES.md](docs/SOURCES.md) | Content sources and verification |
+| [PRIVACY.md](docs/PRIVACY.md) | Data handling and security controls |
+| [API.md](docs/API.md) | HTTP endpoints and WebSocket messages |
+| [DEPLOYMENT.md](docs/DEPLOYMENT.md) | Render, Docker, live demo |
+| [TESTING.md](docs/TESTING.md) | Test suites, results, evaluation method |
+| [DEMO.md](docs/DEMO.md) | Two-minute demo script |
+| [PROJECT_MAP.md](docs/PROJECT_MAP.md) | Every file and where to look |
+| [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) | Symptom → cause → fix |
 
 ---
 

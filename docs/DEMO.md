@@ -2,6 +2,10 @@
 
 A real end-to-end demo that takes **under two minutes**: supervisor → start broadcast → worshipper → choose language → live translation → end → replay.
 
+## Using the live demo
+
+The deployed instance is at **https://minbar-9kye.onrender.com** (worshipper: `/listen`, supervisor: `/broadcast`). Open it a minute before presenting: if it has been idle, the first load can take around half a minute while the instance starts. Broadcasting requires the mosque's broadcast code from the operator.
+
 ## Before the demo (5 minutes, once)
 
 | Item | How |

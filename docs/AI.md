@@ -75,7 +75,7 @@ The verified translation is used even when AI is unavailable or failing.
 ## 9. Limitations
 
 - **No accuracy guarantee.** Speech-to-text and AI translation can make mistakes. Every AI translation is labelled on screen as machine translation, with the khateeb's words as the reference.
-- **Not yet measured on real sermon audio.** The automated tests do not call OpenAI. Speech-to-text accuracy, translation quality and end-to-end latency on real recordings have not been benchmarked yet; the method for doing so is in [TESTING.md](TESTING.md#evaluation-on-real-sermon-recordings).
+- **Not yet measured on real sermon audio.** The automated tests do not call OpenAI. Speech-to-text accuracy, translation quality and end-to-end latency on real recordings have not been benchmarked yet; the method for doing so is in [TESTING.md](TESTING.md#5-evaluation-on-real-sermon-recordings).
 - **AI output is not always complete.** In the replay screenshot ([`docs/screenshots/14-replay.png`](screenshots/14-replay.png)) the model left the opening formula «أما بعد» in Arabic. Output is not post-edited.
 - **Verse detection depends on transcription quality.** A verse transcribed with many errors may not be detected and is then translated as ordinary speech. In testing, 1 of 150 embedded fragments matched a different verse.
 - **Whole-verse translation for partial quotes.** When the khateeb quotes part of a long verse, the verified translation of the whole verse is shown, because verified translations are not split.
@@ -87,5 +87,5 @@ The verified translation is used even when AI is unavailable or failing.
 Minbar is an accessibility aid, not a replacement for scholarly translation. Recommended practice:
 
 - The mosque should treat the khateeb's Arabic as the authoritative text (the interface says so).
-- Native speakers should review a sample of AI translations per language before relying on Minbar for regular use (see the review plan in [TESTING.md](TESTING.md#evaluation-on-real-sermon-recordings)).
+- Native speakers should review a sample of AI translations per language before relying on Minbar for regular use (see the review plan in [TESTING.md](TESTING.md#5-evaluation-on-real-sermon-recordings)).
 - The glossary should be reviewed and extended by qualified reviewers; `data/glossary.json` has `reviewed_by` and `review_date` fields for this, currently empty.

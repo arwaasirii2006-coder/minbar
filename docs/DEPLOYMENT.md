@@ -9,6 +9,20 @@ Minbar deploys as **one web service** that serves the pages, the REST API and th
 
 Note that `render.yaml` uses Render's **native Python runtime** (`runtime: python`), not Docker. Docker is the alternative when you create the service manually with the Docker runtime or deploy elsewhere.
 
+## Live demo
+
+The project is deployed on Render at **https://minbar-9kye.onrender.com**.
+
+| Page | URL |
+|---|---|
+| Home | https://minbar-9kye.onrender.com/ |
+| Worshipper | https://minbar-9kye.onrender.com/listen |
+| Mosque supervisor | https://minbar-9kye.onrender.com/broadcast |
+| Privacy | https://minbar-9kye.onrender.com/privacy |
+| Readiness | https://minbar-9kye.onrender.com/ready |
+
+If the service has been idle, the first request can take around half a minute while the instance starts; later requests are fast. Broadcasting from the demo requires the mosque's broadcast code, which is not published.
+
 ## Option A: Render Blueprint (recommended)
 
 `render.yaml` defines:

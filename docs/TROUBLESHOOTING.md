@@ -92,7 +92,7 @@ Quick diagnosis: open `/ready`. The `checks` object shows whether the Quran data
 
 **Cause.** Files over `MINBAR_MAX_UPLOAD_BYTES` (25 MB, OpenAI's limit) are refused; the type is checked by extension, then by MIME type; files under 1 KB are treated as empty; only one recording per mosque is processed at a time.
 
-**Fix.** Compress or split long recordings (for example to mono MP3 at 64 kbps, about 2 hours per 25 MB), use a supported format, or wait for the current recording to finish. Raising `MINBAR_MAX_UPLOAD_BYTES` above 25 MB does not help, because the transcription service itself refuses larger files.
+**Fix.** Compress or split long recordings (for example to mono MP3 at 64 kbps, which fits about 55 minutes in 25 MB), use a supported format, or wait for the current recording to finish. Raising `MINBAR_MAX_UPLOAD_BYTES` above 25 MB does not help, because the transcription service itself refuses larger files.
 
 ## 12. Processing failure
 
