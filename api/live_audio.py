@@ -89,7 +89,7 @@ async def ingest_recorded(
     except AudioError as exc:
         raise audio_error(exc)
 
-    await manager.set_processing(room, state="processing", step="transcribing", segments=0, error=None, filename=file.filename)
+    await manager.set_processing(room, state="processing", step="transcribing", segments=0, error=None, error_code=None, filename=file.filename)
     task = asyncio.create_task(_process_recorded(room, room.session, data, file.filename, file.content_type))
     room.tasks.add(task)
     task.add_done_callback(room.tasks.discard)
@@ -103,7 +103,7 @@ async def _process_recorded(room: Room, session: int, data: bytes, filename: str
         if room.session != session:
             return
         if classify(arabic) != "ok":
-            await manager.set_processing(room, state="failed", step="done", error="لم يُتعرّف على كلام عربي واضح في الملف.")
+            await manager.set_processing(room, state="failed", step="done", error_code="no_arabic_speech", error="لم يُتعرّف على كلام عربي واضح في الملف.")
             return
 
         segmenter = Segmenter()
@@ -118,8 +118,8 @@ async def _process_recorded(room: Room, session: int, data: bytes, filename: str
         await manager.set_processing(room, state="done", step="done")
     except AudioError as exc:
         if room.session == session:
-            await manager.set_processing(room, state="failed", step="done", error=str(exc))
+            await manager.set_processing(room, state="failed", step="done", error_code=exc.code, error=str(exc))
     except Exception:
         log.exception("recorded sermon processing failed")
         if room.session == session:
-            await manager.set_processing(room, state="failed", step="done", error="تعذّرت معالجة الخطبة المسجلة.")
+            await manager.set_processing(room, state="failed", step="done", error_code="recorded_failed", error="تعذّرت معالجة الخطبة المسجلة.")

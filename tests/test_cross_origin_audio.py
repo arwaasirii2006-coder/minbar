@@ -130,5 +130,5 @@ def test_invalid_openai_key_returns_actionable_503(live, monkeypatch):
     monkeypatch.setattr(stt, "get_client", lambda: type("C", (), {"audio": type("A", (), {"transcriptions": Rejecting()})()})())
     r = client.post(f"/live/{ROOM}/audio", headers={"X-Broadcaster-Token": token}, files={"file": ("chunk.webm", wav_bytes(), "audio/webm")})
     assert r.status_code == 503
-    assert r.json()["detail"]["code"] == "ai_unavailable" and "OPENAI_API_KEY" in r.json()["detail"]["message"]
+    assert r.json()["detail"]["code"] == "ai_key_invalid" and "OPENAI_API_KEY" in r.json()["detail"]["message"]
     assert client.get(f"/broadcast/{ROOM}").json()["status"] == "LIVE"

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" data-i18n-title="title.listen">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -8,46 +8,48 @@
 <link rel="icon" href="assets/logo-icon.png">
 <link rel="stylesheet" href="css/style.css">
 <script src="js/config.js"></script>
+<script src="js/i18n.js"></script>
 </head>
 <body>
 <main class="app">
 
-<section id="welcome" class="screen" dir="rtl" lang="ar">
-  <div class="topbar"><button class="lang-pill" onclick="goLanguage()"><svg class="i chev" aria-hidden="true"><use href="assets/icons.svg#chevron-down"/></svg> العربية <svg class="i" aria-hidden="true"><use href="assets/icons.svg#globe"/></svg></button></div>
+<section id="welcome" class="screen">
+  <div class="topbar"><div data-ui-lang></div></div>
   <div class="hero">
     <img src="assets/logo-full.png" class="logo-full" alt="منبر">
-    <div class="greeting"><h1 id="greeting">أهلاً بك</h1></div>
+    <div class="greeting"><h1 id="greeting" lang="ar">أهلاً بك</h1></div>
     <div class="mosque-card">
       <svg class="i pin" aria-hidden="true"><use href="assets/icons.svg#pin"/></svg>
       <div class="txt"><strong class="js-mosque-name"></strong><small class="js-mosque-location"></small></div>
       <div class="mosque-icon-box"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#mosque"/></svg></div>
     </div>
-    <p>منبر يتيح لك الاستماع إلى خطبة الجمعة مترجمة بعدة لغات، ليربطك بقيم الجمعة ومعانيها.</p>
-    <div class="actions"><button class="btn primary" onclick="goLanguage()">ابدأ <svg class="i chev" aria-hidden="true"><use href="assets/icons.svg#chevron-left"/></svg></button></div>
+    <p data-i18n="home.desc"></p>
+    <div class="actions"><button class="btn primary" onclick="goLanguage()"><span data-i18n="listen.start"></span> <svg class="i chev" aria-hidden="true"><use href="assets/icons.svg#chevron-left"/></svg></button></div>
   </div>
 </section>
 
-<section id="language" class="screen" dir="rtl" lang="ar">
+<section id="language" class="screen">
+  <div class="topbar"><div data-ui-lang></div></div>
   <img src="assets/logo-icon.png" class="logo-icon" alt="">
   <div class="hero" style="margin:0">
-    <h1 style="margin-bottom:2px">اختر لغتك</h1>
-    <p lang="en" style="font-family:var(--f-en);font-size:16px">Choose your language</p>
+    <h1 style="margin-bottom:2px" data-i18n="listen.chooseTitle"></h1>
+    <p style="font-size:16px" data-i18n="listen.chooseSub"></p>
   </div>
-  <div class="language-list" role="radiogroup" aria-label="اختر لغتك">
-    <button class="lang-option" role="radio" data-lang="ar" onclick="selectLang('ar')"><svg class="flag" aria-hidden="true"><use href="assets/icons.svg#flag-sa"/></svg><span><strong>العربية (نص الخطبة)</strong><small>لضعاف السمع</small></span><span class="radio"></span></button>
-    <button class="lang-option" role="radio" data-lang="ur" onclick="selectLang('ur')"><svg class="flag" aria-hidden="true"><use href="assets/icons.svg#flag-pk"/></svg><span class="alt"><strong class="lang-ur">اردو</strong></span><span class="radio"></span></button>
-    <button class="lang-option" role="radio" data-lang="en" onclick="selectLang('en')"><svg class="flag" aria-hidden="true"><use href="assets/icons.svg#flag-gb"/></svg><span class="alt"><strong class="lang-en" dir="ltr">English</strong></span><span class="radio"></span></button>
-    <button class="lang-option" role="radio" data-lang="hi" onclick="selectLang('hi')"><svg class="flag" aria-hidden="true"><use href="assets/icons.svg#flag-in"/></svg><span class="alt"><strong class="lang-hi" dir="ltr">हिन्दी</strong></span><span class="radio"></span></button>
+  <div class="language-list" role="radiogroup" data-i18n-aria-label="listen.sermonLanguage">
+    <button class="lang-option" role="radio" data-lang="ar" onclick="selectLang('ar')"><svg class="flag" aria-hidden="true"><use href="assets/icons.svg#flag-sa"/></svg><span><strong><span lang="ar" dir="rtl">العربية</span> <span data-i18n="listen.arabicNote"></span></strong><small data-i18n="listen.arabicSub"></small></span><span class="radio"></span></button>
+    <button class="lang-option" role="radio" data-lang="ur" onclick="selectLang('ur')"><svg class="flag" aria-hidden="true"><use href="assets/icons.svg#flag-pk"/></svg><span class="alt"><strong class="lang-ur" lang="ur" dir="rtl">اردو</strong></span><span class="radio"></span></button>
+    <button class="lang-option" role="radio" data-lang="en" onclick="selectLang('en')"><svg class="flag" aria-hidden="true"><use href="assets/icons.svg#flag-gb"/></svg><span class="alt"><strong class="lang-en" lang="en" dir="ltr">English</strong></span><span class="radio"></span></button>
+    <button class="lang-option" role="radio" data-lang="hi" onclick="selectLang('hi')"><svg class="flag" aria-hidden="true"><use href="assets/icons.svg#flag-in"/></svg><span class="alt"><strong class="lang-hi" lang="hi" dir="ltr">हिन्दी</strong></span><span class="radio"></span></button>
   </div>
-  <button class="btn primary pill" onclick="confirmLanguage()">متابعة <svg class="i chev" aria-hidden="true"><use href="assets/icons.svg#chevron-left"/></svg></button>
-  <div class="note"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#gear"/></svg> لن تحتاج لاختيار لغتك مرة أخرى خلال هذه الجلسة.</div>
+  <button class="btn primary pill" onclick="confirmLanguage()"><span data-i18n="listen.continue"></span> <svg class="i chev" aria-hidden="true"><use href="assets/icons.svg#chevron-left"/></svg></button>
+  <div class="note"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#gear"/></svg> <span data-i18n="listen.sessionNote"></span></div>
 </section>
 
 <section id="waiting" class="screen center waiting">
   <div class="hero">
     <img src="assets/logo-icon.png" class="waiting-illustration" alt="">
-    <h1 data-t="waiting"></h1>
-    <p data-t="waitingSub"></p>
+    <h1 id="waiting-title"></h1>
+    <p id="waiting-sub"></p>
     <div class="connection"><span class="dot amber" id="conn-dot"></span><span id="conn-text"></span></div>
   </div>
 </section>
@@ -57,57 +59,49 @@
     <div class="live-head-main">
       <img src="assets/logo-icon.png" class="logo-icon-small" alt="منبر">
       <div class="mosque-name"><strong class="js-mosque-name"></strong><small class="js-mosque-location"></small></div>
-      <button class="lang-pill js-lang-pill" onclick="goLanguage()"></button>
+      <button class="lang-pill js-sermon-pill" onclick="goLanguage()"></button>
     </div>
-    <div class="live-status"><span data-t="live"></span><span class="dot red blink"></span></div>
-    <div class="disconnect"><span data-t="disc"></span><small data-t="discSub"></small></div>
+    <div class="live-status"><span data-i18n="listen.live"></span><span class="dot red blink"></span></div>
+    <div class="disconnect"><span data-i18n="listen.disc"></span><small data-i18n="listen.discSub"></small></div>
   </header>
-  <div class="feed-title" data-t="feedTitle"></div>
+  <div class="feed-title" data-i18n="listen.feedTitle"></div>
   <div class="feed" id="feed" aria-live="polite"></div>
   <div class="live-tools">
     <div class="tool-row">
-      <button class="now-btn hidden" id="now-btn" onclick="scrollToLatest()"><span data-t="backNow"></span><span class="arrow"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#arrow-down"/></svg></span></button>
-      <button class="circle-btn" onclick="changeFont(2)" aria-label="A+">A+</button>
-      <button class="circle-btn" onclick="changeFont(-2)" aria-label="A−">A−</button>
+      <button class="now-btn hidden" id="now-btn" onclick="scrollToLatest()"><span data-i18n="listen.latest"></span><span class="arrow"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#arrow-down"/></svg></span></button>
+      <button class="circle-btn" dir="ltr" onclick="changeFont(2)" data-i18n-aria-label="listen.fontUp">A+</button>
+      <button class="circle-btn" dir="ltr" onclick="changeFont(-2)" data-i18n-aria-label="listen.fontDown">A−</button>
     </div>
-    <div class="disclaimer" data-t="disclaimer"></div>
+    <div class="disclaimer" id="disclaimer"></div>
   </div>
 </section>
 
 <section id="ended" class="screen ended">
   <div class="check">✓</div>
-  <h1 data-t="ended"></h1>
-  <p class="dua" data-t="dua"></p>
+  <h1 data-i18n="listen.ended"></h1>
+  <p class="dua" data-i18n="listen.dua"></p>
   <div class="rating">
-    <strong data-t="rating"></strong>
+    <strong data-i18n="listen.rating"></strong>
     <div class="stars" id="stars"></div>
     <div class="thanks" id="thanks"></div>
   </div>
-  <button class="btn primary" onclick="showReplay()" data-t="replayBtn"></button>
-  <a class="privacy-link" href="privacy.html" data-t="privacy"></a>
+  <button class="btn primary" onclick="showReplay()" data-i18n="listen.replay"></button>
+  <a class="privacy-link" href="privacy.html" data-i18n="common.privacy"></a>
 </section>
 
 <section id="replay" class="screen replay">
-  <div class="topbar"><button class="lang-pill js-lang-pill" onclick="goLanguage()"></button></div>
-  <div class="hero" style="margin:10px 0 14px;text-align:start"><h1 data-t="replayTitle"></h1><p class="js-mosque-name"></p></div>
+  <div class="topbar"><button class="lang-pill js-sermon-pill" onclick="goLanguage()"></button></div>
+  <div class="hero" style="margin:10px 0 14px;text-align:start"><h1 data-i18n="listen.replay"></h1><p class="js-mosque-name"></p></div>
   <div class="feed" id="replay-feed"></div>
-  <button class="btn secondary" onclick="leaveReplay()" data-t="back"></button>
+  <button class="btn secondary" onclick="leaveReplay()" data-i18n="common.back"></button>
 </section>
 
 </main>
 <script>
-const LANGS = {
-  ar: {label: 'العربية', dir: 'rtl', locale: 'ar-SA-u-nu-latn'},
-  ur: {label: 'اردو', dir: 'rtl', locale: 'ur-PK'},
-  en: {label: 'English', dir: 'ltr', locale: 'en-US'},
-  hi: {label: 'हिन्दी', dir: 'ltr', locale: 'hi-IN'},
-};
-const T = {
-  ar: {waiting:'الخطبة لم تبدأ بعد.', waitingSub:'أبقِ الصفحة مفتوحة، وستظهر الترجمة تلقائياً.', connected:'متصل', connecting:'جارٍ الاتصال…', disconnected:'انقطع الاتصال', live:'مباشر', disc:'انقطع الاتصال، جارٍ إعادة الاتصال.', discSub:'لن يفوتك شيء.', disclaimer:'نص آلي من كلام الخطيب، قد يحتوي أخطاء.', feedTitle:'سجل الخطبة', now:'الآن', quran:'قرآن', hadith:'حديث كما ذكره الخطيب', unclear:'غير واضح', unclearText:'لم يتم التعرف على هذا الجزء من الخطبة بوضوح.', ended:'انتهت الخطبة.', dua:'تقبّل الله منا ومنكم.', rating:'ما مدى وضوح الترجمة؟', thanks:'شكرًا لك.', replayBtn:'إعادة قراءة الخطبة', replayTitle:'إعادة قراءة الخطبة', back:'العودة', backNow:'آخر الخطبة', empty:'لا توجد نسخة مؤقتة من الخطبة.', loadFail:'تعذّر تحميل الخطبة.', failNote:'تعذّرت الترجمة الآلية لهذا الجزء، ويظهر النص العربي.', unknownRoom:'رابط الجامع غير صحيح.', sura:'سورة', quranSource:'النص القرآني: مجمع الملك فهد لطباعة المصحف الشريف', translationOf:'ترجمة معاني القرآن الكريم', privacy:'سياسة الخصوصية'},
-  en: {waiting:'The sermon has not started yet.', waitingSub:'Keep this page open. The translation will appear automatically.', connected:'Connected', connecting:'Connecting…', disconnected:'Disconnected', live:'LIVE', disc:'Connection lost. Reconnecting…', discSub:'You won’t miss anything.', disclaimer:'AI machine translation. The khateeb’s words are the reference.', feedTitle:'Sermon log', now:'Now', quran:'Quran', hadith:'Hadith as cited by the khateeb', unclear:'Unclear', unclearText:'This part of the sermon could not be recognized clearly.', ended:'The sermon has ended.', dua:'May Allah accept from us and from you.', rating:'How clear was the translation?', thanks:'Thank you.', replayBtn:'Read the sermon again', replayTitle:'Read the sermon again', back:'Back', backNow:'Latest', empty:'No temporary copy of the sermon is available.', loadFail:'Could not load the sermon.', failNote:'Machine translation is unavailable for this part; the Arabic text is shown.', unknownRoom:'This mosque link is not valid.', sura:'Surah', translationOf:'Translation of the meanings of the Noble Qur’an', privacy:'Privacy policy'},
-  ur: {waiting:'خطبہ ابھی شروع نہیں ہوا۔', waitingSub:'یہ صفحہ کھلا رکھیں، ترجمہ خود بخود ظاہر ہوگا۔', connected:'منسلک', connecting:'منسلک ہو رہا ہے…', disconnected:'رابطہ منقطع', live:'براہِ راست', disc:'رابطہ منقطع ہو گیا، دوبارہ جوڑا جا رہا ہے۔', discSub:'آپ سے کچھ نہیں چھوٹے گا۔', disclaimer:'مصنوعی ذہانت کے ذریعے خودکار ترجمہ، اصل حوالہ خطیب کا کلام ہے۔', feedTitle:'خطبے کا ریکارڈ', now:'ابھی', quran:'قرآن', hadith:'حدیث، جیسا کہ خطیب نے بیان کی', unclear:'غیر واضح', unclearText:'خطبے کا یہ حصہ واضح طور پر پہچانا نہیں جا سکا۔', ended:'خطبہ ختم ہو گیا۔', dua:'اللہ ہم سے اور آپ سے قبول فرمائے۔', rating:'ترجمہ کتنا واضح تھا؟', thanks:'شکریہ۔', replayBtn:'خطبہ دوبارہ پڑھیں', replayTitle:'خطبہ دوبارہ پڑھیں', back:'واپس', backNow:'تازہ ترین', empty:'خطبے کی کوئی عارضی کاپی دستیاب نہیں۔', loadFail:'خطبہ لوڈ نہیں ہو سکا۔', failNote:'اس حصے کا خودکار ترجمہ دستیاب نہیں، عربی متن دکھایا جا رہا ہے۔', unknownRoom:'مسجد کا یہ لنک درست نہیں۔', sura:'سورۃ', translationOf:'قرآن کریم کے معانی کا ترجمہ', privacy:'رازداری کی پالیسی'},
-  hi: {waiting:'ख़ुतबा अभी शुरू नहीं हुआ है।', waitingSub:'यह पेज खुला रखें, अनुवाद अपने आप दिखाई देगा।', connected:'जुड़ा हुआ', connecting:'जुड़ रहा है…', disconnected:'कनेक्शन टूट गया', live:'लाइव', disc:'कनेक्शन टूट गया, दोबारा जोड़ा जा रहा है।', discSub:'आपसे कुछ नहीं छूटेगा।', disclaimer:'AI द्वारा स्वचालित अनुवाद, मूल संदर्भ ख़तीब के शब्द हैं।', feedTitle:'ख़ुतबे का रिकॉर्ड', now:'अभी', quran:'क़ुरआन', hadith:'हदीस, जैसा ख़तीब ने बताया', unclear:'अस्पष्ट', unclearText:'ख़ुतबे का यह हिस्सा साफ़ पहचाना नहीं जा सका।', ended:'ख़ुतबा समाप्त हो गया।', dua:'अल्लाह हमसे और आपसे क़बूल फ़रमाए।', rating:'अनुवाद कितना स्पष्ट था?', thanks:'धन्यवाद।', replayBtn:'ख़ुतबा दोबारा पढ़ें', replayTitle:'ख़ुतबा दोबारा पढ़ें', back:'वापस', backNow:'नवीनतम', empty:'ख़ुतबे की कोई अस्थायी प्रति उपलब्ध नहीं है।', loadFail:'ख़ुतबा लोड नहीं हो सका।', failNote:'इस हिस्से का स्वचालित अनुवाद उपलब्ध नहीं, अरबी पाठ दिखाया जा रहा है।', unknownRoom:'मस्जिद का यह लिंक मान्य नहीं है।', sura:'सूरह', translationOf:'पवित्र क़ुरआन के अर्थों का अनुवाद', privacy:'गोपनीयता नीति'},
-};
+// Two independent languages:
+//   I18N.lang  interface language (all labels, messages, direction of the page)
+//   lang       sermon translation language (content of the sermon cards only)
+const t = I18N.t;
 const SESSION_SCREENS = ['waiting', 'live', 'ended'];
 const params = new URLSearchParams(location.search);
 const $ = id => document.getElementById(id);
@@ -115,24 +109,31 @@ const $ = id => document.getElementById(id);
 let room = (params.get('room') || '').trim().toUpperCase();
 let lang = store('minbar.lang');
 let selected = lang || 'ar';
-let ws = null, retry = 1000, retryTimer = null, pingTimer = null;
+let ws = null, retry = 1000, retryTimer = null, pingTimer = null, connState = 'connecting';
 let status = 'READY', session = 0, lastSeq = 0, segments = [];
 let current = null, returnTo = null, unknownRoom = false, serverUnreachable = false;
-let font = 18;
+let font = 18, rating = 0;
 
-// Language preference lives in sessionStorage only (cleared when the tab closes).
+// The sermon language lives in sessionStorage only (cleared when the tab closes).
 function store(key, value) {
   try {
     if (value === undefined) return sessionStorage.getItem(key);
     sessionStorage.setItem(key, value);
   } catch { return null; }
 }
-const t = key => (T[lang] || T.ar)[key] || T.ar[key] || '';
+const sermon = () => I18N.LANGS[lang] || I18N.LANGS.ar;
 
 function el(tag, cls, text) {
   const node = document.createElement(tag);
   if (cls) node.className = cls;
   if (text != null) node.textContent = text;
+  return node;
+}
+// Content written in the sermon language keeps its own script direction and font.
+function content(tag, cls, text, code = lang) {
+  const node = el(tag, cls + ' lang-' + code, text);
+  node.lang = code;
+  node.dir = (I18N.LANGS[code] || I18N.LANGS.ar).dir;
   return node;
 }
 
@@ -161,21 +162,43 @@ function show(id) {
 const screenForStatus = () => status === 'LIVE' ? 'live' : status === 'ENDED' ? 'ended' : 'waiting';
 const inSession = () => SESSION_SCREENS.includes(current);
 
-function applyLang() {
-  const L = LANGS[lang] || LANGS.ar;
-  document.documentElement.lang = lang;
-  document.documentElement.dir = L.dir;
-  document.querySelectorAll('[data-t]').forEach(n => { n.textContent = t(n.dataset.t); });
-  document.querySelectorAll('.js-lang-pill').forEach(b => { b.replaceChildren(icon('chevron-down', 'chev'), document.createTextNode(' ' + L.label + ' '), icon('globe')); });
-  document.title = 'منبر — ' + (lang === 'ar' ? 'المصلّي' : L.label);
-  renderStars(0);
-  setConn(ws && ws.readyState === 1 ? 'connected' : 'connecting');
+/* ── texts that depend on state or on the sermon language ── */
+function renderSermonPills() {
+  const L = sermon();
+  document.querySelectorAll('.js-sermon-pill').forEach(b => {
+    const name = el('span', '', L.name);
+    name.lang = lang || 'ar';
+    name.dir = L.dir;
+    b.replaceChildren(icon('chevron-down', 'chev'), document.createTextNode(' '), name, document.createTextNode(' '), icon('globe'));
+    b.setAttribute('aria-label', t('listen.sermonLanguage') + ': ' + L.name);
+  });
 }
-
+function renderWaitingText() {
+  let title = t('listen.waiting'), sub = t('listen.waitingSub');
+  if (unknownRoom) { title = t('listen.unknownRoom'); sub = ''; }
+  else if (serverUnreachable) { title = t('listen.disconnected'); sub = I18N.error('offline'); }
+  $('waiting-title').textContent = title;
+  $('waiting-sub').textContent = sub;
+}
+function renderTexts() {
+  renderSermonPills();
+  renderWaitingText();
+  setConn(connState);
+  $('disclaimer').textContent = t(lang === 'ar' ? 'listen.disclaimerTranscript' : 'listen.disclaimerTranslation');
+  renderStars(rating);
+  $('thanks').textContent = rating ? t('listen.thanks') : '';
+}
 function setMosque(name, location) {
   document.querySelectorAll('.js-mosque-name').forEach(n => { n.textContent = name || ''; });
   document.querySelectorAll('.js-mosque-location').forEach(n => { n.textContent = location || ''; });
 }
+
+// Interface language changed: update every dynamic text in place, no reload.
+window.addEventListener('minbar:lang', () => {
+  renderTexts();
+  renderFeed();
+  if (current === 'replay') showReplay();
+});
 
 /* ── welcome ── */
 function startGreeting() {
@@ -190,12 +213,13 @@ function startGreeting() {
       h.textContent = items[i][0];
       h.className = 'lang-' + items[i][1] + ' fade';
       h.lang = items[i][1];
+      h.dir = I18N.LANGS[items[i][1]].dir;
       requestAnimationFrame(() => h.classList.remove('fade'));
     }, 350);
   }, 2000);
 }
 
-/* ── language ── */
+/* ── sermon language ── */
 function goLanguage() {
   returnTo = inSession() || current === 'replay' ? current : null;
   selectLang(lang || selected);
@@ -213,7 +237,7 @@ function confirmLanguage() {
   const changed = selected !== lang;
   lang = selected;
   store('minbar.lang', lang);
-  applyLang();
+  renderTexts();
   if (ws && ws.readyState === 1) {
     if (changed) ws.send(JSON.stringify({type: 'language', language: lang}));
     renderFeed();
@@ -223,8 +247,8 @@ function confirmLanguage() {
   enterSession();
 }
 function enterSession() {
-  applyLang();
-  show(unknownRoom ? 'waiting' : screenForStatus());
+  renderTexts();
+  show(screenForStatus());
   if (unknownRoom) return showUnknownRoom();
   if (serverUnreachable) return showServerUnreachable();
   connect();
@@ -265,21 +289,19 @@ addEventListener('online', reconnectNow);
 document.addEventListener('visibilitychange', () => { if (!document.hidden) reconnectNow(); });
 
 function setConn(state) {
-  const dot = $('conn-dot');
-  dot.className = 'dot' + (state === 'disconnected' ? ' red' : state === 'connecting' ? ' amber' : '');
-  $('conn-text').textContent = t(state);
+  connState = state;
+  $('conn-dot').className = 'dot' + (state === 'disconnected' ? ' red' : state === 'connecting' ? ' amber' : '');
+  $('conn-text').textContent = t('listen.' + state);
   $('live').classList.toggle('offline', state === 'disconnected');
 }
 function showServerUnreachable() {
   show('waiting');
-  document.querySelector('#waiting [data-t=waiting]').textContent = t('disconnected');
-  document.querySelector('#waiting [data-t=waitingSub]').textContent = MINBAR.offlineHint;
+  renderWaitingText();
   setConn('disconnected');
 }
 function showUnknownRoom() {
   show('waiting');
-  document.querySelector('#waiting [data-t=waiting]').textContent = t('unknownRoom');
-  document.querySelector('#waiting [data-t=waitingSub]').textContent = '';
+  renderWaitingText();
   setConn('disconnected');
 }
 
@@ -345,12 +367,8 @@ function renderFeed() {
 }
 
 function timeOf(ts) {
-  try { return new Date(ts || Date.now()).toLocaleTimeString((LANGS[lang] || LANGS.ar).locale, {hour: 'numeric', minute: '2-digit'}); }
+  try { return new Date(ts || Date.now()).toLocaleTimeString(I18N.locale, {hour: 'numeric', minute: '2-digit'}); }
   catch { return ''; }
-}
-function textFor(seg) {
-  if (lang === 'ar') return seg.arabic;
-  return (seg.translations || {})[lang] || seg.arabic;
 }
 
 function renderSegment(seg, isCurrent) {
@@ -360,58 +378,51 @@ function renderSegment(seg, isCurrent) {
   meta.append(badges, el('span', 'time', timeOf(seg.ts)));
   card.append(meta);
   const failed = lang !== 'ar' && (seg.failed_languages || []).includes(lang);
+  const ui = I18N.lang;
 
   if (seg.is_unclear) {
     card.classList.add('unclear');
-    badges.append(badge('unclear', 'wave', t('unclear')));
-    card.append(el('div', 'seg-text', t('unclearText')));
+    badges.append(badge('unclear', 'wave', t('listen.unclear')));
+    card.append(el('div', 'seg-text', t('listen.unclearText')));
     return card;
   }
 
   if (seg.verse) {
     const v = seg.verse;
     card.classList.add('quran');
-    const sura = lang === 'en' || lang === 'hi' ? (v.sura_name_en || v.sura_name) : v.sura_name;
-    badges.append(badge('quran', 'book', t('quran')), el('span', 'sura-ref', `${t('sura')} ${sura} (${v.ayah})`));
+    const sura = ui === 'en' || ui === 'hi' ? (v.sura_name_en || v.sura_name) : v.sura_name;
+    badges.append(badge('quran', 'book', t('listen.quran')), el('span', 'sura-ref', `${t('listen.sura')} ${sura} (${v.ayah})`));
     const ctx = v.context;
     const parts = (seg.parts || {})[lang];
     // Without an AI translation of the khateeb's surrounding words, show them in Arabic.
-    const ctxText = key => {
-      if (lang !== 'ar' && parts && parts[key]) return [parts[key], ''];
-      return [ctx[key], 'ar'];
-    };
     const addCtx = key => {
       if (!ctx || v.verse_only || !ctx[key]) return;
-      const [text, l] = ctxText(key);
-      const node = el('div', 'seg-text ctx', text);
-      if (l) { node.lang = l; node.dir = 'rtl'; }
-      card.append(node);
+      if (lang !== 'ar' && parts && parts[key]) card.append(content('div', 'seg-text ctx', parts[key]));
+      else card.append(content('div', 'seg-text ctx', ctx[key], 'ar'));
     };
     addCtx('before');
-    const ar = el('div', 'card-quran', '﴿' + (v.arabic || seg.arabic) + '﴾');
-    ar.lang = 'ar';
-    card.append(ar);
+    card.append(content('div', 'card-quran', '﴿' + (v.arabic || seg.arabic) + '﴾', 'ar'));
     if (lang !== 'ar' && (v.translations || {})[lang]) {
-      card.append(el('div', 'card-tr', v.translations[lang]));
+      card.append(content('div', 'card-tr', v.translations[lang]));
       const src = (v.sources || {})[lang] || {};
+      const translator = (ui === 'ar' || ui === 'ur') && src.translator_ar ? src.translator_ar : (src.translator || '');
       const source = el('div', 'card-source');
-      source.append(icon('book'), document.createTextNode(` ${t('translationOf')} — ${lang === 'ur' && src.translator_ar ? src.translator_ar : (src.translator || '')} | QuranEnc`));
+      source.append(icon('book'), document.createTextNode(` ${t('listen.translationOf')} — ${translator} | QuranEnc`));
       card.append(source);
     } else if (lang === 'ar') {
-      card.append(el('div', 'card-source', t('quranSource')));
+      card.append(el('div', 'card-source', t('listen.quranSource')));
     }
     addCtx('after');
-    if (failed) card.append(el('div', 'fail-note', t('failNote')));
-    if (isCurrent) { card.classList.add('current'); badges.prepend(badge('now', 'wave', t('now'))); }
+    if (failed) card.append(el('div', 'fail-note', t('listen.failNote')));
+    if (isCurrent) { card.classList.add('current'); badges.prepend(badge('now', 'wave', t('listen.now'))); }
     return card;
   }
 
-  if (seg.is_hadith) badges.append(badge('hadith', 'book', t('hadith')));
-  const body = el('div', 'seg-text', failed ? seg.arabic : textFor(seg));
-  if (failed || lang === 'ar') { body.lang = 'ar'; body.dir = 'rtl'; }
-  card.append(body);
-  if (failed) card.append(el('div', 'fail-note', t('failNote')));
-  if (isCurrent) { card.classList.add('current'); badges.prepend(badge('now', 'wave', t('now'))); }
+  if (seg.is_hadith) badges.append(badge('hadith', 'book', t('listen.hadith')));
+  const arabic = lang === 'ar' || failed;
+  card.append(content('div', 'seg-text', arabic ? seg.arabic : ((seg.translations || {})[lang] || seg.arabic), arabic ? 'ar' : lang));
+  if (failed) card.append(el('div', 'fail-note', t('listen.failNote')));
+  if (isCurrent) { card.classList.add('current'); badges.prepend(badge('now', 'wave', t('listen.now'))); }
   return card;
 }
 
@@ -435,7 +446,7 @@ function renderStars(n) {
   box.replaceChildren(...[1, 2, 3, 4, 5].map(i => {
     const b = el('button', 'star' + (i <= n ? ' on' : ''), '★');
     b.setAttribute('aria-label', String(i));
-    b.onclick = () => { renderStars(i); $('thanks').textContent = t('thanks'); };
+    b.onclick = () => { rating = i; renderStars(i); $('thanks').textContent = t('listen.thanks'); };
     return b;
   }));
 }
@@ -448,9 +459,9 @@ async function showReplay() {
     const r = await fetch(MINBAR.url('/broadcast/' + encodeURIComponent(room) + '/replay'));
     if (r.ok) list = (await r.json()).segments || [];
   } catch {
-    if (!list.length) { box.replaceChildren(el('p', 'empty-note', t('loadFail'))); return; }
+    if (!list.length) { box.replaceChildren(el('p', 'empty-note', t('listen.replayFailed'))); return; }
   }
-  box.replaceChildren(...(list.length ? list.map(s => renderSegment(s, false)) : [el('p', 'empty-note', t('empty'))]));
+  box.replaceChildren(...(list.length ? list.map(s => renderSegment(s, false)) : [el('p', 'empty-note', t('listen.replayEmpty'))]));
 }
 function leaveReplay() { show(ws ? screenForStatus() : 'ended'); }
 
@@ -458,6 +469,7 @@ function leaveReplay() { show(ws ? screenForStatus() : 'ended'); }
 async function init() {
   startGreeting();
   selectLang(selected);
+  renderTexts();
   if (!room) {
     try { room = ((await (await fetch(MINBAR.url('/broadcast/mosques'))).json()).mosques[0] || {}).id || ''; } catch {}
   }
@@ -470,12 +482,12 @@ async function init() {
 
   if (params.get('replay')) {
     lang = lang || 'ar';
-    applyLang();
+    renderTexts();
     connect();
     return showReplay();
   }
   if (params.get('step') === 'language') return goLanguage();
-  if (lang && LANGS[lang]) return enterSession();
+  if (lang && I18N.LANGS[lang]) return enterSession();
   show('welcome');
 }
 init();

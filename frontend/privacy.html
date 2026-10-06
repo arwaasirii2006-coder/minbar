@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" data-i18n-title="title.privacy">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -8,42 +8,36 @@
 <link rel="icon" href="assets/logo-icon.png">
 <link rel="stylesheet" href="css/style.css">
 <script src="js/config.js"></script>
+<script src="js/i18n.js"></script>
 </head>
 <body>
 <main class="app privacy">
 <section class="screen active">
-  <div class="topbar"><img src="assets/logo-icon.png" class="logo-icon-small" alt="منبر"></div>
-  <h1>الخصوصية وحماية البيانات</h1>
-  <p class="en-title" dir="ltr">Privacy Policy</p>
+  <div class="topbar"><img src="assets/logo-icon.png" class="logo-icon-small" alt="منبر"><div data-ui-lang></div></div>
+  <h1 data-i18n="privacy.title">الخصوصية وحماية البيانات</h1>
+  <p class="en-title" dir="auto" data-i18n="privacy.subtitle">Privacy Policy</p>
 
-  <div class="block"><h2><svg class="i" aria-hidden="true"><use href="assets/icons.svg#shield"/></svg> لا نجمع بيانات المصلين</h2><ul>
-    <li>لا نطلب اسمًا ولا رقم جوال ولا بريدًا إلكترونيًا، ولا توجد قاعدة بيانات للمصلين.</li>
-    <li>عدد المستمعين يُحسب لحظيًا في ذاكرة الخادم فقط، دون أي معرّف شخصي.</li>
-    <li>اللغة التي تختارها تُحفظ في متصفحك خلال الجلسة الحالية فقط، وتُمحى عند إغلاق الصفحة.</li>
+  <div class="block"><h2><svg class="i" aria-hidden="true"><use href="assets/icons.svg#shield"/></svg> <span data-i18n="privacy.noDataTitle">لا نجمع بيانات المصلين</span></h2><ul>
+    <li data-i18n="privacy.noData1"></li>
+    <li data-i18n="privacy.noData2"></li>
+    <li data-i18n="privacy.noData3"></li>
   </ul></div>
 
-  <div class="block"><h2><svg class="i" aria-hidden="true"><use href="assets/icons.svg#mic"/></svg> لا نسجّل أصوات المصلين</h2><ul>
-    <li>جهاز المصلّي لا يرسل أي صوت؛ هو يستقبل النص فقط.</li>
+  <div class="block"><h2><svg class="i" aria-hidden="true"><use href="assets/icons.svg#mic"/></svg> <span data-i18n="privacy.noAudioTitle">لا نسجّل أصوات المصلين</span></h2><ul>
+    <li data-i18n="privacy.noAudio1"></li>
   </ul></div>
 
-  <div class="block"><h2><svg class="i" aria-hidden="true"><use href="assets/icons.svg#user"/></svg> لا نحتاج حسابًا</h2><ul>
-    <li>تفتح الرابط وتختار لغتك، دون تسجيل أو كلمة مرور.</li>
+  <div class="block"><h2><svg class="i" aria-hidden="true"><use href="assets/icons.svg#user"/></svg> <span data-i18n="privacy.noAccountTitle">لا نحتاج حسابًا</span></h2><ul>
+    <li data-i18n="privacy.noAccount1"></li>
   </ul></div>
 
-  <div class="block"><h2><svg class="i" aria-hidden="true"><use href="assets/icons.svg#mosque"/></svg> صوت الخطيب يُعالج للترجمة ولا يُحفظ</h2><ul>
-    <li>يُرسل كل مقطع صوتي إلى خدمة تحويل الكلام إلى نص (OpenAI) ثم يُحذف الملف المؤقت فور انتهاء المعالجة.</li>
-    <li>نص الخطبة وترجمتها يبقيان في ذاكرة الخادم مؤقتًا لإتاحة إعادة القراءة، ثم يُحذفان تلقائيًا بعد ساعتين من انتهاء البث.</li>
-    <li>الآيات القرآنية تُعرض بترجماتها الموثقة من QuranEnc، وبقية الكلام ترجمة آلية قد تحتوي أخطاء، والمرجع كلام الخطيب.</li>
+  <div class="block"><h2><svg class="i" aria-hidden="true"><use href="assets/icons.svg#mosque"/></svg> <span data-i18n="privacy.khateebTitle">صوت الخطيب يُعالج للترجمة ولا يُحفظ</span></h2><ul>
+    <li data-i18n="privacy.khateeb1"></li>
+    <li data-i18n="privacy.khateeb2"></li>
+    <li data-i18n="privacy.khateeb3"></li>
   </ul></div>
 
-  <div class="block" dir="ltr" lang="en"><h2>Summary</h2><ul>
-    <li>No worshipper data is collected and there is no worshipper database.</li>
-    <li>Worshippers' voices are never recorded; their devices only receive text.</li>
-    <li>No account is needed. The chosen language is kept in the browser for the current session only.</li>
-    <li>The khateeb's audio is processed for translation and not stored: temporary files are deleted right after transcription, and the transcript is kept in memory for two hours after the sermon for replay.</li>
-  </ul></div>
-
-  <div class="actions"><a class="btn secondary" href="index.html">العودة <svg class="i chev" aria-hidden="true"><use href="assets/icons.svg#chevron-left"/></svg></a></div>
+  <div class="actions"><a class="btn secondary" href="index.html"><span data-i18n="common.back">العودة</span> <svg class="i chev" aria-hidden="true"><use href="assets/icons.svg#chevron-left"/></svg></a></div>
 </section>
 </main>
 </body>

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" data-i18n-title="title.broadcast">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -8,125 +8,128 @@
 <link rel="icon" href="assets/logo-icon.png">
 <link rel="stylesheet" href="css/style.css">
 <script src="js/config.js"></script>
+<script src="js/i18n.js"></script>
 </head>
 <body>
 <main class="app admin">
 
 <section id="login" class="screen active">
+  <div class="topbar"><div data-ui-lang></div></div>
   <img src="assets/logo-icon.png" class="admin-logo" alt="منبر">
-  <h1 class="title">صفحة البث</h1>
-  <div class="admin-sub">للمؤذن أو مشرف الجامع.</div>
+  <h1 class="title" data-i18n="bc.title"></h1>
+  <div class="admin-sub" data-i18n="bc.sub"></div>
   <form class="form" onsubmit="event.preventDefault();login()">
-    <label class="label" for="mosque">اختيار الجامع</label>
+    <label class="label" for="mosque" data-i18n="bc.mosque"></label>
     <div class="field"><svg class="i ico" aria-hidden="true"><use href="assets/icons.svg#mosque"/></svg><select id="mosque" class="select"></select><span class="end"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#chevron-down"/></svg></span></div>
-    <label class="label" for="code">رمز البث</label>
+    <label class="label" for="code" data-i18n="bc.code"></label>
     <div class="field">
       <svg class="i ico gray" aria-hidden="true"><use href="assets/icons.svg#lock"/></svg>
       <input id="code" class="input code" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="••••••">
-      <button type="button" class="end" id="eye" onclick="toggleCode()" aria-label="إظهار الرمز"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#eye"/></svg></button>
+      <button type="button" class="end" id="eye" onclick="toggleCode()" data-i18n-aria-label="bc.showCode"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#eye"/></svg></button>
     </div>
     <div id="login-err" class="error" role="alert"></div>
-    <button class="btn primary pill" id="login-btn" type="submit"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#arrow-right"/></svg> دخول</button>
+    <button class="btn primary pill" id="login-btn" type="submit"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#arrow-right"/></svg> <span data-i18n="bc.login"></span></button>
   </form>
-  <div class="khateeb-row"><div class="khateeb-box"><small>الخطيب</small><span class="khateeb-pill"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#user"/></svg><input id="khateeb" class="khateeb-input" maxlength="120" placeholder="غير محدد"></span></div></div>
-  <p class="hint">الخطيب لا يحتاج أن يلمس الجهاز.</p>
+  <div class="khateeb-row"><div class="khateeb-box"><small data-i18n="bc.khateeb"></small><span class="khateeb-pill"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#user"/></svg><input id="khateeb" class="khateeb-input" maxlength="120" data-i18n-placeholder="bc.khateebNone"></span></div></div>
+  <p class="hint" data-i18n="bc.khateebHint"></p>
 </section>
 
 <section id="ready" class="screen">
   <div class="topbar"><span class="lang-pill"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#mosque"/></svg><span class="js-mosque"></span></span></div>
-  <div class="hero" style="margin:8px 0 6px"><h1>جاهز للبث</h1></div>
+  <div class="hero" style="margin:8px 0 6px"><h1 data-i18n="bc.ready"></h1></div>
   <div class="source-grid">
-    <button class="source-btn active" id="src-mic" onclick="chooseSource('mic')"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#mic"/></svg>الميكروفون</button>
-    <button class="source-btn" id="src-file" onclick="chooseSource('file')"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#file-audio"/></svg>ملف صوتي</button>
+    <button class="source-btn active" id="src-mic" onclick="chooseSource('mic')"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#mic"/></svg><span data-i18n="bc.mic"></span></button>
+    <button class="source-btn" id="src-file" onclick="chooseSource('file')"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#file-audio"/></svg><span data-i18n="bc.file"></span></button>
   </div>
   <div id="mic-area">
-    <div class="mic-test"><div class="bars js-meter"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><strong id="mic-text">جارٍ تجهيز الميكروفون…</strong></div>
+    <div class="mic-test"><div class="bars js-meter"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><strong id="mic-text"></strong></div>
   </div>
   <div id="file-area" class="hidden">
     <input id="file" class="file-input" type="file" accept="audio/*,.mp3,.m4a,.wav,.ogg,.webm,.mp4,.flac" onchange="fileChosen()">
-    <div class="file-meta" id="file-meta">خطبة مسجلة حتى 25 ميغابايت (MP3, M4A, WAV, OGG, WEBM).</div>
+    <div class="file-meta" id="file-meta"></div>
   </div>
   <div class="stats-card">
-    <h3>المصلون بانتظار الخطبة</h3>
-    <div class="stats-total"><strong data-count="total">0</strong><span>مصلٍّ</span></div>
+    <h3 data-i18n="bc.waiting"></h3>
+    <div class="stats-total"><strong data-count="total">0</strong><span data-i18n="bc.worshippers"></span></div>
     <div class="stats-grid">
-      <div><strong data-count="ar">0</strong><small>العربية</small></div>
-      <div><strong data-count="ur">0</strong><small>اردو</small></div>
-      <div><strong data-count="en">0</strong><small>English</small></div>
-      <div><strong data-count="hi">0</strong><small>हिन्दी</small></div>
+      <div><strong data-count="ar">0</strong><small lang="ar" dir="rtl">العربية</small></div>
+      <div><strong data-count="ur">0</strong><small lang="ur" dir="rtl">اردو</small></div>
+      <div><strong data-count="en">0</strong><small lang="en" dir="ltr">English</small></div>
+      <div><strong data-count="hi">0</strong><small lang="hi" dir="ltr">हिन्दी</small></div>
     </div>
   </div>
-  <div class="tip"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#bulb"/></svg><span>ضع الجهاز قرب الخطيب، ولا تقفل الشاشة.</span></div>
+  <div class="tip"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#bulb"/></svg><span data-i18n="bc.tip"></span></div>
   <div id="ready-err" class="error" role="alert"></div>
-  <button class="btn primary" id="start-btn" onclick="startBroadcast()">ابدأ البث</button>
-  <button class="btn secondary" style="margin-top:12px" onclick="logout()">تسجيل الخروج</button>
+  <button class="btn primary" id="start-btn" onclick="startBroadcast()" data-i18n="bc.start"></button>
+  <button class="btn secondary" style="margin-top:12px" onclick="logout()" data-i18n="bc.logout"></button>
 </section>
 
 <section id="denied" class="screen center">
   <div class="check warn">!</div>
-  <h1 class="title" id="denied-title" style="font-size:32px;margin-top:18px">نحتاج إذن الميكروفون</h1>
+  <h1 class="title" id="denied-title" style="font-size:32px;margin-top:18px"></h1>
   <ol class="steps" id="denied-steps">
-    <li><b>1</b><span>افتح «الإعدادات» في iPhone أو iPad ثم اختر «Safari».</span></li>
-    <li><b>2</b><span>اختر «الميكروفون» من قسم إعدادات المواقع.</span></li>
-    <li><b>3</b><span>اختر «السماح»، ثم عد إلى هذه الصفحة واضغط «حاول مرة أخرى».</span></li>
+    <li><b>1</b><span data-i18n="bc.step1"></span></li>
+    <li><b>2</b><span data-i18n="bc.step2"></span></li>
+    <li><b>3</b><span data-i18n="bc.step3"></span></li>
   </ol>
-  <p class="hint hidden" id="denied-insecure">الميكروفون يتطلب فتح منبر عبر رابط آمن يبدأ بـ https://</p>
+  <p class="hint hidden" id="denied-insecure" data-i18n="bc.insecureHint"></p>
   <div class="actions" style="width:100%">
-    <button class="btn primary" onclick="retryMic()">حاول مرة أخرى</button>
-    <button class="btn secondary" onclick="chooseSource('file');show('ready')">ارفع خطبة مسجلة</button>
+    <button class="btn primary" onclick="retryMic()" data-i18n="bc.retry"></button>
+    <button class="btn secondary" onclick="chooseSource('file');show('ready')" data-i18n="bc.uploadInstead"></button>
   </div>
 </section>
 
 <section id="live" class="screen">
-  <div class="admin-live-head"><span class="broadcasting"><span class="dot red blink"></span>يبث الآن</span><span class="timer" id="timer">00:00</span></div>
+  <div class="admin-live-head"><span class="broadcasting"><span class="dot red blink"></span><span data-i18n="bc.liveNow"></span></span><span class="timer" id="timer">00:00</span></div>
   <div id="live-mic">
     <div class="audio-meter js-meter"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
   </div>
   <div id="live-file" class="detected hidden">
-    <small>الخطبة المسجلة</small>
-    <p class="last" id="proc-title" style="font-size:18px">جارٍ رفع الملف…</p>
+    <small data-i18n="bc.recorded"></small>
+    <p class="last" id="proc-title" style="font-size:18px"></p>
     <div class="progress"><span id="proc-bar"></span></div>
-    <button class="btn secondary hidden" id="retry-upload" style="margin-top:12px" onclick="$('retry-file').click()">ارفع ملفًا آخر</button>
+    <button class="btn secondary hidden" id="retry-upload" style="margin-top:12px" onclick="$('retry-file').click()" data-i18n="bc.uploadOther"></button>
     <input id="retry-file" type="file" class="hidden" accept="audio/*,.mp3,.m4a,.wav,.ogg,.webm,.mp4,.flac" onchange="uploadRecorded(this.files[0])">
   </div>
   <div class="detected">
-    <small>النص العربي المكتشف</small>
-    <p class="prev" id="det-prev"></p>
-    <p class="last" id="det-last">بانتظار أول مقطع…</p>
+    <small data-i18n="bc.detected"></small>
+    <p class="prev" id="det-prev" lang="ar" dir="rtl"></p>
+    <p class="last" id="det-last"></p>
   </div>
   <div class="stats-card">
-    <h3>المستمعون</h3>
-    <div class="stats-total"><strong data-count="total">0</strong><span>مستمع</span></div>
+    <h3 data-i18n="bc.listeners"></h3>
+    <div class="stats-total"><strong data-count="total">0</strong><span data-i18n="bc.listenerUnit"></span></div>
     <div class="stats-grid">
-      <div><strong data-count="ar">0</strong><small>العربية</small></div>
-      <div><strong data-count="ur">0</strong><small>اردو</small></div>
-      <div><strong data-count="en">0</strong><small>English</small></div>
-      <div><strong data-count="hi">0</strong><small>हिन्दी</small></div>
+      <div><strong data-count="ar">0</strong><small lang="ar" dir="rtl">العربية</small></div>
+      <div><strong data-count="ur">0</strong><small lang="ur" dir="rtl">اردو</small></div>
+      <div><strong data-count="en">0</strong><small lang="en" dir="ltr">English</small></div>
+      <div><strong data-count="hi">0</strong><small lang="hi" dir="ltr">हिन्दी</small></div>
     </div>
   </div>
-  <div class="status-line" id="status" aria-live="polite">بانتظار أول مقطع…</div>
-  <button class="btn danger" id="stop-btn" onclick="stopBroadcast()">إيقاف البث</button>
+  <div class="status-line" id="status" aria-live="polite"></div>
+  <button class="btn danger" id="stop-btn" onclick="stopBroadcast()" data-i18n="bc.stop"></button>
 </section>
 
 <section id="ended" class="screen center ended">
   <div class="check">✓</div>
-  <h1 class="title" style="font-size:32px;margin-top:18px">انتهى البث، جزاك الله خيراً.</h1>
+  <h1 class="title" style="font-size:32px;margin-top:18px" data-i18n="bc.ended"></h1>
   <div class="end-stats">
-    <div class="end-stat"><strong id="s-duration">00:00</strong><small>مدة البث</small></div>
-    <div class="end-stat"><strong id="s-peak">0</strong><small>أعلى عدد مستمعين</small></div>
-    <div class="end-stat"><strong id="s-verses">0</strong><small>الآيات المعتمدة</small></div>
-    <div class="end-stat"><strong id="s-unclear">0</strong><small>مقاطع غير واضحة</small></div>
+    <div class="end-stat"><strong id="s-duration">00:00</strong><small data-i18n="bc.duration"></small></div>
+    <div class="end-stat"><strong id="s-peak">0</strong><small data-i18n="bc.peak"></small></div>
+    <div class="end-stat"><strong id="s-verses">0</strong><small data-i18n="bc.verses"></small></div>
+    <div class="end-stat"><strong id="s-unclear">0</strong><small data-i18n="bc.unclearSegments"></small></div>
   </div>
   <div class="actions">
-    <button class="btn primary" onclick="newBroadcast()">بث جديد</button>
-    <a class="btn secondary" id="replay-link" target="_blank" rel="noopener">عرض نص الخطبة</a>
-    <button class="btn secondary" onclick="logout()">تسجيل الخروج</button>
+    <button class="btn primary" onclick="newBroadcast()" data-i18n="bc.newBroadcast"></button>
+    <a class="btn secondary" id="replay-link" target="_blank" rel="noopener" data-i18n="bc.viewTranscript"></a>
+    <button class="btn secondary" onclick="logout()" data-i18n="bc.logout"></button>
   </div>
 </section>
 
 </main>
 <script>
 const $ = id => document.getElementById(id);
+const t = I18N.t;
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 let room = '', code = '', token = '', source = 'mic';
@@ -136,6 +139,16 @@ let recording = false, recorder = null, chunkTimer = null;
 let queue = [], sending = false, lastChunkAt = 0, errorUntil = 0;
 let ws = null, wsRetry = 1000, wsTimer = null, pollTimer = null, clockTimer = null, startedAt = 0, wakeLock = null;
 let detected = [], processingTotal = 0;
+// Messages are kept as i18n keys (not text) so they re-render when the interface language changes.
+let micKey = 'bc.micPreparing', deniedInsecure = false, fileErr = false, statusMsg = null, procMsg = null, loginErr = null, readyErr = null;
+const msg = (key, vars) => ({key, vars});
+const errMsg = r => ({code: r.code});
+const render = m => !m ? '' : m.code !== undefined ? I18N.error(m.code) : t(m.key, m.vars);
+const mb = bytes => (bytes / 1048576).toFixed(1);
+function setLoginErr(m) { loginErr = m; $('login-err').textContent = render(m); }
+function setReadyErr(m) { readyErr = m; $('ready-err').textContent = render(m); }
+function setMic(key) { micKey = key; $('mic-text').textContent = t(key); }
+function setProc(m) { procMsg = m; $('proc-title').textContent = render(m); }
 
 function show(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.toggle('active', s.id === id));
@@ -157,7 +170,7 @@ async function loadMosques() {
     const r = await api('/broadcast/mosques');
     if (!r.ok || !Array.isArray(r.data.mosques)) throw new Error('unreachable');
     $('mosque').replaceChildren(...r.data.mosques.map(m => { const o = document.createElement('option'); o.value = m.id; o.textContent = m.name; return o; }));
-  } catch { $('login-err').textContent = MINBAR.offlineHint; }
+  } catch { setLoginErr({code: 'offline'}); }
 }
 function toggleCode() {
   const input = $('code');
@@ -167,16 +180,16 @@ function toggleCode() {
 async function login() {
   const input = $('code');
   input.classList.remove('invalid');
-  $('login-err').textContent = '';
+  setLoginErr(null);
   room = $('mosque').value;
   code = input.value.trim();
-  if (!code) { input.classList.add('invalid'); $('login-err').textContent = 'أدخل رمز البث.'; return; }
+  if (!code) { input.classList.add('invalid'); setLoginErr(msg('bc.enterCode')); return; }
   $('login-btn').disabled = true;
   try {
     const r = await api('/broadcast/verify', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({room_id: room, code})});
     if (!r.ok) {
       if (r.code === 'invalid_code') input.classList.add('invalid');
-      $('login-err').textContent = r.message || 'تعذّر التحقق من الرمز.';
+      setLoginErr(r.code ? errMsg(r) : msg('bc.verifyFailed'));
       return;
     }
     config = r.data.config || config;
@@ -184,11 +197,12 @@ async function login() {
     updateCounts(r.data.room);
     startPolling();
     show('ready');
-    if (r.data.room.status === 'LIVE') $('ready-err').textContent = 'البث قائم الآن في هذا الجامع. اضغط «ابدأ البث» لمتابعته من هذا الجهاز.';
-    if (r.data.config && r.data.config.speech_to_text === false) $('ready-err').textContent = 'لا يمكن بدء بث صوتي: خدمة التعرف على الكلام غير مُعدّة على الخادم. أضف OPENAI_API_KEY إلى ملف .env ثم أعد تشغيل الخادم.';
+    setReadyErr(null);
+    if (r.data.room.status === 'LIVE') setReadyErr(msg('bc.alreadyLiveHint'));
+    if (r.data.config && r.data.config.speech_to_text === false) setReadyErr(msg('bc.speechOff'));
     if (source === 'mic') startMic();
   } catch {
-    $('login-err').textContent = MINBAR.offlineHint;
+    setLoginErr({code: 'offline'});
   } finally {
     $('login-btn').disabled = false;
   }
@@ -230,23 +244,19 @@ function chooseSource(s) {
   $('src-file').classList.toggle('active', s === 'file');
   $('mic-area').classList.toggle('hidden', s !== 'mic');
   $('file-area').classList.toggle('hidden', s !== 'file');
-  $('ready-err').textContent = '';
+  setReadyErr(null);
   if (s === 'mic') startMic(); else releaseMic();
 }
 function fileChosen() {
   const f = $('file').files[0];
-  if (!f) {
-    $('file-meta').textContent = 'خطبة مسجلة حتى 25 ميغابايت (MP3, M4A, WAV, OGG, WEBM).';
-    $('file-meta').style.color = '';
-    return;
-  }
-  const mb = (f.size / 1048576).toFixed(1);
-  const tooBig = f.size > config.max_upload_bytes;
-  $('file-meta').textContent = tooBig ? `حجم الملف ${mb} ميغابايت ويتجاوز الحد (${Math.round(config.max_upload_bytes / 1048576)} ميغابايت).` : `${f.name} — ${mb} ميغابايت`;
-  $('file-meta').style.color = tooBig ? 'var(--danger)' : '';
+  const max = Math.round(config.max_upload_bytes / 1048576);
+  fileErr = !!f && f.size > config.max_upload_bytes;
+  $('file-meta').textContent = !f ? t('bc.fileHint', {max}) : fileErr ? t('bc.fileTooBigInfo', {size: mb(f.size), max}) : t('bc.fileInfo', {name: f.name, size: mb(f.size)});
+  $('file-meta').style.color = fileErr ? 'var(--danger)' : '';
 }
 function setDenied(insecure) {
-  $('denied-title').textContent = insecure ? 'يتطلب الميكروفون اتصالًا آمنًا' : 'نحتاج إذن الميكروفون';
+  deniedInsecure = insecure;
+  $('denied-title').textContent = t(insecure ? 'bc.insecureTitle' : 'bc.deniedTitle');
   $('denied-steps').classList.toggle('hidden', insecure);
   $('denied-insecure').classList.toggle('hidden', !insecure);
   show('denied');
@@ -257,7 +267,7 @@ async function startMic() {
     setDenied(true);
     return false;
   }
-  $('mic-text').textContent = 'جارٍ تجهيز الميكروفون…';
+  setMic('bc.micPreparing');
   try {
     stream = await navigator.mediaDevices.getUserMedia({audio: {echoCancellation: true, noiseSuppression: true, autoGainControl: true}, video: false});
     startMeter();
@@ -265,7 +275,7 @@ async function startMic() {
   } catch (e) {
     stream = null;
     if (e.name === 'NotAllowedError' || e.name === 'SecurityError') setDenied(false);
-    else $('mic-text').textContent = e.name === 'NotFoundError' ? 'لم يُعثر على ميكروفون في هذا الجهاز.' : 'تعذّر تشغيل الميكروفون.';
+    else setMic(e.name === 'NotFoundError' ? 'bc.micNotFound' : 'bc.micFailed');
     return false;
   }
 }
@@ -287,11 +297,11 @@ function startMeter() {
     let sum = 0;
     for (const v of buf) sum += ((v - 128) / 128) ** 2;
     const rms = Math.sqrt(sum / buf.length);
-    if (rms > 0.02 && !micWorks) { micWorks = true; $('mic-text').textContent = 'الميكروفون يعمل'; }
+    if (rms > 0.02 && !micWorks) { micWorks = true; setMic('bc.micWorks'); }
     bars.forEach((b, i) => { b.style.height = Math.max(6, Math.min(60, rms * 600 * (0.6 + 0.8 * Math.abs(Math.sin(Date.now() / 180 + i))))) + 'px'; });
     meterRAF = requestAnimationFrame(tick);
   };
-  $('mic-text').textContent = 'تحدّث قرب الجهاز لاختبار الميكروفون';
+  setMic('bc.micSpeak');
   tick();
 }
 function releaseMic() {
@@ -303,12 +313,12 @@ function releaseMic() {
 
 /* ── start ── */
 async function startBroadcast(resume = false) {
-  $('ready-err').textContent = '';
-  if (config.speech_to_text === false) { $('ready-err').textContent = 'لا يمكن بدء بث صوتي: خدمة التعرف على الكلام غير مُعدّة على الخادم. أضف OPENAI_API_KEY إلى ملف .env ثم أعد تشغيل الخادم.'; return; }
+  setReadyErr(null);
+  if (config.speech_to_text === false) { setReadyErr(msg('bc.speechOff')); return; }
   const file = $('file').files[0];
   if (source === 'file') {
-    if (!file) { $('ready-err').textContent = 'اختر ملفًا صوتيًا أولًا.'; return; }
-    if (file.size > config.max_upload_bytes) { $('ready-err').textContent = 'حجم الملف يتجاوز الحد المسموح.'; return; }
+    if (!file) { setReadyErr(msg('bc.chooseFile')); return; }
+    if (file.size > config.max_upload_bytes) { setReadyErr(msg('bc.fileTooBig')); return; }
   } else if (!(await startMic())) {
     return;
   }
@@ -316,16 +326,17 @@ async function startBroadcast(resume = false) {
   try {
     const r = await api('/broadcast/start', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({room_id: room, code, khateeb: $('khateeb').value.trim(), resume})});
     if (r.status === 409 && r.code === 'already_live') {
-      if (confirm('البث قائم بالفعل في هذا الجامع. هل تريد متابعته من هذا الجهاز؟')) return startBroadcast(true);
+      if (confirm(t('bc.confirmResume'))) return startBroadcast(true);
       return;
     }
     if (!r.ok) {
-      $('ready-err').textContent = r.message || 'تعذّر بدء البث.';
-      if (r.code === 'invalid_code') { logout(); $('login-err').textContent = r.message; }
+      setReadyErr(r.code ? errMsg(r) : msg('bc.startFailed'));
+      if (r.code === 'invalid_code') { logout(); setLoginErr(errMsg(r)); }
       return;
     }
     token = r.data.broadcaster_token;
     errorUntil = 0;
+    statusMsg = null;
     lastChunkAt = 0;
     config = r.data.config || config;
     startedAt = (r.data.started_at || Date.now() / 1000) * 1000;
@@ -340,7 +351,7 @@ async function startBroadcast(resume = false) {
     if (source === 'mic') { recording = true; recordNext(); }
     else uploadRecorded(file);
   } catch {
-    $('ready-err').textContent = MINBAR.offlineHint;
+    setReadyErr({code: 'offline'});
   } finally {
     $('start-btn').disabled = false;
   }
@@ -370,7 +381,7 @@ function recordNext() {
 }
 function enqueue(blob, name) {
   queue.push({blob, name, attempts: 0});
-  if (queue.length > 30) { queue.shift(); setStatus('الشبكة بطيئة، تم تجاوز مقطع قديم.', true); }
+  if (queue.length > 30) { queue.shift(); setStatus(msg('bc.slowNetwork'), true); }
   pump();
 }
 async function pump() {
@@ -385,34 +396,35 @@ async function pump() {
       if (r.ok) {
         queue.shift();
         lastChunkAt = Date.now();
-        if (r.data.type === 'unclear') setStatus('مقطع غير واضح، يستمر البث.', false);
+        if (r.data.type === 'unclear') setStatus(msg('bc.chunkUnclear'), false);
       } else if (r.status === 401 || r.status === 409) {
         queue.length = 0;
-        sessionLost(r.message);
+        sessionLost(errMsg(r));
       } else if (r.status === 503) {
         queue.length = 0;
         recording = false;
         clearTimeout(chunkTimer);
         if (recorder && recorder.state !== 'inactive') { recorder.onstop = null; recorder.stop(); }
-        setStatus(r.message || 'خدمة التعرف على الكلام غير متاحة على الخادم.', true, true);
+        setStatus({code: r.code || 'ai_unavailable'}, true, true);
       } else if (r.status >= 500 && item.attempts < 2) {
         item.attempts++;
-        setStatus(r.message || 'تعذّرت معالجة المقطع، تتم إعادة المحاولة…', true);
+        setStatus(msg('bc.chunkRetry'), true);
         await sleep(1500 * item.attempts);
       } else {
         queue.shift();
-        setStatus(r.message || 'تعذّرت معالجة المقطع، يستمر البث مع المقطع التالي.', true);
+        setStatus(r.code ? errMsg(r) : msg('bc.chunkSkipped'), true);
       }
     } catch {
-      setStatus('انقطع الاتصال بالخادم، سيُعاد الإرسال تلقائيًا…', true);
+      setStatus(msg('bc.chunkOffline'), true);
       await sleep(2000);
     }
   }
   sending = false;
 }
-function setStatus(text, isError, sticky = false) {
+function setStatus(m, isError, sticky = false) {
+  statusMsg = m;
   const s = $('status');
-  s.textContent = text;
+  s.textContent = render(m);
   s.classList.toggle('err', !!isError);
   errorUntil = sticky ? Infinity : Date.now() + 6000;
 }
@@ -423,7 +435,8 @@ function startClock() {
     if (source !== 'mic' || Date.now() < errorUntil) return;
     const s = $('status');
     s.classList.remove('err');
-    s.textContent = lastChunkAt ? `آخر مقطع قبل ${Math.round((Date.now() - lastChunkAt) / 1000)} ثوانٍ` : 'بانتظار أول مقطع…';
+    statusMsg = null;
+    s.textContent = lastChunkAt ? t('bc.lastChunk', {n: Math.round((Date.now() - lastChunkAt) / 1000)}) : t('bc.waitingFirst');
   }, 1000);
 }
 async function keepAwake() {
@@ -435,7 +448,7 @@ document.addEventListener('visibilitychange', () => { if (!document.hidden && to
 function uploadRecorded(file) {
   if (!file) return;
   $('retry-upload').classList.add('hidden');
-  $('proc-title').textContent = 'جارٍ رفع الملف…';
+  setProc(msg('bc.uploading'));
   $('proc-bar').style.width = '0%';
   const fd = new FormData();
   fd.append('file', file, file.name);
@@ -447,32 +460,32 @@ function uploadRecorded(file) {
     let d = {};
     try { d = JSON.parse(xhr.responseText); } catch {}
     if (xhr.status === 202) updateProcessing(d.processing || {state: 'processing', step: 'transcribing'});
-    else uploadFailed(d?.detail?.message || 'تعذّر رفع الخطبة.');
+    else uploadFailed(d?.detail?.code ? {code: d.detail.code} : msg('bc.uploadFailed'));
   };
-  xhr.onerror = () => uploadFailed('انقطع الاتصال أثناء رفع الملف.');
+  xhr.onerror = () => uploadFailed(msg('bc.uploadDropped'));
   xhr.send(fd);
 }
-function uploadFailed(message) {
-  $('proc-title').textContent = message;
+function uploadFailed(m) {
+  setProc(m);
   $('retry-upload').classList.remove('hidden');
-  setStatus(message, true);
+  setStatus(m, true);
 }
 function updateProcessing(p) {
   if (!p || !p.state) return;
   if (p.total) processingTotal = p.total;
   const bar = $('proc-bar');
-  if (p.state === 'failed') return uploadFailed(p.error || 'تعذّرت معالجة الخطبة المسجلة.');
+  if (p.state === 'failed') return uploadFailed(p.error_code ? {code: p.error_code} : msg('bc.uploadFailed'));
   if (p.state === 'done') {
     bar.style.width = '100%';
-    $('proc-title').textContent = `اكتملت المعالجة: ${p.segments || processingTotal} مقطعًا وصلت إلى المصلين.`;
-    $('status').textContent = 'يمكنك إيقاف البث عندما ينتهي المصلون من القراءة.';
+    setProc(msg('bc.processed', {n: p.segments || processingTotal}));
+    setStatus(msg('bc.processedHint'), false, true);
     return;
   }
-  if (p.step === 'transcribing') { bar.style.width = '40%'; $('proc-title').textContent = 'جارٍ تحويل الصوت إلى نص…'; }
+  if (p.step === 'transcribing') { bar.style.width = '40%'; setProc(msg('bc.transcribing')); }
   if (p.step === 'translating') {
     const total = processingTotal || 1;
     bar.style.width = (45 + Math.round((p.segments || 0) / total * 55)) + '%';
-    $('proc-title').textContent = `جارٍ الترجمة والنشر: ${p.segments || 0} من ${total}`;
+    setProc(msg('bc.translating', {n: p.segments || 0, total}));
   }
 }
 
@@ -487,33 +500,38 @@ function connectWS() {
     let m;
     try { m = JSON.parse(e.data); } catch { return; }
     if (m.type === 'listeners' || m.type === 'state') updateCounts(m.type === 'state' ? m : {listeners: m.count, language_counts: m.language_counts});
-    else if (m.type === 'segment') { detected.push(m.is_unclear ? '— غير واضح —' : m.arabic); renderDetected(); }
+    else if (m.type === 'segment') { detected.push(m.is_unclear ? null : m.arabic); renderDetected(); }
     else if (m.type === 'processing') updateProcessing(m);
     else if (m.type === 'ended' && token) showEnded(m.stats || {});
   };
   sock.onclose = e => {
     if (sock !== ws) return;
-    if (e.code === 4401) return sessionLost('انتقل البث إلى جهاز آخر أو انتهت الجلسة.');
+    if (e.code === 4401) return sessionLost(msg('bc.sessionMoved'));
     if (token) { wsTimer = setTimeout(connectWS, wsRetry); wsRetry = Math.min(wsRetry * 2, 15000); }
   };
 }
 function renderDetected() {
+  // Detected text is Arabic content; the "unclear" marker and the placeholder follow the interface language.
+  const label = s => s === null ? t('bc.unclearMarker') : s;
   const last = detected[detected.length - 1];
-  $('det-last').textContent = last || 'بانتظار أول مقطع…';
-  $('det-prev').textContent = detected.slice(-4, -1).join(' ');
+  const lastEl = $('det-last');
+  lastEl.textContent = last === undefined ? t('bc.waitingFirst') : label(last);
+  lastEl.lang = last ? 'ar' : I18N.lang;
+  lastEl.dir = last ? 'rtl' : I18N.dir;
+  $('det-prev').textContent = detected.slice(-4, -1).map(label).join(' ');
 }
-function sessionLost(message) {
+function sessionLost(m) {
   stopEverything();
   token = '';
   show('ready');
-  $('ready-err').textContent = message || 'انتهت جلسة البث.';
+  setReadyErr(m && (m.code || m.key) ? m : msg('bc.sessionEnded'));
 }
 
 /* ── stop ── */
 async function stopBroadcast() {
-  if (!confirm('هل تريد إيقاف البث؟')) return;
+  if (!confirm(t('bc.confirmStop'))) return;
   $('stop-btn').disabled = true;
-  $('status').textContent = 'جارٍ إرسال آخر مقطع وإيقاف البث…';
+  setStatus(msg('bc.stopping'), false, true);
   recording = false;
   clearTimeout(chunkTimer);
   if (recorder && recorder.state !== 'inactive') recorder.stop();
@@ -521,9 +539,9 @@ async function stopBroadcast() {
   try {
     const r = await api('/broadcast/' + encodeURIComponent(room) + '/stop', {method: 'POST'});
     if (r.ok || r.code === 'already_ended') showEnded(r.ok ? r.data : {});
-    else setStatus(r.message || 'تعذّر إيقاف البث.', true);
+    else setStatus(r.code ? errMsg(r) : msg('bc.stopFailed'), true);
   } catch {
-    setStatus('تعذّر الاتصال بالخادم لإيقاف البث. حاول مرة أخرى.', true);
+    setStatus(msg('bc.stopOffline'), true);
   } finally {
     $('stop-btn').disabled = false;
   }
@@ -557,6 +575,20 @@ function newBroadcast() {
 }
 addEventListener('beforeunload', e => { if (token) { e.preventDefault(); e.returnValue = ''; } });
 
+// Interface language changed: re-render every dynamic text in place, no reload.
+function renderDynamic() {
+  $('mic-text').textContent = t(micKey);
+  $('denied-title').textContent = t(deniedInsecure ? 'bc.insecureTitle' : 'bc.deniedTitle');
+  fileChosen();
+  $('login-err').textContent = render(loginErr);
+  $('ready-err').textContent = render(readyErr);
+  $('proc-title').textContent = render(procMsg);
+  if (statusMsg) $('status').textContent = render(statusMsg);
+  else $('status').textContent = lastChunkAt ? t('bc.lastChunk', {n: Math.round((Date.now() - lastChunkAt) / 1000)}) : t('bc.waitingFirst');
+  renderDetected();
+}
+window.addEventListener('minbar:lang', renderDynamic);
+renderDynamic();
 loadMosques();
 </script>
 </body>

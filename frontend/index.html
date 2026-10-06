@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" data-i18n-title="title.home">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -9,21 +9,22 @@
 <link rel="icon" href="assets/logo-icon.png">
 <link rel="stylesheet" href="css/style.css">
 <script src="js/config.js"></script>
+<script src="js/i18n.js"></script>
 </head>
 <body>
 <main class="app">
 <section class="screen active">
-  <div class="topbar"><a class="lang-pill" href="listen.html?step=language"><svg class="i chev" aria-hidden="true"><use href="assets/icons.svg#chevron-down"/></svg> العربية <svg class="i" aria-hidden="true"><use href="assets/icons.svg#globe"/></svg></a></div>
+  <div class="topbar"><div data-ui-lang></div></div>
   <img src="assets/logo-full.png" class="logo-full" alt="منبر — Minbar">
   <div class="hero">
-    <h1>افهم خطبة الجمعة بلغتك</h1>
-    <p>منبر يتيح لك الاستماع إلى خطبة الجمعة مترجمة بعدة لغات، ليربطك بقيم الجمعة ومعانيها.</p>
+    <h1 data-i18n="home.headline">افهم خطبة الجمعة بلغتك</h1>
+    <p data-i18n="home.desc">منبر يتيح لك الاستماع إلى خطبة الجمعة مترجمة بعدة لغات، ليربطك بقيم الجمعة ومعانيها.</p>
     <div class="actions">
-      <a class="btn primary" href="listen.html"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#headphones"/></svg> أنا مصلٍّ <svg class="i chev" aria-hidden="true"><use href="assets/icons.svg#chevron-left"/></svg></a>
-      <a class="btn secondary" href="broadcast.html"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#users"/></svg> دخول مشرفي الجوامع <svg class="i chev" aria-hidden="true"><use href="assets/icons.svg#chevron-left"/></svg></a>
+      <a class="btn primary" href="listen.html"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#headphones"/></svg> <span data-i18n="home.worshipper">أنا مصلٍّ</span> <svg class="i chev" aria-hidden="true"><use href="assets/icons.svg#chevron-left"/></svg></a>
+      <a class="btn secondary" href="broadcast.html"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#users"/></svg> <span data-i18n="home.supervisor">دخول مشرفي الجوامع</span> <svg class="i chev" aria-hidden="true"><use href="assets/icons.svg#chevron-left"/></svg></a>
     </div>
   </div>
-  <a class="privacy-link" href="privacy.html">سياسة الخصوصية</a>
+  <a class="privacy-link" href="privacy.html" data-i18n="common.privacy">سياسة الخصوصية</a>
 </section>
 </main>
 </body>

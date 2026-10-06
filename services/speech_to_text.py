@@ -57,6 +57,10 @@ class SpeechServiceUnavailable(AudioError):
     code = "ai_unavailable"
 
 
+class SpeechServiceKeyInvalid(SpeechServiceUnavailable):
+    code = "ai_key_invalid"
+
+
 async def read_upload(file: UploadFile) -> bytes:
     """Read an upload without ever holding more than the limit in memory."""
     limit = max_upload_bytes()
@@ -105,7 +109,7 @@ def transcribe_audio(data: bytes, filename: str | None = None, content_type: str
         raise SpeechServiceUnavailable("خدمة التعرف على الكلام غير مُعدّة على الخادم. أضف OPENAI_API_KEY إلى ملف .env ثم أعد تشغيل الخادم.") from exc
     except (AuthenticationError, PermissionDeniedError) as exc:
         log.error("speech-to-text rejected the API key: %s", type(exc).__name__)
-        raise SpeechServiceUnavailable("مفتاح OpenAI على الخادم غير صالح أو بلا صلاحية. حدّث OPENAI_API_KEY ثم أعد تشغيل الخادم.") from exc
+        raise SpeechServiceKeyInvalid("مفتاح OpenAI على الخادم غير صالح أو بلا صلاحية. حدّث OPENAI_API_KEY ثم أعد تشغيل الخادم.") from exc
     except BadRequestError as exc:
         log.warning("speech-to-text rejected audio: %s", exc)
         raise UnsupportedAudio("تعذّر قراءة الملف الصوتي. تأكد أنه ملف صوتي سليم.") from exc

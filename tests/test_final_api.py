@@ -157,6 +157,7 @@ def test_recorded_upload_reports_failure_without_crashing(live):
             break
         time.sleep(0.05)
     assert processing["state"] == "failed" and "OPENAI_API_KEY" in processing["error"]
+    assert processing["error_code"] == "ai_unavailable"
 
 
 # ── standalone endpoints ───────────────────────────────────────────────────

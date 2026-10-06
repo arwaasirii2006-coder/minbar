@@ -19,6 +19,5 @@
     ws: base.replace(/^http/i, 'ws'),
     url: path => base + path,
     wsUrl: path => base.replace(/^http/i, 'ws') + path,
-    offlineHint: 'تعذّر الوصول إلى خادم منبر. افتح الصفحة من الخادم نفسه (مثل http://127.0.0.1:8000/broadcast)، أو أضف ?api=http://127.0.0.1:8765 إلى الرابط.',
   };
 })();
