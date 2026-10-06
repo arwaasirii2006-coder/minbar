@@ -1,121 +1,29 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>منبر – افهم خطبة الجمعة بلغتك</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="css/style.css">
-<style>
-body { max-width: 480px; margin: 0 auto }
-
-.index-wrap {
-  min-height: 100dvh;
-  display: flex; flex-direction: column;
-  padding-block: 52px 48px;
-  padding-inline: 24px;
-  gap: 0;
-}
-
-.index-top {
-  flex: 1;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  text-align: center;
-  gap: 28px;
-  padding-bottom: 16px;
-}
-
-.index-headline {
-  font-size: clamp(1.6rem, 6vw, 2.2rem);
-  font-weight: 700;
-  line-height: 1.25;
-  color: var(--fg);
-  text-wrap: balance;
-}
-
-.index-desc {
-  font-size: 0.9375rem;
-  color: var(--fg-muted);
-  line-height: 1.75;
-  max-width: 300px;
-}
-
-.index-actions {
-  width: 100%;
-  display: flex; flex-direction: column; gap: 12px;
-}
-
-.btn-with-icon {
-  justify-content: space-between;
-  padding-inline: 22px;
-}
-.btn-icon-side {
-  display: flex; align-items: center; gap: 8px;
-}
-.btn-arrow { font-size: 1.1rem; opacity: 0.7 }
-
-.index-footer {
-  text-align: center;
-  padding-top: 20px;
-}
-
-/* Language pill top-left */
-.lang-pill {
-  position: fixed;
-  top: calc(14px + env(safe-area-inset-top, 0px));
-  right: 16px;
-  display: flex; align-items: center; gap: 6px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 50px;
-  padding: 6px 12px;
-  font-size: 0.82rem; font-weight: 500;
-  color: var(--fg-muted);
-  cursor: default;
-  box-shadow: var(--shadow);
-  z-index: 10;
-}
-</style>
+<meta name="theme-color" content="#0e5847">
+<meta name="description" content="منبر: افهم خطبة الجمعة بلغتك. ترجمة مباشرة إلى English و اردو و हिन्दी.">
+<title>منبر — افهم خطبة الجمعة بلغتك</title>
+<link rel="icon" href="/assets/logo-icon.png">
+<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-
-<div class="lang-pill" aria-hidden="true">🌐 العربية ▾</div>
-
-<div class="index-wrap">
-  <div class="index-top">
-    <img src="assets/logo-full.png" alt="شعار منبر" class="logo-img-full" style="margin:0 auto">
-
-    <div>
-      <h1 class="index-headline">افهم خطبة الجمعة بلغتك</h1>
-      <p class="index-desc" style="margin-top:12px">
-        منبر يتيح لك الاستماع إلى خطبة الجمعة مترجمة بعدة لغات، لربطك بقيم الجمعة ومعانيها.
-      </p>
-    </div>
-
-    <div class="index-actions">
-      <a href="listen.html" class="btn btn-primary btn-full btn-with-icon">
-        <span class="btn-icon-side">
-          <span>🎧</span>
-          <span>أنا مصلٍّ</span>
-        </span>
-        <span class="btn-arrow">›</span>
-      </a>
-      <a href="broadcast.html" class="btn btn-ghost btn-full btn-with-icon">
-        <span class="btn-icon-side">
-          <span>👤</span>
-          <span>دخول مشرفي الجوامع</span>
-        </span>
-        <span class="btn-arrow">›</span>
-      </a>
+<main class="app">
+<section class="screen active">
+  <div class="topbar"><a class="lang-pill" href="/listen?step=language"><svg class="i chev" aria-hidden="true"><use href="/assets/icons.svg#chevron-down"/></svg> العربية <svg class="i" aria-hidden="true"><use href="/assets/icons.svg#globe"/></svg></a></div>
+  <img src="/assets/logo-full.png" class="logo-full" alt="منبر — Minbar">
+  <div class="hero">
+    <h1>افهم خطبة الجمعة بلغتك</h1>
+    <p>منبر يتيح لك الاستماع إلى خطبة الجمعة مترجمة بعدة لغات، ليربطك بقيم الجمعة ومعانيها.</p>
+    <div class="actions">
+      <a class="btn primary" href="/listen"><svg class="i" aria-hidden="true"><use href="/assets/icons.svg#headphones"/></svg> أنا مصلٍّ <svg class="i chev" aria-hidden="true"><use href="/assets/icons.svg#chevron-left"/></svg></a>
+      <a class="btn secondary" href="/broadcast"><svg class="i" aria-hidden="true"><use href="/assets/icons.svg#users"/></svg> دخول مشرفي الجوامع <svg class="i chev" aria-hidden="true"><use href="/assets/icons.svg#chevron-left"/></svg></a>
     </div>
   </div>
-
-  <div class="index-footer">
-    <a href="privacy.html" class="t-micro t-muted" style="text-decoration:underline">سياسة الخصوصية</a>
-  </div>
-</div>
-
+  <a class="privacy-link" href="/privacy">سياسة الخصوصية</a>
+</section>
+</main>
 </body>
 </html>

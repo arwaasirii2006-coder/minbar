@@ -2,7 +2,7 @@ import time
 import json
 
 from verses import match_verse
-from segmenter import SentenceSegmenter
+from services.segmenter import Segmenter
 from logger import log_info, log_error
 
 
@@ -37,7 +37,7 @@ def run_evaluation():
         ]
 
         # تجميع الجملة
-        segmenter = SentenceSegmenter()
+        segmenter = Segmenter()
         complete_sentence = segmenter.add(test_text)
 
         # البحث عن آية وحساب دقتها
@@ -106,4 +106,5 @@ def run_evaluation():
         print("حدث خطأ:", e)
 
 
-run_evaluation()
+if __name__ == "__main__":
+    run_evaluation()

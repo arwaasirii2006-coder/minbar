@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: minbar
+    runtime: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT --proxy-headers --forwarded-allow-ips='*'
+    healthCheckPath: /ready
+    # Room state lives in memory: keep exactly one instance.
+    numInstances: 1
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.5
+      - key: MINBAR_ENV
+        value: production
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: MINBAR_BROADCAST_CODES
+        sync: false
+      - key: MINBAR_ALLOWED_ORIGINS
+        sync: false

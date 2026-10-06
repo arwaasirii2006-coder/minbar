@@ -1,20 +1,12 @@
+"""Logging to stdout only (the hosting platform collects it). No log files are
+written, and transcripts are never logged."""
+
 import logging
 import os
 
-LOG_DIR = "logs"
-LOG_FILE = os.path.join(LOG_DIR, "minbar.log")
-
-# إنشاء مجلد السجلات إذا لم يكن موجودًا
-os.makedirs(LOG_DIR, exist_ok=True)
-
-# إعداد نظام التسجيل
 logging.basicConfig(
-    level=logging.INFO,
+    level=os.getenv("MINBAR_LOG_LEVEL", "INFO").upper(),
     format="%(asctime)s | %(levelname)s | %(name)s | %(message)s",
-    handlers=[
-        logging.FileHandler(LOG_FILE, encoding="utf-8"),
-        logging.StreamHandler()
-    ]
 )
 
 logger = logging.getLogger("minbar")

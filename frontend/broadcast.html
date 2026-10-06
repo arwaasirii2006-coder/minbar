@@ -1,752 +1,551 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>منبر – البث</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="css/style.css">
-<style>
-/* ── broadcast.html page styles ── */
-body { max-width: 520px; margin: 0 auto }
-
-/* ── Shared screen padding ── */
-.screen { min-height: 100dvh; padding-block: 52px 48px; padding-inline: 24px; gap: 20px }
-
-/* ── Login ── */
-#scr-code {
-  justify-content: center;
-  gap: 32px;
-}
-.bcast-logo-wrap {
-  display: flex; flex-direction: column; align-items: center; gap: 12px;
-  text-align: center;
-}
-.bcast-subtitle {
-  font-size: 0.875rem;
-  color: var(--fg-muted);
-}
-
-.bcast-form-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  padding: 28px 24px;
-  box-shadow: var(--shadow);
-  display: flex; flex-direction: column; gap: 18px;
-  width: 100%;
-}
-
-.field-group {
-  display: flex; flex-direction: column; gap: 6px;
-}
-.field-label {
-  font-size: 0.82rem; font-weight: 600; color: var(--fg-muted);
-  text-align: right;
-}
-
-/* Mosque selector */
-.mosque-select-wrap {
-  position: relative;
-}
-.mosque-select {
-  width: 100%;
-  padding: 13px 42px 13px 42px;
-  border: 1.5px solid var(--border);
-  border-radius: var(--r-sm);
-  background: var(--surface);
-  color: var(--fg);
-  font-family: inherit;
-  font-size: 1rem;
-  outline: none;
-  appearance: none;
-  -webkit-appearance: none;
-  cursor: pointer;
-  transition: border-color 0.18s;
-  direction: rtl;
-}
-.mosque-select:focus { border-color: var(--green) }
-.mosque-icon-prefix {
-  position: absolute;
-  right: 14px; top: 50%; transform: translateY(-50%);
-  font-size: 1.1rem; pointer-events: none;
-}
-.select-arrow {
-  position: absolute;
-  left: 14px; top: 50%; transform: translateY(-50%);
-  font-size: 0.7rem; color: var(--fg-faint); pointer-events: none;
-}
-
-/* Password field */
-.pwd-wrap {
-  position: relative;
-}
-.pwd-input {
-  width: 100%;
-  padding: 13px 42px 13px 42px;
-  border: 1.5px solid var(--border);
-  border-radius: var(--r-sm);
-  background: var(--surface);
-  color: var(--fg);
-  font-family: var(--f-latin);
-  font-size: 1.15rem;
-  letter-spacing: 0.12em;
-  outline: none;
-  transition: border-color 0.18s;
-  text-align: center;
-  direction: ltr;
-}
-.pwd-input:focus { border-color: var(--green) }
-.pwd-lock {
-  position: absolute;
-  right: 14px; top: 50%; transform: translateY(-50%);
-  font-size: 1rem; pointer-events: none; color: var(--fg-faint);
-}
-.pwd-toggle {
-  position: absolute;
-  left: 10px; top: 50%; transform: translateY(-50%);
-  background: none; border: none; cursor: pointer;
-  padding: 4px; color: var(--fg-faint);
-  font-size: 0.9rem;
-  transition: color 0.15s;
-}
-.pwd-toggle:hover { color: var(--fg-muted) }
-
-.hint-line {
-  text-align: center;
-  font-size: 0.75rem;
-  color: var(--fg-faint);
-  display: flex; align-items: center; justify-content: center; gap: 4px;
-}
-
-/* ── Source selection ── */
-#scr-source { justify-content: center; gap: 24px }
-.src-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px }
-.src-btn {
-  background: var(--surface);
-  border: 2px solid var(--border);
-  border-radius: var(--r);
-  padding: 28px 16px;
-  display: flex; flex-direction: column; align-items: center; gap: 10px;
-  cursor: pointer;
-  transition: border-color 0.18s, background 0.18s, transform 0.12s;
-  -webkit-tap-highlight-color: transparent;
-}
-.src-btn:hover  { border-color: var(--gold); background: var(--gold-bg) }
-.src-btn:active { transform: scale(0.96) }
-.src-icon  { font-size: 2.2rem; line-height: 1 }
-.src-label { font-size: 0.875rem; font-weight: 600; color: var(--fg) }
-.src-sub   { font-size: 0.75rem; color: var(--fg-muted); text-align: center }
-
-/* Mic check card */
-.mic-check-card {
-  background: var(--green-soft);
-  border: 1px solid rgba(30,77,63,0.15);
-  border-radius: var(--r);
-  padding: 14px 16px;
-  display: flex; align-items: center; gap: 10px;
-}
-.mic-bars {
-  display: flex; align-items: flex-end; gap: 3px; height: 28px;
-}
-.mic-bar {
-  width: 4px; border-radius: 2px; background: var(--green);
-  animation: bar-pulse 0.8s ease-in-out infinite;
-}
-.mic-bar:nth-child(1) { height: 40%; animation-delay: 0s }
-.mic-bar:nth-child(2) { height: 70%; animation-delay: 0.15s }
-.mic-bar:nth-child(3) { height: 100%; animation-delay: 0.3s }
-.mic-bar:nth-child(4) { height: 60%; animation-delay: 0.45s }
-.mic-bar:nth-child(5) { height: 35%; animation-delay: 0.6s }
-@keyframes bar-pulse {
-  0%,100% { opacity: 0.4 }
-  50%      { opacity: 1 }
-}
-
-/* Listeners card */
-.listeners-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  padding: 16px;
-  box-shadow: var(--shadow);
-}
-.listeners-title { font-size: 0.82rem; font-weight: 600; color: var(--fg-muted); margin-bottom: 10px }
-.listeners-row {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 6px 0;
-  border-top: 1px solid var(--border);
-}
-.listeners-row:first-of-type { border-top: none }
-.lang-tag { font-size: 0.82rem; color: var(--fg-muted) }
-.lang-count { font-size: 1rem; font-weight: 700; color: var(--green) }
-
-/* ── Mic denied ── */
-#scr-mic-denied {
-  justify-content: center; align-items: center; text-align: center; gap: 20px;
-}
-.denied-icon {
-  width: 72px; height: 72px; border-radius: 50%;
-  background: rgba(239,68,68,0.1);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 2rem;
-}
-.steps-list {
-  text-align: start; width: 100%; max-width: 300px;
-  display: flex; flex-direction: column; gap: 10px;
-}
-.step-item {
-  display: flex; gap: 12px; align-items: flex-start;
-}
-.step-num {
-  width: 24px; height: 24px; border-radius: 50%;
-  background: var(--green); color: #fff;
-  font-size: 0.75rem; font-weight: 700;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  margin-top: 1px;
-}
-.step-text { font-size: 0.875rem; color: var(--fg-muted); line-height: 1.5 }
-
-/* ── Broadcasting ── */
-#scr-live { padding-block: 0; padding-inline: 0; gap: 0; min-height: 100dvh }
-
-.bcast-header {
-  background: var(--green);
-  color: #fff;
-  padding: 14px 20px;
-  padding-top: calc(14px + env(safe-area-inset-top, 0px));
-  display: flex; align-items: center; gap: 10px;
-}
-.bcast-logo { display: flex; align-items: center; gap: 8px }
-.bcast-logo img { width: 32px; height: 32px; object-fit: contain; filter: brightness(0) invert(1) }
-.bcast-title { font-weight: 700; font-size: 1rem; flex: 1 }
-.rec-dot {
-  width: 10px; height: 10px; border-radius: 50%;
-  background: #ef4444;
-  animation: rec-blink 1.2s ease-in-out infinite;
-  flex-shrink: 0;
-}
-@keyframes rec-blink { 0%,100%{opacity:1} 50%{opacity:.3} }
-.timer { font-family: var(--f-latin); font-size: 1.1rem; font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: 0.05em; color: rgba(255,255,255,.85) }
-
-.stats-row {
-  display: flex; gap: 0;
-  border-bottom: 1px solid var(--border);
-}
-.stat-cell {
-  flex: 1; padding: 14px 16px; text-align: center;
-  border-inline-end: 1px solid var(--border);
-}
-.stat-cell:last-child { border-inline-end: none }
-.stat-val  { font-size: 1.5rem; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--green) }
-.stat-lbl  { font-size: 0.7rem; color: var(--fg-muted); margin-top: 2px }
-
-.transcript-area {
-  flex: 1;
-  overflow-y: auto;
-  padding: 14px 16px;
-  display: flex; flex-direction: column; gap: 10px;
-}
-.tr-seg {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--r-sm);
-  padding: 12px 14px;
-  font-size: 1rem;
-  line-height: 1.75;
-  direction: rtl; text-align: right;
-  animation: seg-in 0.2s ease;
-}
-@keyframes seg-in { from { opacity:0; transform:translateY(5px) } }
-.tr-seg.partial { opacity: .55; font-style: italic }
-
-.bcast-footer {
-  padding: 14px 16px;
-  padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px));
-  border-top: 1px solid var(--border);
-  background: var(--surface);
-  display: flex; gap: 10px;
-}
-
-/* ── Ended ── */
-#scr-ended-b {
-  justify-content: center; align-items: center; text-align: center; gap: 20px;
-}
-.stat-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%;
-}
-.stat-mini {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  padding: 14px 12px;
-  text-align: center;
-  box-shadow: var(--shadow);
-}
-.stat-mini-val { font-size: 1.4rem; font-weight: 700; color: var(--green); font-variant-numeric: tabular-nums }
-.stat-mini-lbl { font-size: 0.72rem; color: var(--fg-muted); margin-top: 4px }
-
-/* ── File picker helper ── */
-#file-input { display: none }
-</style>
+<meta name="theme-color" content="#0e5847">
+<title>منبر — صفحة البث</title>
+<link rel="icon" href="/assets/logo-icon.png">
+<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+<main class="app admin">
 
-<!-- ── Room code ────────────────────────────────────────── -->
-<div id="scr-code" class="screen active">
-  <div class="bcast-logo-wrap">
-    <img src="assets/logo-icon.png" alt="منبر" style="width:100px;height:100px;object-fit:contain">
-    <h1 class="t-title" style="font-size:clamp(1.4rem,5vw,1.8rem)">صفحة البث</h1>
-    <p class="bcast-subtitle">للمؤذن أو مشرف الجامع.</p>
-  </div>
-
-  <div class="bcast-form-card">
-    <div class="field-group">
-      <label class="field-label" for="mosque-select">اختيار الجامع</label>
-      <div class="mosque-select-wrap">
-        <span class="mosque-icon-prefix">🕌</span>
-        <select class="mosque-select" id="mosque-select">
-          <option value="">اختر الجامع…</option>
-          <option value="MOSQUE001">جامع الخطام</option>
-        </select>
-        <span class="select-arrow">▼</span>
-      </div>
+<section id="login" class="screen active">
+  <img src="/assets/logo-icon.png" class="admin-logo" alt="منبر">
+  <h1 class="title">صفحة البث</h1>
+  <div class="admin-sub">للمؤذن أو مشرف الجامع.</div>
+  <form class="form" onsubmit="event.preventDefault();login()">
+    <label class="label" for="mosque">اختيار الجامع</label>
+    <div class="field"><svg class="i ico" aria-hidden="true"><use href="/assets/icons.svg#mosque"/></svg><select id="mosque" class="select"></select><span class="end"><svg class="i" aria-hidden="true"><use href="/assets/icons.svg#chevron-down"/></svg></span></div>
+    <label class="label" for="code">رمز البث</label>
+    <div class="field">
+      <svg class="i ico gray" aria-hidden="true"><use href="/assets/icons.svg#lock"/></svg>
+      <input id="code" class="input code" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="••••••">
+      <button type="button" class="end" id="eye" onclick="toggleCode()" aria-label="إظهار الرمز"><svg class="i" aria-hidden="true"><use href="/assets/icons.svg#eye"/></svg></button>
     </div>
+    <div id="login-err" class="error" role="alert"></div>
+    <button class="btn primary pill" id="login-btn" type="submit"><svg class="i" aria-hidden="true"><use href="/assets/icons.svg#arrow-right"/></svg> دخول</button>
+  </form>
+  <div class="khateeb-row"><div class="khateeb-box"><small>الخطيب</small><span class="khateeb-pill"><svg class="i" aria-hidden="true"><use href="/assets/icons.svg#user"/></svg><input id="khateeb" class="khateeb-input" maxlength="120" placeholder="غير محدد"></span></div></div>
+  <p class="hint">الخطيب لا يحتاج أن يلمس الجهاز.</p>
+</section>
 
-    <div class="field-group">
-      <label class="field-label" for="room-code-input">رمز البث</label>
-      <div class="pwd-wrap">
-        <span class="pwd-lock">🔒</span>
-        <input id="room-code-input" class="pwd-input" type="password"
-               maxlength="20" placeholder="••••••"
-               autocomplete="off" spellcheck="false" autocapitalize="characters">
-        <button class="pwd-toggle" onclick="togglePwd()" type="button" aria-label="إظهار الرمز" id="pwd-eye">👁</button>
-      </div>
-      <div id="code-err" class="err-msg"></div>
-    </div>
-
-    <button class="btn btn-primary btn-full" onclick="submitCode()">
-      دخول
-      <span style="opacity:0.7">←</span>
-    </button>
+<section id="ready" class="screen">
+  <div class="topbar"><span class="lang-pill"><svg class="i" aria-hidden="true"><use href="/assets/icons.svg#mosque"/></svg><span class="js-mosque"></span></span></div>
+  <div class="hero" style="margin:8px 0 6px"><h1>جاهز للبث</h1></div>
+  <div class="source-grid">
+    <button class="source-btn active" id="src-mic" onclick="chooseSource('mic')"><svg class="i" aria-hidden="true"><use href="/assets/icons.svg#mic"/></svg>الميكروفون</button>
+    <button class="source-btn" id="src-file" onclick="chooseSource('file')"><svg class="i" aria-hidden="true"><use href="/assets/icons.svg#file-audio"/></svg>ملف صوتي</button>
   </div>
-
-  <p class="hint-line">
-    <span>👤</span>
-    الخطيب لا يحتاج أن يلمس الجهاز.
-  </p>
-</div>
-
-<!-- ── Source selection ─────────────────────────────────── -->
-<div id="scr-source" class="screen">
-  <div>
-    <h1 class="t-title">مصدر الصوت</h1>
-    <p class="t-small t-muted" style="margin-top:4px">اختر كيف تريد الإرسال</p>
+  <div id="mic-area">
+    <div class="mic-test"><div class="bars js-meter"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><strong id="mic-text">جارٍ تجهيز الميكروفون…</strong></div>
   </div>
-
-  <div class="src-grid">
-    <button class="src-btn" onclick="startMic()">
-      <span class="src-icon">🎙️</span>
-      <span class="src-label">الميكروفون</span>
-      <span class="src-sub">بث مباشر من الجهاز</span>
-    </button>
-    <label class="src-btn" for="file-input" style="cursor:pointer">
-      <span class="src-icon">🎵</span>
-      <span class="src-label">ملف صوتي</span>
-      <span class="src-sub">رفع تسجيل مسبق</span>
-    </label>
+  <div id="file-area" class="hidden">
+    <input id="file" class="file-input" type="file" accept="audio/*,.mp3,.m4a,.wav,.ogg,.webm,.mp4,.flac" onchange="fileChosen()">
+    <div class="file-meta" id="file-meta">خطبة مسجلة حتى 25 ميغابايت (MP3, M4A, WAV, OGG, WEBM).</div>
   </div>
-  <input type="file" id="file-input" accept="audio/*" onchange="startFile(this)">
-
-  <div class="mic-check-card" id="mic-check" style="display:none">
-    <div class="mic-bars">
-      <div class="mic-bar"></div><div class="mic-bar"></div>
-      <div class="mic-bar"></div><div class="mic-bar"></div>
-      <div class="mic-bar"></div>
-    </div>
-    <span class="t-small" style="color:var(--green);font-weight:600">الميكروفون يعمل</span>
-  </div>
-
-  <div class="listeners-card" id="listeners-card">
-    <div class="listeners-title">المصلون بانتظار الخطبة</div>
-    <div class="listeners-row"><span class="lang-tag">🇸🇦 العربية</span><span id="lc-ar" class="lang-count">0</span></div>
-    <div class="listeners-row"><span class="lang-tag">🇬🇧 English</span><span id="lc-en" class="lang-count">0</span></div>
-    <div class="listeners-row"><span class="lang-tag">🇵🇰 اردو</span><span id="lc-ur" class="lang-count">0</span></div>
-    <div class="listeners-row"><span class="lang-tag">🇮🇳 हिन्दी</span><span id="lc-hi" class="lang-count">0</span></div>
-  </div>
-
-  <div class="stack" style="gap:10px">
-    <button class="btn btn-primary btn-full" onclick="startMic()" id="start-bcast-btn">
-      ابدأ البث
-    </button>
-    <p class="hint-line">
-      ضع الجهاز قرب الخطيب ولا تقفل الشاشة.
-    </p>
-  </div>
-</div>
-
-<!-- ── Mic permission denied ────────────────────────────── -->
-<div id="scr-mic-denied" class="screen">
-  <div class="denied-icon">🔇</div>
-  <h2 class="t-title" style="text-align:center">نحتاج إذن الميكروفون</h2>
-  <div class="steps-list">
-    <div class="step-item">
-      <div class="step-num">1</div>
-      <div class="step-text">افتح الإعدادات ثم الخصوصية والأمان.</div>
-    </div>
-    <div class="step-item">
-      <div class="step-num">2</div>
-      <div class="step-text">اختر «الميكروفون» من القائمة.</div>
-    </div>
-    <div class="step-item">
-      <div class="step-num">3</div>
-      <div class="step-text">فعّل الإذن للمتصفح ثم أعِد تحديث الصفحة.</div>
+  <div class="stats-card">
+    <h3>المصلون بانتظار الخطبة</h3>
+    <div class="stats-total"><strong data-count="total">0</strong><span>مصلٍّ</span></div>
+    <div class="stats-grid">
+      <div><strong data-count="ar">0</strong><small>العربية</small></div>
+      <div><strong data-count="ur">0</strong><small>اردو</small></div>
+      <div><strong data-count="en">0</strong><small>English</small></div>
+      <div><strong data-count="hi">0</strong><small>हिन्दी</small></div>
     </div>
   </div>
-  <div class="stack" style="gap:10px;width:100%;max-width:280px">
-    <button class="btn btn-primary btn-full" onclick="startMic()">حاول مرة أخرى</button>
-    <label class="btn btn-ghost btn-full" for="file-input" style="text-align:center">ارفع خطبة مسجّلة</label>
+  <div class="tip"><svg class="i" aria-hidden="true"><use href="/assets/icons.svg#bulb"/></svg><span>ضع الجهاز قرب الخطيب، ولا تقفل الشاشة.</span></div>
+  <div id="ready-err" class="error" role="alert"></div>
+  <button class="btn primary" id="start-btn" onclick="startBroadcast()">ابدأ البث</button>
+  <button class="btn secondary" style="margin-top:12px" onclick="logout()">تسجيل الخروج</button>
+</section>
+
+<section id="denied" class="screen center">
+  <div class="check warn">!</div>
+  <h1 class="title" id="denied-title" style="font-size:32px;margin-top:18px">نحتاج إذن الميكروفون</h1>
+  <ol class="steps" id="denied-steps">
+    <li><b>1</b><span>افتح «الإعدادات» في iPhone أو iPad ثم اختر «Safari».</span></li>
+    <li><b>2</b><span>اختر «الميكروفون» من قسم إعدادات المواقع.</span></li>
+    <li><b>3</b><span>اختر «السماح»، ثم عد إلى هذه الصفحة واضغط «حاول مرة أخرى».</span></li>
+  </ol>
+  <p class="hint hidden" id="denied-insecure">الميكروفون يتطلب فتح منبر عبر رابط آمن يبدأ بـ https://</p>
+  <div class="actions" style="width:100%">
+    <button class="btn primary" onclick="retryMic()">حاول مرة أخرى</button>
+    <button class="btn secondary" onclick="chooseSource('file');show('ready')">ارفع خطبة مسجلة</button>
   </div>
-</div>
+</section>
 
-<!-- ── Broadcasting ─────────────────────────────────────── -->
-<div id="scr-live" class="screen">
-  <div class="bcast-header">
-    <div class="bcast-logo">
-      <img src="assets/logo-icon.png" alt="منبر" class="logo-img-icon" style="filter:brightness(0) invert(1)">
-    </div>
-    <div id="rec-dot" class="rec-dot"></div>
-    <span class="bcast-title">يبث الآن</span>
-    <span id="timer" class="timer">00:00</span>
-    <span id="room-badge" class="badge" style="background:rgba(255,255,255,.15);color:rgba(255,255,255,.85)"></span>
+<section id="live" class="screen">
+  <div class="admin-live-head"><span class="broadcasting"><span class="dot red blink"></span>يبث الآن</span><span class="timer" id="timer">00:00</span></div>
+  <div id="live-mic">
+    <div class="audio-meter js-meter"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
   </div>
-
-  <div class="stats-row">
-    <div class="stat-cell">
-      <div id="stat-listeners" class="stat-val">–</div>
-      <div class="stat-lbl">مستمع</div>
-    </div>
-    <div class="stat-cell">
-      <div id="stat-chunks" class="stat-val">0</div>
-      <div class="stat-lbl">مقطع أُرسل</div>
-    </div>
-    <div class="stat-cell">
-      <div id="stat-status" class="stat-val" style="font-size:0.9rem;color:var(--ok)">متصل</div>
-      <div class="stat-lbl">الخادم</div>
-    </div>
+  <div id="live-file" class="detected hidden">
+    <small>الخطبة المسجلة</small>
+    <p class="last" id="proc-title" style="font-size:18px">جارٍ رفع الملف…</p>
+    <div class="progress"><span id="proc-bar"></span></div>
+    <button class="btn secondary hidden" id="retry-upload" style="margin-top:12px" onclick="$('retry-file').click()">ارفع ملفًا آخر</button>
+    <input id="retry-file" type="file" class="hidden" accept="audio/*,.mp3,.m4a,.wav,.ogg,.webm,.mp4,.flac" onchange="uploadRecorded(this.files[0])">
   </div>
-
-  <div id="transcript" class="transcript-area">
-    <p class="t-small t-muted" style="text-align:center;padding:20px 0">في انتظار الصوت…</p>
+  <div class="detected">
+    <small>النص العربي المكتشف</small>
+    <p class="prev" id="det-prev"></p>
+    <p class="last" id="det-last">بانتظار أول مقطع…</p>
   </div>
-
-  <div class="bcast-footer">
-    <button class="btn btn-ghost btn-full" onclick="stopBroadcast()" style="color:var(--err);border-color:var(--err)">
-      ⏹ إيقاف البث
-    </button>
-  </div>
-</div>
-
-<!-- ── Broadcast ended ───────────────────────────────────── -->
-<div id="scr-ended-b" class="screen">
-  <h2 class="t-title">انتهى البث</h2>
-  <p class="t-small" style="color:var(--gold);font-weight:600">جزاك الله خيراً</p>
-
-  <div class="stat-grid">
-    <div class="stat-mini">
-      <div id="end-duration" class="stat-mini-val">–</div>
-      <div class="stat-mini-lbl">مدة البث</div>
-    </div>
-    <div class="stat-mini">
-      <div id="end-listeners" class="stat-mini-val">–</div>
-      <div class="stat-mini-lbl">أعلى عدد مستمعين</div>
-    </div>
-    <div class="stat-mini">
-      <div id="end-chunks" class="stat-mini-val">–</div>
-      <div class="stat-mini-lbl">مقاطع مرسلة</div>
-    </div>
-    <div class="stat-mini">
-      <div id="end-unclear" class="stat-mini-val">–</div>
-      <div class="stat-mini-lbl">مقاطع غير واضحة</div>
+  <div class="stats-card">
+    <h3>المستمعون</h3>
+    <div class="stats-total"><strong data-count="total">0</strong><span>مستمع</span></div>
+    <div class="stats-grid">
+      <div><strong data-count="ar">0</strong><small>العربية</small></div>
+      <div><strong data-count="ur">0</strong><small>اردو</small></div>
+      <div><strong data-count="en">0</strong><small>English</small></div>
+      <div><strong data-count="hi">0</strong><small>हिन्दी</small></div>
     </div>
   </div>
+  <div class="status-line" id="status" aria-live="polite">بانتظار أول مقطع…</div>
+  <button class="btn danger" id="stop-btn" onclick="stopBroadcast()">إيقاف البث</button>
+</section>
 
-  <div class="stack" style="gap:10px;width:100%">
-    <button class="btn btn-primary btn-full" onclick="resetBroadcast()">بث جديد</button>
-    <button class="btn btn-ghost btn-full" onclick="showScreen('code')">تسجيل الخروج</button>
+<section id="ended" class="screen center ended">
+  <div class="check">✓</div>
+  <h1 class="title" style="font-size:32px;margin-top:18px">انتهى البث، جزاك الله خيراً.</h1>
+  <div class="end-stats">
+    <div class="end-stat"><strong id="s-duration">00:00</strong><small>مدة البث</small></div>
+    <div class="end-stat"><strong id="s-peak">0</strong><small>أعلى عدد مستمعين</small></div>
+    <div class="end-stat"><strong id="s-verses">0</strong><small>الآيات المعتمدة</small></div>
+    <div class="end-stat"><strong id="s-unclear">0</strong><small>مقاطع غير واضحة</small></div>
   </div>
-</div>
+  <div class="actions">
+    <button class="btn primary" onclick="newBroadcast()">بث جديد</button>
+    <a class="btn secondary" id="replay-link" target="_blank" rel="noopener">عرض نص الخطبة</a>
+    <button class="btn secondary" onclick="logout()">تسجيل الخروج</button>
+  </div>
+</section>
 
+</main>
 <script>
-/* ── Config ── */
-const API    = 'http://localhost:8000';
-const WS_URL = 'ws://localhost:8000';
+const $ = id => document.getElementById(id);
+const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-/* ── State ── */
-let roomId        = null;
-let ws            = null;
-let wsReady       = false;
-let mediaRecorder = null;
-let stream        = null;
-let startTime     = null;
-let timerInt      = null;
-let chunkCount    = 0;
-let listenerCount = 0;
-let peakListeners = 0;
-let unclearCount  = 0;
-let isFileMode    = false;
+let room = '', code = '', token = '', source = 'mic';
+let config = {chunk_seconds: 6, max_upload_bytes: 25 * 1024 * 1024};
+let stream = null, audioCtx = null, meterRAF = null, micWorks = false;
+let recording = false, recorder = null, chunkTimer = null;
+let queue = [], sending = false, lastChunkAt = 0, errorUntil = 0;
+let ws = null, wsRetry = 1000, wsTimer = null, pollTimer = null, clockTimer = null, startedAt = 0, wakeLock = null;
+let detected = [], processingTotal = 0;
 
-/* ── Screens ── */
-function showScreen(name) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById('scr-' + name).classList.add('active');
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.toggle('active', s.id === id));
+  window.scrollTo(0, 0);
 }
+async function api(path, options = {}) {
+  const headers = {...(options.headers || {})};
+  if (token) headers['X-Broadcaster-Token'] = token;
+  const r = await fetch(path, {...options, headers});
+  let data = {};
+  try { data = await r.json(); } catch {}
+  return {ok: r.ok, status: r.status, data, code: data?.detail?.code, message: data?.detail?.message || (typeof data?.detail === 'string' ? data.detail : '')};
+}
+const fmt = secs => `${String(Math.floor(secs / 60)).padStart(2, '0')}:${String(Math.floor(secs % 60)).padStart(2, '0')}`;
 
-/* ── Password toggle ── */
-function togglePwd() {
-  const input = document.getElementById('room-code-input');
-  const eye   = document.getElementById('pwd-eye');
-  if (input.type === 'password') {
-    input.type = 'text';
-    eye.textContent = '🙈';
-  } else {
-    input.type = 'password';
-    eye.textContent = '👁';
+/* ── login ── */
+async function loadMosques() {
+  try {
+    const {data} = await api('/broadcast/mosques');
+    $('mosque').replaceChildren(...data.mosques.map(m => { const o = document.createElement('option'); o.value = m.id; o.textContent = m.name; return o; }));
+  } catch { $('login-err').textContent = 'تعذّر الاتصال بالخادم.'; }
+}
+function toggleCode() {
+  const input = $('code');
+  input.type = input.type === 'password' ? 'text' : 'password';
+  $('eye').querySelector('use').setAttribute('href', '/assets/icons.svg#' + (input.type === 'password' ? 'eye' : 'eye-off'));
+}
+async function login() {
+  const input = $('code');
+  input.classList.remove('invalid');
+  $('login-err').textContent = '';
+  room = $('mosque').value;
+  code = input.value.trim();
+  if (!code) { input.classList.add('invalid'); $('login-err').textContent = 'أدخل رمز البث.'; return; }
+  $('login-btn').disabled = true;
+  try {
+    const r = await api('/broadcast/verify', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({room_id: room, code})});
+    if (!r.ok) {
+      if (r.code === 'invalid_code') input.classList.add('invalid');
+      $('login-err').textContent = r.message || 'تعذّر التحقق من الرمز.';
+      return;
+    }
+    config = r.data.config || config;
+    document.querySelectorAll('.js-mosque').forEach(n => { n.textContent = r.data.room.name; });
+    updateCounts(r.data.room);
+    startPolling();
+    show('ready');
+    if (r.data.room.status === 'LIVE') $('ready-err').textContent = 'البث قائم الآن في هذا الجامع. اضغط «ابدأ البث» لمتابعته من هذا الجهاز.';
+    if (source === 'mic') startMic();
+  } catch {
+    $('login-err').textContent = 'تعذّر الاتصال بالخادم. تحقّق من الشبكة.';
+  } finally {
+    $('login-btn').disabled = false;
   }
 }
-
-/* ── Room code ── */
-function submitCode() {
-  const select = document.getElementById('mosque-select');
-  const input  = document.getElementById('room-code-input');
-  const val    = (input.value || '').trim().toUpperCase();
-
-  if (!val) {
-    document.getElementById('code-err').textContent = 'أدخل رمز البث';
-    input.style.borderColor = 'var(--err)';
-    return;
-  }
-  document.getElementById('code-err').textContent = '';
-  input.style.borderColor = '';
-
-  roomId = val;
-  document.getElementById('room-badge').textContent = val;
-  connectWS();
-  showScreen('source');
+function logout() {
+  stopEverything();
+  code = token = '';
+  $('code').value = '';
+  clearInterval(pollTimer);
+  show('login');
 }
 
-document.getElementById('room-code-input').addEventListener('keydown', e => {
-  if (e.key === 'Enter') submitCode();
-});
-
-/* ── WebSocket ── */
-function connectWS() {
-  ws = new WebSocket(`${WS_URL}/ws/${roomId}`);
-  ws.onopen  = () => {
-    wsReady = true;
-    document.getElementById('stat-status').textContent = 'متصل';
-    document.getElementById('stat-status').style.color = 'var(--ok)';
-    sendWS({ type: 'started' });
-  };
-  ws.onclose = () => {
-    wsReady = false;
-    document.getElementById('stat-status').textContent = 'منقطع';
-    document.getElementById('stat-status').style.color = 'var(--err)';
-  };
-  ws.onerror = () => ws.close();
-  ws.onmessage = e => {
+/* ── counts ── */
+function updateCounts(state) {
+  const counts = state.language_counts || {};
+  const total = state.listeners ?? state.count ?? 0;
+  document.querySelectorAll('[data-count]').forEach(n => {
+    n.textContent = n.dataset.count === 'total' ? total : (counts[n.dataset.count] || 0);
+  });
+}
+function startPolling() {
+  clearInterval(pollTimer);
+  const poll = async () => {
     try {
-      const msg = JSON.parse(e.data);
-      if (msg.type === 'listeners') {
-        listenerCount = msg.count || 0;
-        peakListeners = Math.max(peakListeners, listenerCount);
-        document.getElementById('stat-listeners').textContent = listenerCount;
-      }
+      const r = await api('/broadcast/' + encodeURIComponent(room));
+      if (!r.ok) return;
+      if (!(ws && ws.readyState === 1)) updateCounts(r.data);
+      if (r.data.processing && token) updateProcessing(r.data.processing);
     } catch {}
   };
+  poll();
+  pollTimer = setInterval(poll, 4000);
 }
 
-function sendWS(obj) {
-  if (ws && wsReady) ws.send(JSON.stringify(obj));
+/* ── source + microphone ── */
+function chooseSource(s) {
+  source = s;
+  $('src-mic').classList.toggle('active', s === 'mic');
+  $('src-file').classList.toggle('active', s === 'file');
+  $('mic-area').classList.toggle('hidden', s !== 'mic');
+  $('file-area').classList.toggle('hidden', s !== 'file');
+  $('ready-err').textContent = '';
+  if (s === 'mic') startMic(); else releaseMic();
 }
-
-/* ── Microphone ── */
+function fileChosen() {
+  const f = $('file').files[0];
+  if (!f) {
+    $('file-meta').textContent = 'خطبة مسجلة حتى 25 ميغابايت (MP3, M4A, WAV, OGG, WEBM).';
+    $('file-meta').style.color = '';
+    return;
+  }
+  const mb = (f.size / 1048576).toFixed(1);
+  const tooBig = f.size > config.max_upload_bytes;
+  $('file-meta').textContent = tooBig ? `حجم الملف ${mb} ميغابايت ويتجاوز الحد (${Math.round(config.max_upload_bytes / 1048576)} ميغابايت).` : `${f.name} — ${mb} ميغابايت`;
+  $('file-meta').style.color = tooBig ? 'var(--danger)' : '';
+}
+function setDenied(insecure) {
+  $('denied-title').textContent = insecure ? 'يتطلب الميكروفون اتصالًا آمنًا' : 'نحتاج إذن الميكروفون';
+  $('denied-steps').classList.toggle('hidden', insecure);
+  $('denied-insecure').classList.toggle('hidden', !insecure);
+  show('denied');
+}
 async function startMic() {
+  if (stream) return true;
+  if (!window.isSecureContext || !navigator.mediaDevices?.getUserMedia || !window.MediaRecorder) {
+    setDenied(true);
+    return false;
+  }
+  $('mic-text').textContent = 'جارٍ تجهيز الميكروفون…';
   try {
-    stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
-    document.getElementById('mic-check').style.display = 'flex';
-    beginRecording(stream);
-    showScreen('live');
-    startTimer();
+    stream = await navigator.mediaDevices.getUserMedia({audio: {echoCancellation: true, noiseSuppression: true, autoGainControl: true}, video: false});
+    startMeter();
+    return true;
   } catch (e) {
-    showScreen('mic-denied');
+    stream = null;
+    if (e.name === 'NotAllowedError' || e.name === 'SecurityError') setDenied(false);
+    else $('mic-text').textContent = e.name === 'NotFoundError' ? 'لم يُعثر على ميكروفون في هذا الجهاز.' : 'تعذّر تشغيل الميكروفون.';
+    return false;
   }
 }
-
-/* ── File ── */
-function startFile(input) {
-  const file = input.files[0];
-  if (!file) return;
-  isFileMode = true;
-  showScreen('live');
-  startTimer();
-  processFullFile(file);
+async function retryMic() {
+  chooseSource('mic');
+  if (await startMic()) show('ready');
+}
+function startMeter() {
+  const Ctx = window.AudioContext || window.webkitAudioContext;
+  if (!Ctx) return;
+  audioCtx = new Ctx();
+  const analyser = audioCtx.createAnalyser();
+  analyser.fftSize = 512;
+  audioCtx.createMediaStreamSource(stream).connect(analyser);
+  const buf = new Uint8Array(analyser.fftSize);
+  const bars = [...document.querySelectorAll('.js-meter i')];
+  const tick = () => {
+    analyser.getByteTimeDomainData(buf);
+    let sum = 0;
+    for (const v of buf) sum += ((v - 128) / 128) ** 2;
+    const rms = Math.sqrt(sum / buf.length);
+    if (rms > 0.02 && !micWorks) { micWorks = true; $('mic-text').textContent = 'الميكروفون يعمل'; }
+    bars.forEach((b, i) => { b.style.height = Math.max(6, Math.min(60, rms * 600 * (0.6 + 0.8 * Math.abs(Math.sin(Date.now() / 180 + i))))) + 'px'; });
+    meterRAF = requestAnimationFrame(tick);
+  };
+  $('mic-text').textContent = 'تحدّث قرب الجهاز لاختبار الميكروفون';
+  tick();
+}
+function releaseMic() {
+  cancelAnimationFrame(meterRAF);
+  if (audioCtx) { audioCtx.close().catch(() => {}); audioCtx = null; }
+  if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
+  micWorks = false;
 }
 
-async function processFullFile(file) {
-  addTranscriptLine('📂 ' + file.name, false);
-  const formData = new FormData();
-  formData.append('file', file, file.name);
-  formData.append('target_language', 'en');
-  try {
-    const res = await fetch(`${API}/transcribe`, { method: 'POST', body: formData });
-    const data = await res.json();
-    if (!data.original_text) { addTranscriptLine('⚠️ لا يوجد نص', false); return }
-    await broadcastSegment(data.original_text, data.translation);
-  } catch (e) {
-    addTranscriptLine('⚠️ خطأ في الرفع: ' + e.message, false);
+/* ── start ── */
+async function startBroadcast(resume = false) {
+  $('ready-err').textContent = '';
+  const file = $('file').files[0];
+  if (source === 'file') {
+    if (!file) { $('ready-err').textContent = 'اختر ملفًا صوتيًا أولًا.'; return; }
+    if (file.size > config.max_upload_bytes) { $('ready-err').textContent = 'حجم الملف يتجاوز الحد المسموح.'; return; }
+  } else if (!(await startMic())) {
+    return;
   }
-}
-
-/* ── Recording loop ── */
-function beginRecording(src) {
-  const mimeType = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4']
-    .find(t => MediaRecorder.isTypeSupported(t)) || '';
-
-  mediaRecorder = new MediaRecorder(src, mimeType ? { mimeType } : {});
-
-  mediaRecorder.ondataavailable = async e => {
-    if (e.data && e.data.size > 0) {
-      const ext  = (mediaRecorder.mimeType || '').includes('mp4') ? '.mp4' : '.webm';
-      const blob = new Blob([e.data], { type: mediaRecorder.mimeType });
-      chunkCount++;
-      document.getElementById('stat-chunks').textContent = chunkCount;
-      await sendChunk(blob, ext);
+  $('start-btn').disabled = true;
+  try {
+    const r = await api('/broadcast/start', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({room_id: room, code, khateeb: $('khateeb').value.trim(), resume})});
+    if (r.status === 409 && r.code === 'already_live') {
+      if (confirm('البث قائم بالفعل في هذا الجامع. هل تريد متابعته من هذا الجهاز؟')) return startBroadcast(true);
+      return;
     }
-  };
-
-  mediaRecorder.start(5000);
-}
-
-/* ── Send a chunk to the server ── */
-async function sendChunk(blob, ext) {
-  const partial = document.createElement('div');
-  partial.className = 'tr-seg partial';
-  partial.textContent = '⏳ جارٍ التحويل…';
-  document.getElementById('transcript').appendChild(partial);
-  document.getElementById('transcript').scrollTop = 9e9;
-
-  const fd = new FormData();
-  fd.append('file', blob, 'chunk' + ext);
-  fd.append('target_language', 'en');
-
-  try {
-    const res  = await fetch(`${API}/transcribe`, { method: 'POST', body: fd });
-    const data = await res.json();
-    partial.remove();
-    if (!data.original_text) return;
-    await broadcastSegment(data.original_text, data.translation);
-  } catch (e) {
-    partial.textContent = '⚠️ ' + e.message;
-    partial.classList.remove('partial');
+    if (!r.ok) {
+      $('ready-err').textContent = r.message || 'تعذّر بدء البث.';
+      if (r.code === 'invalid_code') { logout(); $('login-err').textContent = r.message; }
+      return;
+    }
+    token = r.data.broadcaster_token;
+    config = r.data.config || config;
+    startedAt = (r.data.started_at || Date.now() / 1000) * 1000;
+    detected = [];
+    renderDetected();
+    $('live-mic').classList.toggle('hidden', source !== 'mic');
+    $('live-file').classList.toggle('hidden', source !== 'file');
+    show('live');
+    startClock();
+    connectWS();
+    keepAwake();
+    if (source === 'mic') { recording = true; recordNext(); }
+    else uploadRecorded(file);
+  } catch {
+    $('ready-err').textContent = 'تعذّر الاتصال بالخادم. تحقّق من الشبكة.';
+  } finally {
+    $('start-btn').disabled = false;
   }
 }
 
-/* ── Translate + broadcast to all listeners ── */
-async function broadcastSegment(arText, enText) {
-  addTranscriptLine(arText, false);
-
-  const [urText, hiText] = await Promise.all([
-    translateText(arText, 'ur'),
-    translateText(arText, 'hi'),
-  ]);
-
-  const isUnclear = !arText.trim();
-  if (isUnclear) unclearCount++;
-
-  const msg = {
-    type:       'segment',
-    ar:         arText,
-    en:         enText  || '',
-    ur:         urText  || '',
-    hi:         hiText  || '',
-    is_hadith:  false,
-    is_unclear: isUnclear,
-    verse:      null,
-    ts:         Date.now(),
+/* ── live microphone: one complete audio file per chunk ── */
+function pickMime() {
+  return ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4', 'audio/ogg;codecs=opus'].find(t => MediaRecorder.isTypeSupported(t)) || '';
+}
+function extFor(mime) {
+  return mime.includes('mp4') ? 'mp4' : mime.includes('ogg') ? 'ogg' : 'webm';
+}
+function recordNext() {
+  if (!recording || !stream) return;
+  const mime = pickMime();
+  const rec = new MediaRecorder(stream, mime ? {mimeType: mime} : {});
+  const parts = [];
+  rec.ondataavailable = e => { if (e.data && e.data.size) parts.push(e.data); };
+  rec.onstop = () => {
+    const type = rec.mimeType || mime || 'audio/webm';
+    if (parts.length) enqueue(new Blob(parts, {type}), 'chunk.' + extFor(type));
+    recordNext();
   };
-
-  sendWS(msg);
+  rec.start();
+  recorder = rec;
+  chunkTimer = setTimeout(() => { if (rec.state !== 'inactive') rec.stop(); }, config.chunk_seconds * 1000);
 }
-
-async function translateText(text, lang) {
-  try {
-    const res = await fetch(`${API}/translate`, {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify({ text, target_language: lang }),
-    });
-    const data = await res.json();
-    return data.translation || '';
-  } catch { return '' }
+function enqueue(blob, name) {
+  queue.push({blob, name, attempts: 0});
+  if (queue.length > 30) { queue.shift(); setStatus('الشبكة بطيئة، تم تجاوز مقطع قديم.', true); }
+  pump();
 }
-
-/* ── Transcript UI ── */
-function addTranscriptLine(text, isPartial) {
-  const area = document.getElementById('transcript');
-  if (area.querySelector('p.t-small')) area.innerHTML = '';
-  const el = document.createElement('div');
-  el.className = 'tr-seg' + (isPartial ? ' partial' : '');
-  el.textContent = text;
-  area.appendChild(el);
-  area.scrollTop = area.scrollHeight;
+async function pump() {
+  if (sending) return;
+  sending = true;
+  while (queue.length && token) {
+    const item = queue[0];
+    const fd = new FormData();
+    fd.append('file', item.blob, item.name);
+    try {
+      const r = await api('/live/' + encodeURIComponent(room) + '/audio', {method: 'POST', body: fd});
+      if (r.ok) {
+        queue.shift();
+        lastChunkAt = Date.now();
+        if (r.data.type === 'unclear') setStatus('مقطع غير واضح، يستمر البث.', false);
+      } else if (r.status === 401 || r.status === 409) {
+        queue.length = 0;
+        sessionLost(r.message);
+      } else if (r.status >= 500 && item.attempts < 2) {
+        item.attempts++;
+        setStatus(r.message || 'تعذّرت معالجة المقطع، تتم إعادة المحاولة…', true);
+        await sleep(1500 * item.attempts);
+      } else {
+        queue.shift();
+        setStatus(r.message || 'تعذّرت معالجة المقطع، يستمر البث مع المقطع التالي.', true);
+      }
+    } catch {
+      setStatus('انقطع الاتصال بالخادم، سيُعاد الإرسال تلقائيًا…', true);
+      await sleep(2000);
+    }
+  }
+  sending = false;
 }
-
-/* ── Timer ── */
-function startTimer() {
-  startTime = Date.now();
-  timerInt  = setInterval(() => {
-    const secs = Math.floor((Date.now() - startTime) / 1000);
-    const mm   = String(Math.floor(secs / 60)).padStart(2, '0');
-    const ss   = String(secs % 60).padStart(2, '0');
-    document.getElementById('timer').textContent = mm + ':' + ss;
+function setStatus(text, isError) {
+  const s = $('status');
+  s.textContent = text;
+  s.classList.toggle('err', !!isError);
+  errorUntil = Date.now() + 6000;
+}
+function startClock() {
+  clearInterval(clockTimer);
+  clockTimer = setInterval(() => {
+    $('timer').textContent = fmt((Date.now() - startedAt) / 1000);
+    if (source !== 'mic' || Date.now() < errorUntil) return;
+    const s = $('status');
+    s.classList.remove('err');
+    s.textContent = lastChunkAt ? `آخر مقطع قبل ${Math.round((Date.now() - lastChunkAt) / 1000)} ثوانٍ` : 'بانتظار أول مقطع…';
   }, 1000);
 }
+async function keepAwake() {
+  try { wakeLock = await navigator.wakeLock?.request('screen'); } catch {}
+}
+document.addEventListener('visibilitychange', () => { if (!document.hidden && token && !wakeLock) keepAwake(); });
 
-function formatDuration() {
-  if (!startTime) return '–';
-  const secs = Math.floor((Date.now() - startTime) / 1000);
-  const mm   = String(Math.floor(secs / 60)).padStart(2, '0');
-  const ss   = String(secs % 60).padStart(2, '0');
-  return mm + ':' + ss;
+/* ── recorded sermon ── */
+function uploadRecorded(file) {
+  if (!file) return;
+  $('retry-upload').classList.add('hidden');
+  $('proc-title').textContent = 'جارٍ رفع الملف…';
+  $('proc-bar').style.width = '0%';
+  const fd = new FormData();
+  fd.append('file', file, file.name);
+  const xhr = new XMLHttpRequest();
+  xhr.open('POST', '/live/' + encodeURIComponent(room) + '/recorded');
+  xhr.setRequestHeader('X-Broadcaster-Token', token);
+  xhr.upload.onprogress = e => { if (e.lengthComputable) $('proc-bar').style.width = Math.round(e.loaded / e.total * 30) + '%'; };
+  xhr.onload = () => {
+    let d = {};
+    try { d = JSON.parse(xhr.responseText); } catch {}
+    if (xhr.status === 202) updateProcessing(d.processing || {state: 'processing', step: 'transcribing'});
+    else uploadFailed(d?.detail?.message || 'تعذّر رفع الخطبة.');
+  };
+  xhr.onerror = () => uploadFailed('انقطع الاتصال أثناء رفع الملف.');
+  xhr.send(fd);
+}
+function uploadFailed(message) {
+  $('proc-title').textContent = message;
+  $('retry-upload').classList.remove('hidden');
+  setStatus(message, true);
+}
+function updateProcessing(p) {
+  if (!p || !p.state) return;
+  if (p.total) processingTotal = p.total;
+  const bar = $('proc-bar');
+  if (p.state === 'failed') return uploadFailed(p.error || 'تعذّرت معالجة الخطبة المسجلة.');
+  if (p.state === 'done') {
+    bar.style.width = '100%';
+    $('proc-title').textContent = `اكتملت المعالجة: ${p.segments || processingTotal} مقطعًا وصلت إلى المصلين.`;
+    $('status').textContent = 'يمكنك إيقاف البث عندما ينتهي المصلون من القراءة.';
+    return;
+  }
+  if (p.step === 'transcribing') { bar.style.width = '40%'; $('proc-title').textContent = 'جارٍ تحويل الصوت إلى نص…'; }
+  if (p.step === 'translating') {
+    const total = processingTotal || 1;
+    bar.style.width = (45 + Math.round((p.segments || 0) / total * 55)) + '%';
+    $('proc-title').textContent = `جارٍ الترجمة والنشر: ${p.segments || 0} من ${total}`;
+  }
 }
 
-/* ── Stop ── */
-function stopBroadcast() {
-  if (mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
-  if (stream) stream.getTracks().forEach(t => t.stop());
-  clearInterval(timerInt);
-  sendWS({ type: 'ended' });
-  try { ws && ws.close() } catch {}
-
-  document.getElementById('end-duration').textContent  = formatDuration();
-  document.getElementById('end-listeners').textContent = peakListeners;
-  document.getElementById('end-chunks').textContent    = chunkCount;
-  document.getElementById('end-unclear').textContent   = unclearCount;
-
-  showScreen('ended-b');
+/* ── broadcaster websocket: counts, detected text, processing ── */
+function connectWS() {
+  clearTimeout(wsTimer);
+  if (!token) return;
+  const url = (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws/' + encodeURIComponent(room) + '?role=broadcaster&token=' + encodeURIComponent(token);
+  const sock = ws = new WebSocket(url);
+  sock.onopen = () => { wsRetry = 1000; };
+  sock.onmessage = e => {
+    let m;
+    try { m = JSON.parse(e.data); } catch { return; }
+    if (m.type === 'listeners' || m.type === 'state') updateCounts(m.type === 'state' ? m : {listeners: m.count, language_counts: m.language_counts});
+    else if (m.type === 'segment') { detected.push(m.is_unclear ? '— غير واضح —' : m.arabic); renderDetected(); }
+    else if (m.type === 'processing') updateProcessing(m);
+    else if (m.type === 'ended' && token) showEnded(m.stats || {});
+  };
+  sock.onclose = e => {
+    if (sock !== ws) return;
+    if (e.code === 4401) return sessionLost('انتقل البث إلى جهاز آخر أو انتهت الجلسة.');
+    if (token) { wsTimer = setTimeout(connectWS, wsRetry); wsRetry = Math.min(wsRetry * 2, 15000); }
+  };
+}
+function renderDetected() {
+  const last = detected[detected.length - 1];
+  $('det-last').textContent = last || 'بانتظار أول مقطع…';
+  $('det-prev').textContent = detected.slice(-4, -1).join(' ');
+}
+function sessionLost(message) {
+  stopEverything();
+  token = '';
+  show('ready');
+  $('ready-err').textContent = message || 'انتهت جلسة البث.';
 }
 
-function resetBroadcast() {
-  chunkCount = 0; peakListeners = 0; unclearCount = 0; listenerCount = 0;
-  document.getElementById('stat-chunks').textContent = '0';
-  document.getElementById('transcript').innerHTML = '<p class="t-small t-muted" style="text-align:center;padding:20px 0">في انتظار الصوت…</p>';
-  document.getElementById('mic-check').style.display = 'none';
-  showScreen('source');
-  connectWS();
+/* ── stop ── */
+async function stopBroadcast() {
+  if (!confirm('هل تريد إيقاف البث؟')) return;
+  $('stop-btn').disabled = true;
+  $('status').textContent = 'جارٍ إرسال آخر مقطع وإيقاف البث…';
+  recording = false;
+  clearTimeout(chunkTimer);
+  if (recorder && recorder.state !== 'inactive') recorder.stop();
+  for (let i = 0; i < 40 && (queue.length || sending); i++) await sleep(250);
+  try {
+    const r = await api('/broadcast/' + encodeURIComponent(room) + '/stop', {method: 'POST'});
+    if (r.ok || r.code === 'already_ended') showEnded(r.ok ? r.data : {});
+    else setStatus(r.message || 'تعذّر إيقاف البث.', true);
+  } catch {
+    setStatus('تعذّر الاتصال بالخادم لإيقاف البث. حاول مرة أخرى.', true);
+  } finally {
+    $('stop-btn').disabled = false;
+  }
 }
+function showEnded(stats) {
+  stopEverything();
+  token = '';
+  $('s-duration').textContent = fmt(stats.duration_seconds || (Date.now() - startedAt) / 1000);
+  $('s-peak').textContent = stats.peak_listeners || 0;
+  $('s-verses').textContent = stats.verified_verses || 0;
+  $('s-unclear').textContent = stats.unclear_segments || 0;
+  $('replay-link').href = '/listen?room=' + encodeURIComponent(room) + '&replay=1';
+  show('ended');
+}
+function stopEverything() {
+  recording = false;
+  clearTimeout(chunkTimer);
+  if (recorder && recorder.state !== 'inactive') { recorder.onstop = null; recorder.stop(); }
+  queue = [];
+  releaseMic();
+  clearInterval(clockTimer);
+  clearTimeout(wsTimer);
+  if (ws) { const s = ws; ws = null; s.close(); }
+  if (wakeLock) { wakeLock.release().catch(() => {}); wakeLock = null; }
+}
+function newBroadcast() {
+  $('file').value = '';
+  fileChosen();
+  show('ready');
+  chooseSource(source);
+}
+addEventListener('beforeunload', e => { if (token) { e.preventDefault(); e.returnValue = ''; } });
+
+loadMosques();
 </script>
 </body>
 </html>

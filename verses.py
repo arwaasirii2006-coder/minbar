@@ -15,7 +15,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Optional
 
-from rapidfuzz import fuzz
+from rapidfuzz import fuzz, process
 
 _DATA = Path(__file__).resolve().parent / "data"
 
@@ -97,21 +97,19 @@ def match_verse(
     if len(norm.split()) < min_words:
         return None
 
-    best_score = -1.0
-    best_verse: Optional[dict] = None
+    # Skip candidate verses whose normalised text is shorter than the
+    # minimum-word threshold: single-letter muqatta'at (e.g. "الم") would
+    # otherwise score 100 on any Arabic text as a trivial substring.
+    verses_, choices = _candidates(min_words)
+    # extractOne runs the same partial_ratio scan in C and keeps the first best
+    # match, exactly like the original Python loop.
+    best = process.extractOne(norm, choices, scorer=fuzz.partial_ratio, processor=None, score_cutoff=threshold)
+    if best is None:
+        return None
+    _, best_score, index = best
 
-    for verse, norm_emlaey in _NORM_CORPUS:
-        # Skip candidate verses whose normalised text is shorter than the
-        # minimum-word threshold: single-letter muqatta'at (e.g. "الم") would
-        # otherwise score 100 on any Arabic text as a trivial substring.
-        if len(norm_emlaey.split()) < min_words:
-            continue
-        score = fuzz.partial_ratio(norm, norm_emlaey)
-        if score > best_score:
-            best_score = score
-            best_verse = verse
-
-    if best_score >= threshold and best_verse is not None:
+    if best_score >= threshold:
+        best_verse = verses_[index]
         return {
             "sura": best_verse["sura_no"],
             "ayah": best_verse["aya_no"],
@@ -120,10 +118,18 @@ def match_verse(
     return None
 
 
+@lru_cache(maxsize=4)
+def _candidates(min_words: int) -> tuple[list[dict], list[str]]:
+    kept = [(v, n) for v, n in _NORM_CORPUS if len(n.split()) >= min_words]
+    return [v for v, _ in kept], [n for _, n in kept]
+
+
 # ── Translation lookup ────────────────────────────────────────────────────────
 
 @lru_cache(maxsize=8)
 def _load_translation(lang: str) -> dict:
+    if lang not in {"en", "ur", "hi"}:
+        raise KeyError(lang)
     path = _DATA / "translations" / f"{lang}.json"
     with open(path, encoding="utf-8") as f:
         return json.load(f)
