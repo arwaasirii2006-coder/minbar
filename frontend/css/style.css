@@ -80,7 +80,11 @@
 html  { height: 100%; scroll-behavior: smooth }
 body  {
   height: 100%;
-  background: var(--bg);
+  background-color: var(--bg);
+  background-image: url('../assets/bg-mobile.webp');
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: cover;
   color: var(--fg);
   font-family: var(--f-arabic);
   font-size: 16px;
@@ -90,16 +94,6 @@ body  {
   padding-top:    env(safe-area-inset-top, 0px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
-img  { max-width: 100%; display: block }
-
-/* ── Background wave decoration ─────────────────────────── */
-body {
-  background-image: url('../assets/bg-mobile.webp');
-  background-repeat: no-repeat;
-  background-position: bottom center;
-  background-size: 100% auto;
-  background-attachment: fixed;
-}
 @media (orientation: landscape) {
   body { background-image: url('../assets/bg-desktop.webp') }
 }
@@ -107,6 +101,8 @@ body {
   :root:not([data-theme="light"]) body { background-image: none }
 }
 :root[data-theme="dark"] body { background-image: none }
+
+img  { max-width: 100%; display: block }
 
 /* ── Language-specific font overrides ───────────────────── */
 .lang-en   { font-family: var(--f-latin) }
