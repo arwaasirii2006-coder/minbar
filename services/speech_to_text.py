@@ -91,7 +91,7 @@ def transcribe_audio(data: bytes, filename: str | None = None, content_type: str
     """Arabic audio → Arabic transcript ('' when no speech was recognised)."""
     suffix = validate_audio(data, filename, content_type)
 
-    from openai import BadRequestError, OpenAIError
+    from openai import AuthenticationError, BadRequestError, OpenAIError, PermissionDeniedError
 
     path = None
     try:
@@ -102,7 +102,10 @@ def transcribe_audio(data: bytes, filename: str | None = None, content_type: str
             result = get_client().audio.transcriptions.create(model=stt_model(), file=audio_file, language="ar")
         return (getattr(result, "text", "") or "").strip()
     except AIUnavailable as exc:
-        raise SpeechServiceUnavailable("خدمة التعرف على الكلام غير مُعدّة على الخادم (OPENAI_API_KEY).") from exc
+        raise SpeechServiceUnavailable("خدمة التعرف على الكلام غير مُعدّة على الخادم. أضف OPENAI_API_KEY إلى ملف .env ثم أعد تشغيل الخادم.") from exc
+    except (AuthenticationError, PermissionDeniedError) as exc:
+        log.error("speech-to-text rejected the API key: %s", type(exc).__name__)
+        raise SpeechServiceUnavailable("مفتاح OpenAI على الخادم غير صالح أو بلا صلاحية. حدّث OPENAI_API_KEY ثم أعد تشغيل الخادم.") from exc
     except BadRequestError as exc:
         log.warning("speech-to-text rejected audio: %s", exc)
         raise UnsupportedAudio("تعذّر قراءة الملف الصوتي. تأكد أنه ملف صوتي سليم.") from exc

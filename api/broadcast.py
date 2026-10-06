@@ -5,7 +5,7 @@ from pydantic import BaseModel, Field
 
 from api.common import api_error, get_room
 from realtime.manager import ENDED, LIVE, manager
-from services.config import chunk_seconds, max_upload_bytes
+from services.config import chunk_seconds, max_upload_bytes, openai_configured
 from services.mosques import BroadcastAuthError, check_broadcast_code, list_mosques
 
 router = APIRouter(prefix="/broadcast", tags=["broadcast"])
@@ -29,7 +29,8 @@ def _check_code(room_id: str, code: str) -> None:
 
 
 def _client_config() -> dict:
-    return {"chunk_seconds": chunk_seconds(), "max_upload_bytes": max_upload_bytes()}
+    # Lets the supervisor page refuse an audio broadcast up front instead of failing every chunk.
+    return {"chunk_seconds": chunk_seconds(), "max_upload_bytes": max_upload_bytes(), "speech_to_text": openai_configured()}
 
 
 @router.get("/mosques")

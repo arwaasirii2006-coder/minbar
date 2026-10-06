@@ -5,38 +5,39 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0e5847">
 <title>منبر — صفحة البث</title>
-<link rel="icon" href="/assets/logo-icon.png">
-<link rel="stylesheet" href="/css/style.css">
+<link rel="icon" href="assets/logo-icon.png">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/config.js"></script>
 </head>
 <body>
 <main class="app admin">
 
 <section id="login" class="screen active">
-  <img src="/assets/logo-icon.png" class="admin-logo" alt="منبر">
+  <img src="assets/logo-icon.png" class="admin-logo" alt="منبر">
   <h1 class="title">صفحة البث</h1>
   <div class="admin-sub">للمؤذن أو مشرف الجامع.</div>
   <form class="form" onsubmit="event.preventDefault();login()">
     <label class="label" for="mosque">اختيار الجامع</label>
-    <div class="field"><svg class="i ico" aria-hidden="true"><use href="/assets/icons.svg#mosque"/></svg><select id="mosque" class="select"></select><span class="end"><svg class="i" aria-hidden="true"><use href="/assets/icons.svg#chevron-down"/></svg></span></div>
+    <div class="field"><svg class="i ico" aria-hidden="true"><use href="assets/icons.svg#mosque"/></svg><select id="mosque" class="select"></select><span class="end"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#chevron-down"/></svg></span></div>
     <label class="label" for="code">رمز البث</label>
     <div class="field">
-      <svg class="i ico gray" aria-hidden="true"><use href="/assets/icons.svg#lock"/></svg>
+      <svg class="i ico gray" aria-hidden="true"><use href="assets/icons.svg#lock"/></svg>
       <input id="code" class="input code" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="••••••">
-      <button type="button" class="end" id="eye" onclick="toggleCode()" aria-label="إظهار الرمز"><svg class="i" aria-hidden="true"><use href="/assets/icons.svg#eye"/></svg></button>
+      <button type="button" class="end" id="eye" onclick="toggleCode()" aria-label="إظهار الرمز"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#eye"/></svg></button>
     </div>
     <div id="login-err" class="error" role="alert"></div>
-    <button class="btn primary pill" id="login-btn" type="submit"><svg class="i" aria-hidden="true"><use href="/assets/icons.svg#arrow-right"/></svg> دخول</button>
+    <button class="btn primary pill" id="login-btn" type="submit"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#arrow-right"/></svg> دخول</button>
   </form>
-  <div class="khateeb-row"><div class="khateeb-box"><small>الخطيب</small><span class="khateeb-pill"><svg class="i" aria-hidden="true"><use href="/assets/icons.svg#user"/></svg><input id="khateeb" class="khateeb-input" maxlength="120" placeholder="غير محدد"></span></div></div>
+  <div class="khateeb-row"><div class="khateeb-box"><small>الخطيب</small><span class="khateeb-pill"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#user"/></svg><input id="khateeb" class="khateeb-input" maxlength="120" placeholder="غير محدد"></span></div></div>
   <p class="hint">الخطيب لا يحتاج أن يلمس الجهاز.</p>
 </section>
 
 <section id="ready" class="screen">
-  <div class="topbar"><span class="lang-pill"><svg class="i" aria-hidden="true"><use href="/assets/icons.svg#mosque"/></svg><span class="js-mosque"></span></span></div>
+  <div class="topbar"><span class="lang-pill"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#mosque"/></svg><span class="js-mosque"></span></span></div>
   <div class="hero" style="margin:8px 0 6px"><h1>جاهز للبث</h1></div>
   <div class="source-grid">
-    <button class="source-btn active" id="src-mic" onclick="chooseSource('mic')"><svg class="i" aria-hidden="true"><use href="/assets/icons.svg#mic"/></svg>الميكروفون</button>
-    <button class="source-btn" id="src-file" onclick="chooseSource('file')"><svg class="i" aria-hidden="true"><use href="/assets/icons.svg#file-audio"/></svg>ملف صوتي</button>
+    <button class="source-btn active" id="src-mic" onclick="chooseSource('mic')"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#mic"/></svg>الميكروفون</button>
+    <button class="source-btn" id="src-file" onclick="chooseSource('file')"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#file-audio"/></svg>ملف صوتي</button>
   </div>
   <div id="mic-area">
     <div class="mic-test"><div class="bars js-meter"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><strong id="mic-text">جارٍ تجهيز الميكروفون…</strong></div>
@@ -55,7 +56,7 @@
       <div><strong data-count="hi">0</strong><small>हिन्दी</small></div>
     </div>
   </div>
-  <div class="tip"><svg class="i" aria-hidden="true"><use href="/assets/icons.svg#bulb"/></svg><span>ضع الجهاز قرب الخطيب، ولا تقفل الشاشة.</span></div>
+  <div class="tip"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#bulb"/></svg><span>ضع الجهاز قرب الخطيب، ولا تقفل الشاشة.</span></div>
   <div id="ready-err" class="error" role="alert"></div>
   <button class="btn primary" id="start-btn" onclick="startBroadcast()">ابدأ البث</button>
   <button class="btn secondary" style="margin-top:12px" onclick="logout()">تسجيل الخروج</button>
@@ -143,7 +144,7 @@ function show(id) {
 async function api(path, options = {}) {
   const headers = {...(options.headers || {})};
   if (token) headers['X-Broadcaster-Token'] = token;
-  const r = await fetch(path, {...options, headers});
+  const r = await fetch(MINBAR.url(path), {...options, headers});
   let data = {};
   try { data = await r.json(); } catch {}
   return {ok: r.ok, status: r.status, data, code: data?.detail?.code, message: data?.detail?.message || (typeof data?.detail === 'string' ? data.detail : '')};
@@ -153,14 +154,15 @@ const fmt = secs => `${String(Math.floor(secs / 60)).padStart(2, '0')}:${String(
 /* ── login ── */
 async function loadMosques() {
   try {
-    const {data} = await api('/broadcast/mosques');
-    $('mosque').replaceChildren(...data.mosques.map(m => { const o = document.createElement('option'); o.value = m.id; o.textContent = m.name; return o; }));
-  } catch { $('login-err').textContent = 'تعذّر الاتصال بالخادم.'; }
+    const r = await api('/broadcast/mosques');
+    if (!r.ok || !Array.isArray(r.data.mosques)) throw new Error('unreachable');
+    $('mosque').replaceChildren(...r.data.mosques.map(m => { const o = document.createElement('option'); o.value = m.id; o.textContent = m.name; return o; }));
+  } catch { $('login-err').textContent = MINBAR.offlineHint; }
 }
 function toggleCode() {
   const input = $('code');
   input.type = input.type === 'password' ? 'text' : 'password';
-  $('eye').querySelector('use').setAttribute('href', '/assets/icons.svg#' + (input.type === 'password' ? 'eye' : 'eye-off'));
+  $('eye').querySelector('use').setAttribute('href', 'assets/icons.svg#' + (input.type === 'password' ? 'eye' : 'eye-off'));
 }
 async function login() {
   const input = $('code');
@@ -183,9 +185,10 @@ async function login() {
     startPolling();
     show('ready');
     if (r.data.room.status === 'LIVE') $('ready-err').textContent = 'البث قائم الآن في هذا الجامع. اضغط «ابدأ البث» لمتابعته من هذا الجهاز.';
+    if (r.data.config && r.data.config.speech_to_text === false) $('ready-err').textContent = 'لا يمكن بدء بث صوتي: خدمة التعرف على الكلام غير مُعدّة على الخادم. أضف OPENAI_API_KEY إلى ملف .env ثم أعد تشغيل الخادم.';
     if (source === 'mic') startMic();
   } catch {
-    $('login-err').textContent = 'تعذّر الاتصال بالخادم. تحقّق من الشبكة.';
+    $('login-err').textContent = MINBAR.offlineHint;
   } finally {
     $('login-btn').disabled = false;
   }
@@ -301,6 +304,7 @@ function releaseMic() {
 /* ── start ── */
 async function startBroadcast(resume = false) {
   $('ready-err').textContent = '';
+  if (config.speech_to_text === false) { $('ready-err').textContent = 'لا يمكن بدء بث صوتي: خدمة التعرف على الكلام غير مُعدّة على الخادم. أضف OPENAI_API_KEY إلى ملف .env ثم أعد تشغيل الخادم.'; return; }
   const file = $('file').files[0];
   if (source === 'file') {
     if (!file) { $('ready-err').textContent = 'اختر ملفًا صوتيًا أولًا.'; return; }
@@ -321,6 +325,8 @@ async function startBroadcast(resume = false) {
       return;
     }
     token = r.data.broadcaster_token;
+    errorUntil = 0;
+    lastChunkAt = 0;
     config = r.data.config || config;
     startedAt = (r.data.started_at || Date.now() / 1000) * 1000;
     detected = [];
@@ -334,7 +340,7 @@ async function startBroadcast(resume = false) {
     if (source === 'mic') { recording = true; recordNext(); }
     else uploadRecorded(file);
   } catch {
-    $('ready-err').textContent = 'تعذّر الاتصال بالخادم. تحقّق من الشبكة.';
+    $('ready-err').textContent = MINBAR.offlineHint;
   } finally {
     $('start-btn').disabled = false;
   }
@@ -383,6 +389,12 @@ async function pump() {
       } else if (r.status === 401 || r.status === 409) {
         queue.length = 0;
         sessionLost(r.message);
+      } else if (r.status === 503) {
+        queue.length = 0;
+        recording = false;
+        clearTimeout(chunkTimer);
+        if (recorder && recorder.state !== 'inactive') { recorder.onstop = null; recorder.stop(); }
+        setStatus(r.message || 'خدمة التعرف على الكلام غير متاحة على الخادم.', true, true);
       } else if (r.status >= 500 && item.attempts < 2) {
         item.attempts++;
         setStatus(r.message || 'تعذّرت معالجة المقطع، تتم إعادة المحاولة…', true);
@@ -398,11 +410,11 @@ async function pump() {
   }
   sending = false;
 }
-function setStatus(text, isError) {
+function setStatus(text, isError, sticky = false) {
   const s = $('status');
   s.textContent = text;
   s.classList.toggle('err', !!isError);
-  errorUntil = Date.now() + 6000;
+  errorUntil = sticky ? Infinity : Date.now() + 6000;
 }
 function startClock() {
   clearInterval(clockTimer);
@@ -428,7 +440,7 @@ function uploadRecorded(file) {
   const fd = new FormData();
   fd.append('file', file, file.name);
   const xhr = new XMLHttpRequest();
-  xhr.open('POST', '/live/' + encodeURIComponent(room) + '/recorded');
+  xhr.open('POST', MINBAR.url('/live/' + encodeURIComponent(room) + '/recorded'));
   xhr.setRequestHeader('X-Broadcaster-Token', token);
   xhr.upload.onprogress = e => { if (e.lengthComputable) $('proc-bar').style.width = Math.round(e.loaded / e.total * 30) + '%'; };
   xhr.onload = () => {
@@ -468,7 +480,7 @@ function updateProcessing(p) {
 function connectWS() {
   clearTimeout(wsTimer);
   if (!token) return;
-  const url = (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws/' + encodeURIComponent(room) + '?role=broadcaster&token=' + encodeURIComponent(token);
+  const url = MINBAR.wsUrl('/ws/' + encodeURIComponent(room) + '?role=broadcaster&token=' + encodeURIComponent(token));
   const sock = ws = new WebSocket(url);
   sock.onopen = () => { wsRetry = 1000; };
   sock.onmessage = e => {
@@ -523,7 +535,7 @@ function showEnded(stats) {
   $('s-peak').textContent = stats.peak_listeners || 0;
   $('s-verses').textContent = stats.verified_verses || 0;
   $('s-unclear').textContent = stats.unclear_segments || 0;
-  $('replay-link').href = '/listen?room=' + encodeURIComponent(room) + '&replay=1';
+  $('replay-link').href = 'listen.html?room=' + encodeURIComponent(room) + '&replay=1';
   show('ended');
 }
 function stopEverything() {

@@ -5,46 +5,47 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0e5847">
 <title>منبر — المصلّي</title>
-<link rel="icon" href="/assets/logo-icon.png">
-<link rel="stylesheet" href="/css/style.css">
+<link rel="icon" href="assets/logo-icon.png">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/config.js"></script>
 </head>
 <body>
 <main class="app">
 
 <section id="welcome" class="screen" dir="rtl" lang="ar">
-  <div class="topbar"><button class="lang-pill" onclick="goLanguage()"><svg class="i chev" aria-hidden="true"><use href="/assets/icons.svg#chevron-down"/></svg> العربية <svg class="i" aria-hidden="true"><use href="/assets/icons.svg#globe"/></svg></button></div>
+  <div class="topbar"><button class="lang-pill" onclick="goLanguage()"><svg class="i chev" aria-hidden="true"><use href="assets/icons.svg#chevron-down"/></svg> العربية <svg class="i" aria-hidden="true"><use href="assets/icons.svg#globe"/></svg></button></div>
   <div class="hero">
-    <img src="/assets/logo-full.png" class="logo-full" alt="منبر">
+    <img src="assets/logo-full.png" class="logo-full" alt="منبر">
     <div class="greeting"><h1 id="greeting">أهلاً بك</h1></div>
     <div class="mosque-card">
-      <svg class="i pin" aria-hidden="true"><use href="/assets/icons.svg#pin"/></svg>
+      <svg class="i pin" aria-hidden="true"><use href="assets/icons.svg#pin"/></svg>
       <div class="txt"><strong class="js-mosque-name"></strong><small class="js-mosque-location"></small></div>
-      <div class="mosque-icon-box"><svg class="i" aria-hidden="true"><use href="/assets/icons.svg#mosque"/></svg></div>
+      <div class="mosque-icon-box"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#mosque"/></svg></div>
     </div>
     <p>منبر يتيح لك الاستماع إلى خطبة الجمعة مترجمة بعدة لغات، ليربطك بقيم الجمعة ومعانيها.</p>
-    <div class="actions"><button class="btn primary" onclick="goLanguage()">ابدأ <svg class="i chev" aria-hidden="true"><use href="/assets/icons.svg#chevron-left"/></svg></button></div>
+    <div class="actions"><button class="btn primary" onclick="goLanguage()">ابدأ <svg class="i chev" aria-hidden="true"><use href="assets/icons.svg#chevron-left"/></svg></button></div>
   </div>
 </section>
 
 <section id="language" class="screen" dir="rtl" lang="ar">
-  <img src="/assets/logo-icon.png" class="logo-icon" alt="">
+  <img src="assets/logo-icon.png" class="logo-icon" alt="">
   <div class="hero" style="margin:0">
     <h1 style="margin-bottom:2px">اختر لغتك</h1>
     <p lang="en" style="font-family:var(--f-en);font-size:16px">Choose your language</p>
   </div>
   <div class="language-list" role="radiogroup" aria-label="اختر لغتك">
-    <button class="lang-option" role="radio" data-lang="ar" onclick="selectLang('ar')"><svg class="flag" aria-hidden="true"><use href="/assets/icons.svg#flag-sa"/></svg><span><strong>العربية (نص الخطبة)</strong><small>لضعاف السمع</small></span><span class="radio"></span></button>
-    <button class="lang-option" role="radio" data-lang="ur" onclick="selectLang('ur')"><svg class="flag" aria-hidden="true"><use href="/assets/icons.svg#flag-pk"/></svg><span class="alt"><strong class="lang-ur">اردو</strong></span><span class="radio"></span></button>
-    <button class="lang-option" role="radio" data-lang="en" onclick="selectLang('en')"><svg class="flag" aria-hidden="true"><use href="/assets/icons.svg#flag-gb"/></svg><span class="alt"><strong class="lang-en" dir="ltr">English</strong></span><span class="radio"></span></button>
-    <button class="lang-option" role="radio" data-lang="hi" onclick="selectLang('hi')"><svg class="flag" aria-hidden="true"><use href="/assets/icons.svg#flag-in"/></svg><span class="alt"><strong class="lang-hi" dir="ltr">हिन्दी</strong></span><span class="radio"></span></button>
+    <button class="lang-option" role="radio" data-lang="ar" onclick="selectLang('ar')"><svg class="flag" aria-hidden="true"><use href="assets/icons.svg#flag-sa"/></svg><span><strong>العربية (نص الخطبة)</strong><small>لضعاف السمع</small></span><span class="radio"></span></button>
+    <button class="lang-option" role="radio" data-lang="ur" onclick="selectLang('ur')"><svg class="flag" aria-hidden="true"><use href="assets/icons.svg#flag-pk"/></svg><span class="alt"><strong class="lang-ur">اردو</strong></span><span class="radio"></span></button>
+    <button class="lang-option" role="radio" data-lang="en" onclick="selectLang('en')"><svg class="flag" aria-hidden="true"><use href="assets/icons.svg#flag-gb"/></svg><span class="alt"><strong class="lang-en" dir="ltr">English</strong></span><span class="radio"></span></button>
+    <button class="lang-option" role="radio" data-lang="hi" onclick="selectLang('hi')"><svg class="flag" aria-hidden="true"><use href="assets/icons.svg#flag-in"/></svg><span class="alt"><strong class="lang-hi" dir="ltr">हिन्दी</strong></span><span class="radio"></span></button>
   </div>
-  <button class="btn primary pill" onclick="confirmLanguage()">متابعة <svg class="i chev" aria-hidden="true"><use href="/assets/icons.svg#chevron-left"/></svg></button>
-  <div class="note"><svg class="i" aria-hidden="true"><use href="/assets/icons.svg#gear"/></svg> لن تحتاج لاختيار لغتك مرة أخرى خلال هذه الجلسة.</div>
+  <button class="btn primary pill" onclick="confirmLanguage()">متابعة <svg class="i chev" aria-hidden="true"><use href="assets/icons.svg#chevron-left"/></svg></button>
+  <div class="note"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#gear"/></svg> لن تحتاج لاختيار لغتك مرة أخرى خلال هذه الجلسة.</div>
 </section>
 
 <section id="waiting" class="screen center waiting">
   <div class="hero">
-    <img src="/assets/logo-icon.png" class="waiting-illustration" alt="">
+    <img src="assets/logo-icon.png" class="waiting-illustration" alt="">
     <h1 data-t="waiting"></h1>
     <p data-t="waitingSub"></p>
     <div class="connection"><span class="dot amber" id="conn-dot"></span><span id="conn-text"></span></div>
@@ -54,7 +55,7 @@
 <section id="live" class="screen live">
   <header class="live-head">
     <div class="live-head-main">
-      <img src="/assets/logo-icon.png" class="logo-icon-small" alt="منبر">
+      <img src="assets/logo-icon.png" class="logo-icon-small" alt="منبر">
       <div class="mosque-name"><strong class="js-mosque-name"></strong><small class="js-mosque-location"></small></div>
       <button class="lang-pill js-lang-pill" onclick="goLanguage()"></button>
     </div>
@@ -65,7 +66,7 @@
   <div class="feed" id="feed" aria-live="polite"></div>
   <div class="live-tools">
     <div class="tool-row">
-      <button class="now-btn hidden" id="now-btn" onclick="scrollToLatest()"><span data-t="backNow"></span><span class="arrow"><svg class="i" aria-hidden="true"><use href="/assets/icons.svg#arrow-down"/></svg></span></button>
+      <button class="now-btn hidden" id="now-btn" onclick="scrollToLatest()"><span data-t="backNow"></span><span class="arrow"><svg class="i" aria-hidden="true"><use href="assets/icons.svg#arrow-down"/></svg></span></button>
       <button class="circle-btn" onclick="changeFont(2)" aria-label="A+">A+</button>
       <button class="circle-btn" onclick="changeFont(-2)" aria-label="A−">A−</button>
     </div>
@@ -83,7 +84,7 @@
     <div class="thanks" id="thanks"></div>
   </div>
   <button class="btn primary" onclick="showReplay()" data-t="replayBtn"></button>
-  <a class="privacy-link" href="/privacy" data-t="privacy"></a>
+  <a class="privacy-link" href="privacy.html" data-t="privacy"></a>
 </section>
 
 <section id="replay" class="screen replay">
@@ -116,7 +117,7 @@ let lang = store('minbar.lang');
 let selected = lang || 'ar';
 let ws = null, retry = 1000, retryTimer = null, pingTimer = null;
 let status = 'READY', session = 0, lastSeq = 0, segments = [];
-let current = null, returnTo = null, unknownRoom = false;
+let current = null, returnTo = null, unknownRoom = false, serverUnreachable = false;
 let font = 18;
 
 // Language preference lives in sessionStorage only (cleared when the tab closes).
@@ -141,7 +142,7 @@ function icon(name, cls = '') {
   svg.setAttribute('class', ('i ' + cls).trim());
   svg.setAttribute('aria-hidden', 'true');
   const use = document.createElementNS(SVG, 'use');
-  use.setAttribute('href', '/assets/icons.svg#' + name);
+  use.setAttribute('href', 'assets/icons.svg#' + name);
   svg.append(use);
   return svg;
 }
@@ -225,13 +226,14 @@ function enterSession() {
   applyLang();
   show(unknownRoom ? 'waiting' : screenForStatus());
   if (unknownRoom) return showUnknownRoom();
+  if (serverUnreachable) return showServerUnreachable();
   connect();
 }
 
 /* ── connection ── */
 function wsUrl() {
   const q = new URLSearchParams({role: 'listener', language: lang, since: lastSeq, session});
-  return (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws/' + encodeURIComponent(room) + '?' + q;
+  return MINBAR.wsUrl('/ws/' + encodeURIComponent(room) + '?' + q);
 }
 function connect() {
   clearTimeout(retryTimer);
@@ -267,6 +269,12 @@ function setConn(state) {
   dot.className = 'dot' + (state === 'disconnected' ? ' red' : state === 'connecting' ? ' amber' : '');
   $('conn-text').textContent = t(state);
   $('live').classList.toggle('offline', state === 'disconnected');
+}
+function showServerUnreachable() {
+  show('waiting');
+  document.querySelector('#waiting [data-t=waiting]').textContent = t('disconnected');
+  document.querySelector('#waiting [data-t=waitingSub]').textContent = MINBAR.offlineHint;
+  setConn('disconnected');
 }
 function showUnknownRoom() {
   show('waiting');
@@ -437,7 +445,7 @@ async function showReplay() {
   box.replaceChildren(el('p', 'empty-note', '…'));
   let list = segments;
   try {
-    const r = await fetch('/broadcast/' + encodeURIComponent(room) + '/replay');
+    const r = await fetch(MINBAR.url('/broadcast/' + encodeURIComponent(room) + '/replay'));
     if (r.ok) list = (await r.json()).segments || [];
   } catch {
     if (!list.length) { box.replaceChildren(el('p', 'empty-note', t('loadFail'))); return; }
@@ -451,13 +459,14 @@ async function init() {
   startGreeting();
   selectLang(selected);
   if (!room) {
-    try { room = ((await (await fetch('/broadcast/mosques')).json()).mosques[0] || {}).id || ''; } catch {}
+    try { room = ((await (await fetch(MINBAR.url('/broadcast/mosques'))).json()).mosques[0] || {}).id || ''; } catch {}
   }
   try {
-    const r = await fetch('/broadcast/' + encodeURIComponent(room));
+    const r = await fetch(MINBAR.url('/broadcast/' + encodeURIComponent(room)));
     if (r.status === 404) unknownRoom = true;
     else if (r.ok) { const s = await r.json(); setMosque(s.name, s.location); status = s.status; session = s.session; }
-  } catch {}
+    else serverUnreachable = true;
+  } catch { serverUnreachable = true; }
 
   if (params.get('replay')) {
     lang = lang || 'ar';

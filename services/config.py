@@ -37,9 +37,12 @@ def allowed_origins() -> list[str]:
     configured = _env_list("MINBAR_ALLOWED_ORIGINS")
     if configured:
         return configured
-    # Frontend and API are served from the same origin in production, so CORS is
-    # only needed for local tooling.
-    return [] if is_production() else ["http://localhost:8000", "http://127.0.0.1:8000"]
+    # Frontend and API share one origin in production, so CORS is only needed for
+    # local development: the API's own port and a separate static dev server such as
+    # VS Code Live Server (5500/5501) calling the backend on another port.
+    if is_production():
+        return []
+    return [f"http://{host}:{port}" for host in ("localhost", "127.0.0.1") for port in (8000, 8765, 5500, 5501)]
 
 
 def broadcast_codes() -> dict[str, str]:

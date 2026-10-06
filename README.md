@@ -336,11 +336,12 @@ The approved design references are in [`docs/design/`](docs/design/), with scree
 pytest -q
 ```
 
-**90 tests passed.**
+**103 tests passed.**
 
 | Test file | Tests | Scope |
 |---|---|---|
 | `tests/test_final_api.py` | 20 | Routes and static assets, security headers, CORS, health and readiness, broadcast lifecycle, audio validation, recorded-sermon errors, translation endpoints, production restrictions |
+| `tests/test_cross_origin_audio.py` | 13 | Cross-origin development setup (CORS preflight from a separate static server, no wildcard), speech-to-text availability flag, real browser audio formats (WebM/Opus, MP4, M4A), consecutive audio chunks through the pipeline, invalid OpenAI key handling |
 | `tests/test_realtime.py` | 9 | WebSocket states, authorization, unsupported languages, per-language counts, language change, reconnect history, ordered publishing, end-to-end broadcast flow |
 | `tests/test_services.py` | 9 | Segmentation, text quality filter, verse context, partial quotations, rejection of common phrases |
 | `tests/test_verses.py` | 11 | Arabic normalisation, verse matching, translation lookup |
@@ -442,6 +443,8 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 | API docs (development only) | http://localhost:8000/docs |
 
 The demo mosque is **جامع الخطام** (`KHATAM-2026`). Browsers allow microphone access only on `localhost` or over HTTPS.
+
+**Separate static dev server (e.g. VS Code Live Server).** The pages work from any static server. Point them at the backend once per tab with the `api` parameter, for example `http://127.0.0.1:5500/frontend/broadcast.html?api=http://127.0.0.1:8765`. In development, CORS allows the backend's own ports (8000, 8765) and the Live Server ports (5500, 5501); production stays same-origin only. When the backend can't be reached, both pages show this instruction instead of failing silently.
 
 Without an OpenAI key, the application still runs:
 
